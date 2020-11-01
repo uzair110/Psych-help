@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
 }
+
+String uid = '';
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,6 +25,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController username = new TextEditingController();
+  TextEditingController pwd = new TextEditingController();
+  Type rsp;
+  Future<List> senddata() async {
+    final response =
+        await http.post("http://raushanjha.in/insertdata.php", body: {
+      "username": username.text,
+      "password": pwd.text,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -58,10 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
               child: Column(children: <Widget>[
                 TextFormField(
+                  controller: username,
                   cursorColor: Colors.green,
                   cursorWidth: 2.0,
                   decoration: InputDecoration(
-                      labelText: 'Email',
+                      labelText: 'Username',
                       labelStyle: TextStyle(
                           fontSize: 30.0,
                           color: Colors.grey,
@@ -99,7 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
               elevation: 7.0,
               color: Colors.green,
               child: GestureDetector(
-                  onTap: () async {},
+                  onTap: () async {
+                    print(senddata);
+                  },
                   child: Center(
                     child: Text(
                       'LOGIN',
@@ -117,6 +134,9 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 SizedBox(width: 50.0),
                 Text("Don't have an account?",
+                    style: TextStyle(color: Colors.grey)),
+                Text(
+                    "id received=${"response.aid"} ,type=${"response.user_type"}",
                     style: TextStyle(color: Colors.grey)),
                 InkWell(
                     onTap: () async {},
