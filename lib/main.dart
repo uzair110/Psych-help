@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(MyApp());
@@ -97,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
               elevation: 7.0,
               color: Colors.green,
               child: GestureDetector(
-                  onTap: () {},
+                  onTap: () async {},
                   child: Center(
                     child: Text(
                       'LOGIN',
@@ -117,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text("Don't have an account?",
                     style: TextStyle(color: Colors.grey)),
                 InkWell(
-                    onTap: () {},
+                    onTap: () async {},
                     child: Text('Create a new account.',
                         style: TextStyle(
                             color: Colors.green,
