@@ -105,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       result == 'Failed' ? 'Invalid Id/Password' : 'null',
                   cursorColor: Colors.green,
                   cursorWidth: 2.0,
+                  obscureText: true,
                   decoration: InputDecoration(
                       labelText: 'Password',
                       labelStyle: TextStyle(

@@ -11,7 +11,7 @@ class App_services {
       map['action'] = 'VALIDATE_EMP';
       map['Username'] = un;
       map['Password'] = pw;
-      // print(map);
+      print(map);
       final response = await http.post(ROOT, body: map);
       print('valEmployee Response: ${response.body}');
       print(response.statusCode);
@@ -21,6 +21,7 @@ class App_services {
         return "error1";
       }
     } catch (e) {
+      print(e);
       return "Failure";
     }
   }
