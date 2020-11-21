@@ -123,6 +123,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     print('User');
                     result =
                         await App_services.valEmployee(username.text, pwd.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyHomePage1()),
+                    );
                     print(result);
                     print(username.text);
                     // valEmployee(username.text, pwd.text);
