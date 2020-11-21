@@ -163,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class MyHomePage1 extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState1 createState() => _MyHomePageState1();
 }
 
 class _MyHomePageState1 extends State<MyHomePage1> {
