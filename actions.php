@@ -1,13 +1,13 @@
 <?php
  
     $servername = "us-cdbr-east-02.cleardb.com";
-    $username = "";
-    $password = "";
-    $dbname = "";
+    $username = "b2e2dc12c82c3b";
+    $password = "7e284b0e";
+    $dbname = "heroku_c82c28fdbe3ee78";
     $table = ""; // lets create a table named Employees.
  
     // we will get actions from the app to do operations in the database...
-    // $action = $_POST["action"];
+    $action = $_POST["action"];
     // printf($action)
     // Create Connection
     $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -33,23 +33,23 @@
     //     return;
     // }
 
-    // if("VALIDATE_EMP" == $action){
-    //     $Employee_ID = $_POST["Employee_ID"];
-    //     $Password = $_POST["Password"];
-    //     $sql = "SELECT Password from Employee where Employee_ID='$Employee_ID'" or die(mysqli_error($dbname));
-    //     $result = mysqli_query($conn, $sql);
-    //     $row = $result->fetch_assoc();
+    if("VALIDATE_EMP" == $action){
+        $Employee_ID = $_POST["Username"];
+        $Password = $_POST["Password"];
+        $sql = "SELECT Password from accounts where Username='$Employee_ID'" or die(mysqli_error($dbname));
+        $result = mysqli_query($conn, $sql);
+        $row = $result->fetch_assoc();
         
-    //     $data = $row['Password'];
-    //     if ($data === $Password){
-    //         echo "success";
-    //     }
-    //     else {
-    //         echo "Failed";
-    //     }
-    //     $conn->close();
-    //     return;
-    // }
+        $data = $row['Password'];
+        if ($data === $Password){
+            echo "success";
+        }
+        else {
+            echo "Failed";
+        }
+        $conn->close();
+        return;
+    }
 
     // if("VALIDATE_EMP_ID" == $action){
     //     $Employee_ID = $_POST["Employee_ID"];

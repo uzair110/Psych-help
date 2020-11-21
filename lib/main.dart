@@ -1,15 +1,17 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:psych_help/main.dart';
+import 'package:psych_help/services.dart';
 import 'dart:convert';
 import 'dart:async';
-import 'services.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 String uid = '';
+String result = '';
 
 class MyApp extends StatelessWidget {
   @override
@@ -118,6 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
+                    print('User');
+                    result =
+                        await App_services.valEmployee(username.text, pwd.text);
+                    print(result);
                     print(username.text);
                     // valEmployee(username.text, pwd.text);
                     print(pwd.text);
