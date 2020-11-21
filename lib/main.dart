@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:psych_help/main.dart';
 import 'dart:convert';
 import 'dart:async';
+import 'services.dart';
 
 void main() {
   runApp(MyApp());
@@ -90,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
               child: Column(children: <Widget>[
                 TextFormField(
+                  controller: pwd,
                   cursorColor: Colors.green,
                   cursorWidth: 2.0,
                   decoration: InputDecoration(
@@ -115,7 +118,9 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
-                    print(senddata);
+                    print(username.text);
+                    // valEmployee(username.text, pwd.text);
+                    print(pwd.text);
                   },
                   child: Center(
                     child: Text(
@@ -135,9 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(width: 50.0),
                 Text("Don't have an account?",
                     style: TextStyle(color: Colors.grey)),
-                Text(
-                    "id received=${"response.aid"} ,type=${"response.user_type"}",
-                    style: TextStyle(color: Colors.grey)),
+                // r
                 InkWell(
                     onTap: () async {},
                     child: Text('Create a new account.',
