@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'main.dart';
 
 class App_services {
-  static const ROOT = 'http://psychsearch12.000webhostapp.com/actions.php/';
+  static const ROOT = 'http://psychsearch12.000webhostapp.com';
   // This function validates username and password at login screen
   static Future<String> valEmployee(String un, String pw) async {
     try {
@@ -14,6 +14,7 @@ class App_services {
       // print(map);
       final response = await http.post(ROOT, body: map);
       print('valEmployee Response: ${response.body}');
+      print(response.statusCode);
       if (200 == response.statusCode) {
         return response.body;
       } else {

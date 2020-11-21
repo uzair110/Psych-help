@@ -31,7 +31,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController username = new TextEditingController();
   TextEditingController pwd = new TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Type rsp;
+  String result;
   Future<List> senddata() async {
     final response =
         await http.post("http://raushanjha.in/insertdata.php", body: {
@@ -43,8 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _formKey,
       resizeToAvoidBottomPadding: false,
       body: Column(
+        //key: _formKey,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
@@ -77,6 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(children: <Widget>[
                 TextFormField(
                   controller: username,
+                  validator: (_) =>
+                      result == 'Failed' ? 'Invalid Id/Password' : null,
                   cursorColor: Colors.green,
                   cursorWidth: 2.0,
                   decoration: InputDecoration(
@@ -95,6 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(children: <Widget>[
                 TextFormField(
                   controller: pwd,
+                  validator: (_) =>
+                      result == 'Failed' ? 'Invalid Id/Password' : 'null',
                   cursorColor: Colors.green,
                   cursorWidth: 2.0,
                   decoration: InputDecoration(
@@ -123,10 +131,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     print('User');
                     result =
                         await App_services.valEmployee(username.text, pwd.text);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyHomePage1()),
-                    );
+                    if (result == "Failed") {
+                      showDialog(
+                        //User friendly error message when the screen has been displayed
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text(
+                            "Invalid Id/Password",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 28),
+                          ),
+                          content: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: ListBody(
+                              mainAxis: Axis.vertical,
+                              children: <Widget>[
+                                Icon(Icons.clear,
+                                    color: Colors.red[300], size: 50),
+                                // Text(
+                                //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        barrierDismissible: true,
+                      );
+                    } else {
+                      //_formKey.currentState.validate();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyHomePage1()),
+                      );
+                    }
                     print(result);
                     print(username.text);
                     // valEmployee(username.text, pwd.text);
@@ -197,14 +233,14 @@ class _MyHomePageState1 extends State<MyHomePage1> {
                     style:
                         TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold)),
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(220.0, 175.0, 0.0, 0.0),
-                child: Text('.',
-                    style: TextStyle(
-                        fontSize: 80.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green)),
-              )
+              // Container(
+              //   padding: EdgeInsets.fromLTRB(220.0, 175.0, 0.0, 0.0),
+              //   child: Text('.',
+              //       style: TextStyle(
+              //           fontSize: 80.0,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.green)),
+              // )
             ],
           )),
           SizedBox(height: 30.0),
@@ -219,13 +255,8 @@ class _MyHomePageState1 extends State<MyHomePage1> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
-                    print('User');
-                    result =
-                        await App_services.valEmployee(username.text, pwd.text);
-                    print(result);
-                    print(username.text);
-                    // valEmployee(username.text, pwd.text);
-                    print(pwd.text);
+                    Navigator.popUntil(context,
+                        ModalRoute.withName(Navigator.defaultRouteName));
                   },
                   child: Center(
                     child: Text(
