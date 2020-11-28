@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:psych_help/services.dart';
 import 'dart:convert';
 import 'dart:async';
+import 'package:psych_help/signup.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +23,11 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+Map<String, Widget Function(BuildContext)> route0 = <String, WidgetBuilder>{
+  '/': (context) => MyHomePage(),
+  '/SignUp': (context) => SignUp(),
+};
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -44,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
       key: _formKey,
       resizeToAvoidBottomPadding: false,
@@ -58,19 +65,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
                 child: Text('Hello',
                     style:
-                        TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 70.0, fontWeight: FontWeight.bold)),
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
                 child: Text('There',
                     style:
-                        TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 60.0, fontWeight: FontWeight.bold)),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(220.0, 175.0, 0.0, 0.0),
+                padding: EdgeInsets.fromLTRB(200.0, 175.0, 0.0, 0.0),
                 child: Text('.',
                     style: TextStyle(
-                        fontSize: 80.0,
+                        fontSize: 60.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.green)),
               )
@@ -185,11 +192,16 @@ class _MyHomePageState extends State<MyHomePage> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(width: 50.0),
-                Text("Don't have an account?",
+                Text("Don't have an account?  ",
                     style: TextStyle(color: Colors.grey)),
                 // r
                 InkWell(
-                    onTap: () async {},
+                    onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()),
+                          );
+                        },
                     child: Text('Create a new account.',
                         style: TextStyle(
                             color: Colors.green,
