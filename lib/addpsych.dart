@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:psych_help/addpsych.dart';
 import 'package:psych_help/globals.dart';
+import 'package:psych_help/services.dart';
 
 class AddPsych extends StatefulWidget {
   @override
@@ -9,9 +10,7 @@ class AddPsych extends StatefulWidget {
 
 enum SingingCharacter { oncall, onsite }
 
-
 class _AddPsych extends State<AddPsych> {
-
   TextEditingController fname = new TextEditingController();
   TextEditingController lname = new TextEditingController();
   TextEditingController phone = new TextEditingController();
@@ -24,51 +23,49 @@ class _AddPsych extends State<AddPsych> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(title: Text('Add Psych'),
-      backgroundColor: Colors.green),
+      appBar: AppBar(title: Text('Add Psych'), backgroundColor: Colors.green),
       drawer: Drawer(
         child: ListView(
-    // Important: Remove any padding from the ListView.
-    padding: EdgeInsets.zero,
-    children: <Widget>[
-      DrawerHeader(
-        child: Text('Username'),
-        decoration: BoxDecoration(
-          color: Colors.green,
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Username'),
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+            ),
+            ListTile(
+              title: Text('View User Complaints'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text('Legal'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text('Help'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () async {
+                Navigator.popUntil(
+                    context, ModalRoute.withName(Navigator.defaultRouteName));
+              },
+            ),
+          ],
         ),
       ),
-      ListTile(
-        title: Text('View User Complaints'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-      ListTile(
-        title: Text('Legal'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-      ListTile(
-        title: Text('Help'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-      ListTile(
-        title: Text('Logout'),
-        onTap: () async {
-          Navigator.popUntil(context,
-            ModalRoute.withName(Navigator.defaultRouteName));
-        },
-),
-    ],
-  ),
-      ),
-
       resizeToAvoidBottomPadding: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +76,7 @@ class _AddPsych extends State<AddPsych> {
                 TextFormField(
                   controller: fname,
                   // validator: (_) =>
-                      // result == 'Failed' ? 'Invalid Id/Password' : null,
+                  // result == 'Failed' ? 'Invalid Id/Password' : null,
                   cursorColor: Colors.green,
                   cursorWidth: 2.0,
                   decoration: InputDecoration(
@@ -93,13 +90,13 @@ class _AddPsych extends State<AddPsych> {
                       )),
                 )
               ])),
-              Container(
+          Container(
               padding: EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0),
               child: Column(children: <Widget>[
                 TextFormField(
                   controller: lname,
                   // validator: (_) =>
-                      // result == 'Failed' ? 'Invalid Id/Password' : null,
+                  // result == 'Failed' ? 'Invalid Id/Password' : null,
                   cursorColor: Colors.green,
                   cursorWidth: 2.0,
                   decoration: InputDecoration(
@@ -152,7 +149,7 @@ class _AddPsych extends State<AddPsych> {
                         borderSide: BorderSide(color: Colors.green),
                       )),
                 )
-              ])),    
+              ])),
           Container(
               padding: EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0),
               child: Column(children: <Widget>[
@@ -193,34 +190,30 @@ class _AddPsych extends State<AddPsych> {
                       )),
                 )
               ])),
-            ListTile(
-          title: const Text('On Call'),
-          leading: Radio(
-            value: SingingCharacter.oncall,
-            groupValue: _character,
-            onChanged: (SingingCharacter value) {
-              setState(() {
-                _character = value;
-              });
-            },
+          ListTile(
+            title: const Text('On Call'),
+            leading: Radio(
+              value: SingingCharacter.oncall,
+              groupValue: _character,
+              onChanged: (SingingCharacter value) {
+                setState(() {
+                  _character = value;
+                });
+              },
+            ),
           ),
-        ),
-        ListTile(
-          title: const Text('On Site'),
-          leading: Radio(
-            value: SingingCharacter.onsite,
-            groupValue: _character,
-            onChanged: (SingingCharacter value) {
-              setState(() {
-                _character = value;
-              });
-            },
+          ListTile(
+            title: const Text('On Site'),
+            leading: Radio(
+              value: SingingCharacter.onsite,
+              groupValue: _character,
+              onChanged: (SingingCharacter value) {
+                setState(() {
+                  _character = value;
+                });
+              },
+            ),
           ),
-        ),
-
-
-
-
           SizedBox(height: 30.0),
           Center(
               child: Container(
@@ -233,6 +226,15 @@ class _AddPsych extends State<AddPsych> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
+                    var psychAddResponse = await App_services.psychAdd(
+                        fname.toString(),
+                        lname.toString(),
+                        phone.toString(),
+                        email.toString(),
+                        address.toString(),
+                        _character.toString(),
+                        city.toString());
+
                     Navigator.popUntil(context,
                         ModalRoute.withName(Navigator.defaultRouteName));
                   },

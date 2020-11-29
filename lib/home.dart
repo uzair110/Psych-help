@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:psych_help/addpsych.dart';
 import 'package:psych_help/psychlist.dart';
 import 'package:psych_help/globals.dart';
+import 'package:psych_help/services.dart';
 
 class MyHomePage1 extends StatefulWidget {
   @override
@@ -100,6 +101,7 @@ class _MyHomePageState1 extends State<MyHomePage1> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
+                    var fetched_data = await App_services.psychList(aid);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PsychList()),
