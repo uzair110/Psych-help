@@ -47,8 +47,8 @@ class _SignUpState extends State<SignUp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildSignUpText(),
-              SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-              _EmailAddress(),
+              // SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+              // _EmailAddress(),
               SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
               _Username(),
               SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
@@ -78,36 +78,36 @@ class _SignUpState extends State<SignUp> {
   }
 
   //Text field input for SignUp
-  Container _EmailAddress() {
-    return Container(
-        child: Center(
-            child: Container(
-                width: 230,
-                child: TextField(
-                  controller: emailcontroller,
-                  onChanged: (String text1) {
-                    temp_email = text1;
-                  },
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF66CCCC),
-                    fontSize: 20,
-                  ),
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color(0xFF66CCCC), width: 3.0)),
-                    hintText: "Email address",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF66CCCC),
-                      fontSize: 20,
-                    ),
-                  ),
-                ))));
-  }
+  // Container _EmailAddress() {
+  //   return Container(
+  //       child: Center(
+  //           child: Container(
+  //               width: 230,
+  //               child: TextField(
+  //                 controller: emailcontroller,
+  //                 onChanged: (String text1) {
+  //                   temp_email = text1;
+  //                 },
+  //                 style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Color(0xFF66CCCC),
+  //                   fontSize: 20,
+  //                 ),
+  //                 textAlign: TextAlign.center,
+  //                 decoration: InputDecoration(
+  //                   border: InputBorder.none,
+  //                   enabledBorder: UnderlineInputBorder(
+  //                       borderSide: const BorderSide(
+  //                           color: Color(0xFF66CCCC), width: 3.0)),
+  //                   hintText: "Email address",
+  //                   hintStyle: TextStyle(
+  //                     fontWeight: FontWeight.bold,
+  //                     color: Color(0xFF66CCCC),
+  //                     fontSize: 20,
+  //                   ),
+  //                 ),
+  //               ))));
+  // }
   Container _Username() {
     return Container(
         child: Center(

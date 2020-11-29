@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:psych_help/main.dart';
-import 'package:psych_help/utilities/sizeConfig.dart';
+import 'package:psych_help/addpsych.dart';
+import 'package:psych_help/psychlist.dart';
 
 class MyHomePage1 extends StatefulWidget {
   @override
@@ -8,58 +8,53 @@ class MyHomePage1 extends StatefulWidget {
 }
 
 class _MyHomePageState1 extends State<MyHomePage1> {
-  TextEditingController username = new TextEditingController();
-  TextEditingController pwd = new TextEditingController();
-  Type rsp;
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(title: Text('Psych Search'),
-      backgroundColor: Colors.green),
+      appBar:
+          AppBar(title: Text('Psych Search'), backgroundColor: Colors.green),
       drawer: Drawer(
         child: ListView(
-    // Important: Remove any padding from the ListView.
-    padding: EdgeInsets.zero,
-    children: <Widget>[
-      DrawerHeader(
-        child: Text('Username'),
-        decoration: BoxDecoration(
-          color: Colors.green,
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Username'),
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+            ),
+            ListTile(
+              title: Text('View User Complaints'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text('Legal'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text('Help'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () async {
+                Navigator.popUntil(
+                    context, ModalRoute.withName(Navigator.defaultRouteName));
+              },
+            ),
+          ],
         ),
       ),
-      ListTile(
-        title: Text('View User Complaints'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-      ListTile(
-        title: Text('Legal'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-      ListTile(
-        title: Text('Help'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-      ListTile(
-        title: Text('Logout'),
-        onTap: () async {
-          Navigator.popUntil(context,
-            ModalRoute.withName(Navigator.defaultRouteName));
-        },
-),
-    ],
-  ),
-      ),
-
       resizeToAvoidBottomPadding: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,8 +71,10 @@ class _MyHomePageState1 extends State<MyHomePage1> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
-                    Navigator.popUntil(context,
-                        ModalRoute.withName(Navigator.defaultRouteName));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddPsych()),
+                    );
                   },
                   child: Center(
                     child: Text(
@@ -102,8 +99,10 @@ class _MyHomePageState1 extends State<MyHomePage1> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
-                    Navigator.popUntil(context,
-                        ModalRoute.withName(Navigator.defaultRouteName));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PsychList()),
+                    );
                   },
                   child: Center(
                     child: Text(
