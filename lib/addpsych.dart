@@ -67,8 +67,8 @@ class _AddPsych extends State<AddPsych> {
         ),
       ),
       resizeToAvoidBottomPadding: false,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
               padding: EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0),
@@ -248,7 +248,15 @@ class _AddPsych extends State<AddPsych> {
                     ),
                   )),
             ),
-          )),
+          )
+          
+          ),
+          SizedBox(height: 30.0),
+          SizedBox(height: 30.0),
+          SizedBox(height: 30.0),
+          SizedBox(height: 30.0),
+          SizedBox(height: 30.0),
+          SizedBox(height: 30.0),
         ],
       ),
     );

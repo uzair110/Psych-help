@@ -42,8 +42,8 @@ class _SignUpState extends State<SignUp> {
       resizeToAvoidBottomPadding: false,
       body: Container(
           child: Center(
-              child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildSignUpText(),
           // SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
@@ -57,7 +57,9 @@ class _SignUpState extends State<SignUp> {
           SizedBox(height: SizeConfig.safeBlockHorizontal * 12),
           _confirmbutton(),
         ],
-      ))),
+      )
+      )
+      ),
     );
   }
 
