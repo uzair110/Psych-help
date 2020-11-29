@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:psych_help/signup.dart';
 import 'package:psych_help/home.dart';
+import 'package:psych_help/globals.dart';
 
 void main() {
   runApp(MyApp());

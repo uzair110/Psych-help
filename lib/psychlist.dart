@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:psych_help/globals.dart';
 
 class PsychList extends StatefulWidget {
   @override
