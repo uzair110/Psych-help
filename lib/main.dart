@@ -51,7 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return new Scaffold(
       key: _formKey,
       resizeToAvoidBottomPadding: false,
@@ -166,6 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         barrierDismissible: true,
                       );
                     } else {
+                      print("result");
                       //_formKey.currentState.validate();
                       Navigator.push(
                         context,
@@ -197,11 +197,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 // r
                 InkWell(
                     onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignUp()),
-                          );
-                        },
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp()),
+                      );
+                    },
                     child: Text('Create a new account.',
                         style: TextStyle(
                             color: Colors.green,
