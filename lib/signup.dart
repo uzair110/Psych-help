@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:psych_help/main.dart';
 import 'package:psych_help/utilities/sizeConfig.dart';
-
+import 'package:psych_help/globals.dart';
 
 void firstSignUp() => runApp(SignUp());
 
