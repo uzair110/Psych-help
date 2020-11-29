@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:psych_help/main.dart';
 import 'package:psych_help/utilities/sizeConfig.dart';
-
+import 'package:psych_help/services.dart';
 
 void firstSignUp() => runApp(SignUp());
 
@@ -19,7 +19,6 @@ class SignUp extends StatefulWidget {
   _SignUpState createState() => _SignUpState();
 }
 
-
 class _SignUpState extends State<SignUp> {
   @override
   final emailcontroller = TextEditingController();
@@ -33,7 +32,7 @@ class _SignUpState extends State<SignUp> {
     pass1controller.dispose();
     pass2controller.dispose();
     usernamecontroller.dispose();
-    
+
     super.dispose();
   }
 
@@ -44,21 +43,21 @@ class _SignUpState extends State<SignUp> {
       body: Container(
           child: Center(
               child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildSignUpText(),
-              // SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-              // _EmailAddress(),
-              SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-              _Username(),
-              SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-              _Password1(),
-              SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-              _Password2(),
-              SizedBox(height: SizeConfig.safeBlockHorizontal * 12),
-              _confirmbutton(),
-            ],
-          ))),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildSignUpText(),
+          // SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+          // _EmailAddress(),
+          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+          _Username(),
+          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+          _Password1(),
+          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+          _Password2(),
+          SizedBox(height: SizeConfig.safeBlockHorizontal * 12),
+          _confirmbutton(),
+        ],
+      ))),
     );
   }
 
@@ -138,6 +137,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ))));
   }
+
   Container _Password1() {
     return Container(
         child: Center(
@@ -168,6 +168,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ))));
   }
+
   Container _Password2() {
     return Container(
         child: Center(
@@ -210,8 +211,66 @@ class _SignUpState extends State<SignUp> {
                       fontSize: 20,
                       fontWeight: FontWeight.bold)),
               onPressed: () async {
-                
-                Navigator.pushNamed(context, '/home');
+                if (pass2controller != pass1controller) {
+                  showDialog(
+                    //User friendly error message when the screen has been displayed
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text(
+                        "Password Not Same",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 28),
+                      ),
+                      content: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: ListBody(
+                          mainAxis: Axis.vertical,
+                          children: <Widget>[
+                            Icon(Icons.clear, color: Colors.red[300], size: 50),
+                            // Text(
+                            //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    barrierDismissible: true,
+                  );
+                } else {
+                  result = await App_services.signup(
+                      usernamecontroller.toString(),
+                      pass2controller.toString());
+                  if (result == "Failed") {
+                    showDialog(
+                      //User friendly error message when the screen has been displayed
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: Text(
+                          "Sign-Up Failed",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 28),
+                        ),
+                        content: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: ListBody(
+                            mainAxis: Axis.vertical,
+                            children: <Widget>[
+                              Icon(Icons.clear,
+                                  color: Colors.red[300], size: 50),
+                              // Text(
+                              //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      barrierDismissible: true,
+                    );
+                  } else {
+                    print("result");
+                    //_formKey.currentState.validate();
+                    Navigator.popUntil(context,
+                        ModalRoute.withName(Navigator.defaultRouteName));
+                  }
+                }
               })),
     );
   }
