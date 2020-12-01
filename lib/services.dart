@@ -52,25 +52,25 @@ class App_services {
       map['Password'] = password;
       map['User_type'] = 'User';
 
-      map1['action'] = 'SIGN_UP';
+      map1['action'] = 'Add_User';
       map1['First_Name'] = username;
       map1['Last_Name'] = 'No Last Name Selected';
-      map1['Blacklist'] = false;
+      map1['Blacklist'] = 'false';
       map1['City'] = 'No City Selected';
       var aid = '';
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
-        aid = response.body;
-        map1['AID'] = aid;
+        print(response.body);
+        return response.body;
       } else {
         return "error1";
       }
-      final response1 = await http.post(ROOT, body: map1);
-      if (200 == response1.statusCode) {
-        return response1.body;
-      } else {
-        return "error2";
-      }
+      // final response1 = await http.post(ROOT, body: map1);
+      // if (200 == response1.statusCode) {
+      //   return response1.body;
+      // } else {
+      //   return "error2";
+      // }
     } catch (e) {
       print(e);
       return "Failure";

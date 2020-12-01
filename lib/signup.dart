@@ -57,9 +57,7 @@ class _SignUpState extends State<SignUp> {
           SizedBox(height: SizeConfig.safeBlockHorizontal * 12),
           _confirmbutton(),
         ],
-      )
-      )
-      ),
+      ))),
     );
   }
 
@@ -213,7 +211,7 @@ class _SignUpState extends State<SignUp> {
                       fontSize: 20,
                       fontWeight: FontWeight.bold)),
               onPressed: () async {
-                if (pass2controller != pass1controller) {
+                if (pass2controller.text != pass1controller.text) {
                   showDialog(
                     //User friendly error message when the screen has been displayed
                     context: context,
@@ -239,9 +237,9 @@ class _SignUpState extends State<SignUp> {
                   );
                 } else {
                   result = await App_services.signup(
-                      usernamecontroller.toString(),
-                      pass2controller.toString());
-                  if (result == "Failed") {
+                      usernamecontroller.text, pass2controller.text);
+                  print(result);
+                  if (result == "Failure") {
                     showDialog(
                       //User friendly error message when the screen has been displayed
                       context: context,
@@ -267,7 +265,7 @@ class _SignUpState extends State<SignUp> {
                       barrierDismissible: true,
                     );
                   } else {
-                    print("result");
+                    print(result);
                     //_formKey.currentState.validate();
                     Navigator.popUntil(context,
                         ModalRoute.withName(Navigator.defaultRouteName));
