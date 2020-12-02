@@ -82,7 +82,7 @@ class _AddPsych extends State<AddPsych> {
                   decoration: InputDecoration(
                       labelText: 'First Name',
                       labelStyle: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 20.0,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold),
                       focusedBorder: UnderlineInputBorder(
@@ -102,7 +102,7 @@ class _AddPsych extends State<AddPsych> {
                   decoration: InputDecoration(
                       labelText: 'Last Name',
                       labelStyle: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 20.0,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold),
                       focusedBorder: UnderlineInputBorder(
@@ -122,7 +122,7 @@ class _AddPsych extends State<AddPsych> {
                   decoration: InputDecoration(
                       labelText: 'Number',
                       labelStyle: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 20.0,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold),
                       focusedBorder: UnderlineInputBorder(
@@ -142,7 +142,7 @@ class _AddPsych extends State<AddPsych> {
                   decoration: InputDecoration(
                       labelText: 'Email Address',
                       labelStyle: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 20.0,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold),
                       focusedBorder: UnderlineInputBorder(
@@ -162,7 +162,7 @@ class _AddPsych extends State<AddPsych> {
                   decoration: InputDecoration(
                       labelText: 'Address',
                       labelStyle: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 20.0,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold),
                       focusedBorder: UnderlineInputBorder(
@@ -182,7 +182,7 @@ class _AddPsych extends State<AddPsych> {
                   decoration: InputDecoration(
                       labelText: 'City',
                       labelStyle: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 20.0,
                           color: Colors.grey,
                           fontWeight: FontWeight.bold),
                       focusedBorder: UnderlineInputBorder(
@@ -248,9 +248,7 @@ class _AddPsych extends State<AddPsych> {
                     ),
                   )),
             ),
-          )
-          
-          ),
+          )),
           SizedBox(height: 30.0),
           SizedBox(height: 30.0),
           SizedBox(height: 30.0),

@@ -71,7 +71,9 @@ class _MyHomePageState1 extends State<MyHomePage1> {
               shadowColor: Colors.greenAccent,
               elevation: 7.0,
               color: Colors.green,
-              child: GestureDetector(
+              child: InkWell(
+                  hoverColor: Colors.red,
+                  splashColor: Colors.blueAccent,
                   onTap: () async {
                     Navigator.push(
                       context,
@@ -84,6 +86,7 @@ class _MyHomePageState1 extends State<MyHomePage1> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
                   )),
@@ -99,7 +102,9 @@ class _MyHomePageState1 extends State<MyHomePage1> {
               shadowColor: Colors.greenAccent,
               elevation: 7.0,
               color: Colors.green,
-              child: GestureDetector(
+              child: InkWell(
+                  hoverColor: Colors.red,
+                  splashColor: Colors.blueAccent,
                   onTap: () async {
                     var fetched_data = await App_services.psychList(aid);
                     Navigator.push(
@@ -113,6 +118,7 @@ class _MyHomePageState1 extends State<MyHomePage1> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
                   )),

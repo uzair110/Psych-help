@@ -95,7 +95,11 @@ class _PsychList extends State<PsychList> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: InkWell(
-                    onTap: () {},
+                    hoverColor: Colors.red,
+                    splashColor: Colors.blueAccent,
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/psyprofile');
+                    },
                     child: Container(
                         height: 150,
                         width: 150,
@@ -103,7 +107,7 @@ class _PsychList extends State<PsychList> {
                           children: <Widget>[
                             SizedBox(width: 16.0, height: 15),
                             Text(
-                              'Ali',
+                              'Uzair Mustafa',
                               style: TextStyle(
                                   fontSize: 25.0, fontWeight: FontWeight.bold),
                             ),

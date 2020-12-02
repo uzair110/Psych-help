@@ -2,12 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:psych_help/psyprofile.dart';
+import 'package:psych_help/psyprofileuser.dart';
 import 'package:psych_help/services.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:psych_help/signup.dart';
 import 'package:psych_help/home.dart';
 import 'package:psych_help/globals.dart';
+import 'psyprofile.dart';
+import 'psyprofileuser.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +25,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
+      routes: <String, WidgetBuilder>{
+        '/psyprofile': (BuildContext context) => new PsyProfile(),
+        '/psyprofileuser': (BuildContext context) => new PsyProfileUser()
+      },
       home: MyHomePage(),
     );
   }
@@ -135,7 +143,9 @@ class _MyHomePageState extends State<MyHomePage> {
               shadowColor: Colors.greenAccent,
               elevation: 7.0,
               color: Colors.green,
-              child: GestureDetector(
+              child: InkWell(
+                  hoverColor: Colors.red,
+                  splashColor: Colors.blueAccent,
                   onTap: () async {
                     print('User');
                     result =
