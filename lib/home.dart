@@ -61,10 +61,10 @@ class _MyHomePageState1 extends State<MyHomePage1> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 30.0),
+          SizedBox(height: 150.0),
           Center(
               child: Container(
-            height: 40.0,
+            height: 150.0,
             width: 300.0,
             child: Material(
               borderRadius: BorderRadius.circular(20.0),
@@ -92,7 +92,7 @@ class _MyHomePageState1 extends State<MyHomePage1> {
           SizedBox(height: 30.0),
           Center(
               child: Container(
-            height: 40.0,
+            height: 150.0,
             width: 300.0,
             child: Material(
               borderRadius: BorderRadius.circular(20.0),
