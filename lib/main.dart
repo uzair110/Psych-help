@@ -28,22 +28,22 @@ class MyApp extends StatelessWidget {
         '/psyprofile': (BuildContext context) => new PsyProfile(),
         '/psyprofileuser': (BuildContext context) => new PsyProfileUser()
       },
-      home: MyHomePage(),
+      home: LoginPage(),
     );
   }
 }
 
 Map<String, Widget Function(BuildContext)> route0 = <String, WidgetBuilder>{
-  '/': (context) => MyHomePage(),
+  '/': (context) => LoginPage(),
   '/SignUp': (context) => SignUp(),
 };
 
-class MyHomePage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _LoginPageState extends State<LoginPage> {
   TextEditingController username = new TextEditingController();
   TextEditingController pwd = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         username.text, pwd.text);
 
                     result = userFile.usrID.result;
-                    if (result == "Auth Failue") {
+                    if (result == "Auth Failure") {
                       showDialog(
                         //User friendly error message when the screen has been displayed
                         context: context,
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         barrierDismissible: true,
                       );
-                    } else if (result == "Conn Failue") {
+                    } else if (result == "Conn Failure") {
                       showDialog(
                         //User friendly error message when the screen has been displayed
                         context: context,
@@ -194,22 +194,23 @@ class _MyHomePageState extends State<MyHomePage> {
                         barrierDismissible: true,
                       );
                     } else {
-                      if (userFile.usrID.userType == "Moderator") {
+                      print(userFile.usrID.userType);
+                      print(userFile.usrID.userType == "User");
+                      if (userFile.usrID.userType == "User") {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  ModHomePage()), //change direction
+                                  PsyProfileUser()), //change direction later
                         );
-                      } else if (userFile.usrID.userType == "Moderator") {}
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ModHomePage()),
-                      );
+                      } else if (userFile.usrID.userType == "Moderator") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ModHomePage()),
+                        );
+                      }
                     }
-                    print(result);
-                    print(username.text);
-                    print(pwd.text);
                   },
                   child: Center(
                     child: Text(

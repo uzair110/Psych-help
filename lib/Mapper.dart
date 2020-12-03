@@ -30,8 +30,26 @@ class UserData {
   UserData.fromData(Map<String, dynamic> data)
       : result = data['result'],
         uid = data['uid'],
-        firstName = data[''],
-        lastName = data[''],
-        blacklist = data[''],
-        city = data[''];
+        firstName = data['firstName'],
+        lastName = data['lastName'],
+        blacklist = data['blacklist'],
+        city = data['city'];
+}
+
+class ModData {
+  String result;
+  String mid;
+  String firstName;
+  String lastName;
+  int modLevel;
+
+  ModData(
+      {this.result, this.mid, this.firstName, this.lastName, this.modLevel});
+
+  ModData.fromData(Map<String, dynamic> data)
+      : result = data['result'],
+        mid = data['mid'],
+        firstName = data['firstName'],
+        lastName = data['lastName'],
+        modLevel = data['modLevel'];
 }

@@ -33,22 +33,42 @@ class AppServices {
       map['action'] = 'SIGN_IN';
       map['Username'] = un;
       map['Password'] = pw;
-      print(map);
       final response = await http.post(ROOT, body: map);
-      print('sign in Response: ${response.body}');
-      print(response.statusCode);
       if (200 == response.statusCode) {
         UserIds promiseResult = UserIds.fromData(jsonDecode(response.body));
         return promiseResult;
       } else {
         UserIds errResult =
-            UserIds(result: "Conn Failue", aid: "NULL", userType: "NULL");
+            UserIds(result: "Conn Failure", aid: "NULL", userType: "NULL");
         return errResult;
       }
     } catch (e) {
       print(e);
       UserIds errResult =
-          UserIds(result: "Auth Failue", aid: "NULL", userType: "NULL");
+          UserIds(result: "Auth Failure", aid: "NULL", userType: "NULL");
+      return errResult;
+    }
+  }
+
+//Function which fetches data for user before initializing their homepage after login
+  static Future<UserData> userDatPromise(String aid) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'SIGN_IN';
+      map['aid'] = aid;
+      final response = await http.post(ROOT, body: map);
+      print('sign in Response: ${response.body}');
+      print(response.statusCode);
+      if (200 == response.statusCode) {
+        UserData promiseResult = UserData.fromData(jsonDecode(response.body));
+        return promiseResult;
+      } else {
+        UserData errResult = UserData(result: "Conn Failure");
+        return errResult;
+      }
+    } catch (e) {
+      print(e);
+      UserData errResult = UserData(result: "Auth Failure");
       return errResult;
     }
   }
