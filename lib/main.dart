@@ -1,13 +1,11 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:psych_help/Mapper.dart';
+//import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/psyprofile.dart';
 import 'package:psych_help/psyprofileuser.dart';
 import 'package:psych_help/services.dart';
-import 'dart:convert';
-import 'dart:async';
+//import 'dart:async';
 import 'package:psych_help/signup.dart';
 import 'package:psych_help/home.dart';
 import 'package:psych_help/globals.dart' as userFile;
@@ -51,13 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Type rsp;
   String result;
-  Future<List> senddata() async {
-    final response =
-        await http.post("http://raushanjha.in/insertdata.php", body: {
-      "username": username.text,
-      "password": pwd.text,
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,10 +139,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   hoverColor: Colors.red,
                   splashColor: Colors.blueAccent,
                   onTap: () async {
-                    print('User');
-                    result =
-                        await App_services.valEmployee(username.text, pwd.text);
-                    if (result == "Failed") {
+                    userFile.usrID = await AppServices.signInPromise(
+                        username.text, pwd.text);
+
+                    result = userFile.usrID.result;
+                    if (result == "Auth Failue") {
                       showDialog(
                         //User friendly error message when the screen has been displayed
                         context: context,
@@ -176,12 +168,43 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         barrierDismissible: true,
                       );
+                    } else if (result == "Conn Failue") {
+                      showDialog(
+                        //User friendly error message when the screen has been displayed
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text(
+                            "Connection Failure",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 28),
+                          ),
+                          content: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: ListBody(
+                              mainAxis: Axis.vertical,
+                              children: <Widget>[
+                                Icon(Icons.clear,
+                                    color: Colors.red[300], size: 50),
+                                // Text(
+                                //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        barrierDismissible: true,
+                      );
                     } else {
-                      print("result");
-                      //_formKey.currentState.validate();
+                      if (userFile.usrID.userType == "Moderator") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ModHomePage()), //change direction
+                        );
+                      } else if (userFile.usrID.userType == "Moderator") {}
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MyHomePage1()),
+                        MaterialPageRoute(builder: (context) => ModHomePage()),
                       );
                     }
                     print(result);
@@ -222,13 +245,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ]),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          UserIds res = await App_services.signInPromise("ali", "12345");
-        },
-        child: Icon(Icons.navigation),
-        backgroundColor: Colors.green,
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     UserIds res = await App_services.signInPromise("ali", "12345");
+      //   },
+      //   child: Icon(Icons.navigation),
+      //   backgroundColor: Colors.green,
+      // ),
     );
   }
 }

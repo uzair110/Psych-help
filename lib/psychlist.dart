@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:psych_help/globals.dart';
 
 class PsychList extends StatefulWidget {
   @override
@@ -17,7 +16,7 @@ class _PsychList extends State<PsychList> {
   TextEditingController email = new TextEditingController();
   bool isSearching = false;
 
-  SingingCharacter _character = SingingCharacter.oncall;
+  //SingingCharacter _character = SingingCharacter.oncall;
 
   @override
   Widget build(BuildContext context) {

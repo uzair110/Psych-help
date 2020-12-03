@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:psych_help/addpsych.dart';
-import 'package:psych_help/globals.dart';
 import 'package:psych_help/services.dart';
 
 class AddPsych extends StatefulWidget {
@@ -226,7 +224,7 @@ class _AddPsych extends State<AddPsych> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
-                    var psychAddResponse = await App_services.psychAdd(
+                    var psychAddResponse = await AppServices.psychAdd(
                         fname.toString(),
                         lname.toString(),
                         phone.toString(),

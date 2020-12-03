@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:psych_help/Mapper.dart';
 import 'dart:convert';
 
-class App_services {
+class AppServices {
   static const ROOT = 'http://psychsearch12.000webhostapp.com';
   // This function validates username and password at login screen
   static Future<String> valEmployee(String un, String pw) async {
@@ -37,19 +37,18 @@ class App_services {
       final response = await http.post(ROOT, body: map);
       print('sign in Response: ${response.body}');
       print(response.statusCode);
-      // if (200 == response.statusCode) {
-      //   return response.body;
-      // } else {
-      //   return "error1";
-      // }
-      UserIds errResult = UserIds.fromData(jsonDecode(response.body));
-      print(errResult.aid);
-      //UserIds(result: "Conn Failue", aid: "NULL", userType: "NULL");
-      return errResult;
+      if (200 == response.statusCode) {
+        UserIds promiseResult = UserIds.fromData(jsonDecode(response.body));
+        return promiseResult;
+      } else {
+        UserIds errResult =
+            UserIds(result: "Conn Failue", aid: "NULL", userType: "NULL");
+        return errResult;
+      }
     } catch (e) {
       print(e);
       UserIds errResult =
-          UserIds(result: "Conn Failue", aid: "NULL", userType: "NULL");
+          UserIds(result: "Auth Failue", aid: "NULL", userType: "NULL");
       return errResult;
     }
   }
@@ -86,7 +85,7 @@ class App_services {
       map1['Last_Name'] = 'No Last Name Selected';
       map1['Blacklist'] = 'false';
       map1['City'] = 'No City Selected';
-      var aid = '';
+      //var aid = '';
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
         print(response.body);

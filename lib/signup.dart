@@ -5,10 +5,10 @@ import 'package:psych_help/services.dart';
 
 void firstSignUp() => runApp(SignUp());
 
-String temp_email = "";
-String temp_username = "";
-String temp_pass1 = "";
-String temp_pass2 = "";
+String tempEmail = "";
+String tempUsername = "";
+String tempPass1 = "";
+String tempPass2 = "";
 
 class SignUp extends StatefulWidget {
   @override
@@ -48,11 +48,11 @@ class _SignUpState extends State<SignUp> {
           // SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
           // _EmailAddress(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-          _Username(),
+          usernameContainer(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-          _Password1(),
+          containerPassword1(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-          _Password2(),
+          containerPassword2(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 12),
           _confirmbutton(),
         ],
@@ -106,7 +106,7 @@ class _SignUpState extends State<SignUp> {
   //                 ),
   //               ))));
   // }
-  Container _Username() {
+  Container usernameContainer() {
     return Container(
         child: Center(
             child: Container(
@@ -114,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                 child: TextField(
                   controller: usernamecontroller,
                   onChanged: (String text4) {
-                    temp_username = text4;
+                    tempUsername = text4;
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -137,7 +137,7 @@ class _SignUpState extends State<SignUp> {
                 ))));
   }
 
-  Container _Password1() {
+  Container containerPassword1() {
     return Container(
         child: Center(
             child: Container(
@@ -145,7 +145,7 @@ class _SignUpState extends State<SignUp> {
                 child: TextField(
                   controller: pass1controller,
                   onChanged: (String text2) {
-                    temp_pass1 = text2;
+                    tempPass1 = text2;
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -168,7 +168,7 @@ class _SignUpState extends State<SignUp> {
                 ))));
   }
 
-  Container _Password2() {
+  Container containerPassword2() {
     return Container(
         child: Center(
             child: Container(
@@ -176,7 +176,7 @@ class _SignUpState extends State<SignUp> {
                 child: TextField(
                   controller: pass2controller,
                   onChanged: (String text3) {
-                    temp_pass2 = text3;
+                    tempPass2 = text3;
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -235,7 +235,7 @@ class _SignUpState extends State<SignUp> {
                     barrierDismissible: true,
                   );
                 } else {
-                  result = await App_services.signup(
+                  result = await AppServices.signup(
                       usernamecontroller.text, pass2controller.text);
                   print(result);
                   if (result == "Failure") {

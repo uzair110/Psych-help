@@ -4,12 +4,12 @@ import 'package:psych_help/psychlist.dart';
 import 'package:psych_help/globals.dart';
 import 'package:psych_help/services.dart';
 
-class MyHomePage1 extends StatefulWidget {
+class ModHomePage extends StatefulWidget {
   @override
-  _MyHomePageState1 createState() => _MyHomePageState1();
+  _ModHomePageState createState() => _ModHomePageState();
 }
 
-class _MyHomePageState1 extends State<MyHomePage1> {
+class _ModHomePageState extends State<ModHomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -106,7 +106,7 @@ class _MyHomePageState1 extends State<MyHomePage1> {
                   hoverColor: Colors.red,
                   splashColor: Colors.blueAccent,
                   onTap: () async {
-                    var fetched_data = await App_services.psychList(aid);
+                    var fetchedData = await AppServices.psychList(aid);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PsychList()),
