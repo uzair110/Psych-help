@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/psyprofile.dart';
 import 'package:psych_help/psyprofileuser.dart';
 import 'package:psych_help/services.dart';
@@ -220,6 +221,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             decoration: TextDecoration.underline)))
               ]),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          UserIds res = await App_services.signInPromise("ali", "12345");
+        },
+        child: Icon(Icons.navigation),
+        backgroundColor: Colors.green,
       ),
     );
   }

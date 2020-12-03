@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:psych_help/globals.dart';
+import 'package:psych_help/Mapper.dart';
 
 class App_services {
   static const ROOT = 'http://psychsearch12.000webhostapp.com';
@@ -22,6 +22,33 @@ class App_services {
     } catch (e) {
       print(e);
       return "Failure";
+    }
+  }
+
+//Sign-In Function which validates username and password from the Database and also fetches user type for redirecting user to the appropriate screen
+  static Future<UserIds> signInPromise(String un, String pw) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'SIGN_IN';
+      map['Username'] = un;
+      map['Password'] = pw;
+      print(map);
+      final response = await http.post(ROOT, body: map);
+      print('valEmployee Response: ${response.body}');
+      print(response.statusCode);
+      // if (200 == response.statusCode) {
+      //   return response.body;
+      // } else {
+      //   return "error1";
+      // }
+      UserIds errResult =
+          UserIds(result: "Conn Failue", aid: "NULL", userType: "NULL");
+      return errResult;
+    } catch (e) {
+      print(e);
+      UserIds errResult =
+          UserIds(result: "Conn Failue", aid: "NULL", userType: "NULL");
+      return errResult;
     }
   }
 
