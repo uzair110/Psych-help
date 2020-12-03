@@ -16,7 +16,7 @@ class UserData {
   String uid;
   String firstName;
   String lastName;
-  bool blacklist;
+  String blacklist;
   String city;
 
   UserData(

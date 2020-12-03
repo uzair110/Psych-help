@@ -54,7 +54,7 @@ class AppServices {
   static Future<UserData> userDatPromise(String aid) async {
     try {
       var map = Map<String, dynamic>();
-      map['action'] = 'SIGN_IN';
+      map['action'] = 'USR_DAT';
       map['aid'] = aid;
       final response = await http.post(ROOT, body: map);
       print('sign in Response: ${response.body}');
@@ -69,6 +69,29 @@ class AppServices {
     } catch (e) {
       print(e);
       UserData errResult = UserData(result: "Auth Failure");
+      return errResult;
+    }
+  }
+
+//Function which fetches data for moderator before initializing their homepage after login
+  static Future<ModData> modDatPromise(String aid) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'MOD_DAT';
+      map['aid'] = aid;
+      final response = await http.post(ROOT, body: map);
+      print('sign in Response: ${response.body}');
+      print(response.statusCode);
+      if (200 == response.statusCode) {
+        ModData promiseResult = ModData.fromData(jsonDecode(response.body));
+        return promiseResult;
+      } else {
+        ModData errResult = ModData(result: "Conn Failure");
+        return errResult;
+      }
+    } catch (e) {
+      print(e);
+      ModData errResult = ModData(result: "Auth Failure");
       return errResult;
     }
   }
