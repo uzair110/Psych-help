@@ -50,6 +50,28 @@ class AppServices {
     }
   }
 
+//Sign-In Function which validates username and password from the Database and also fetches user type for redirecting user to the appropriate screen
+  static Future<PsyData> searchPromise(String name, String city) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'PSYCH_SEARCH';
+      map['name'] = name;
+      map['City'] = city;
+      final response = await http.post(ROOT, body: map);
+      if (200 == response.statusCode) {
+        PsyData promiseResult = PsyData.fromData(jsonDecode(response.body));
+        return promiseResult;
+      } else {
+        PsyData errResult = PsyData(result: "Conn Failure");
+        return errResult;
+      }
+    } catch (e) {
+      print(e);
+      PsyData errResult = PsyData(result: "Auth Failure");
+      return errResult;
+    }
+  }
+
 //Function which fetches data for user before initializing their homepage after login
   static Future<UserData> userDatPromise(String aid) async {
     try {

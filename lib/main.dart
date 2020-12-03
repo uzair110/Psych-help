@@ -1,7 +1,7 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-//import 'package:psych_help/Mapper.dart';
+import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/psyprofile.dart';
 import 'package:psych_help/psyprofileuser.dart';
 import 'package:psych_help/services.dart';
@@ -246,13 +246,15 @@ class _LoginPageState extends State<LoginPage> {
               ]),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () async {
-      //     UserIds res = await App_services.signInPromise("ali", "12345");
-      //   },
-      //   child: Icon(Icons.navigation),
-      //   backgroundColor: Colors.green,
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          PsyData res = await AppServices.searchPromise("ali", "12345");
+          print(res.firstName);
+          print(res.toString());
+        },
+        child: Icon(Icons.navigation),
+        backgroundColor: Colors.green,
+      ),
     );
   }
 }
