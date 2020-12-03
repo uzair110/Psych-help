@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:psych_help/Mapper.dart';
+import 'dart:convert';
 
 class App_services {
   static const ROOT = 'http://psychsearch12.000webhostapp.com';
@@ -34,15 +35,16 @@ class App_services {
       map['Password'] = pw;
       print(map);
       final response = await http.post(ROOT, body: map);
-      print('valEmployee Response: ${response.body}');
+      print('sign in Response: ${response.body}');
       print(response.statusCode);
       // if (200 == response.statusCode) {
       //   return response.body;
       // } else {
       //   return "error1";
       // }
-      UserIds errResult =
-          UserIds(result: "Conn Failue", aid: "NULL", userType: "NULL");
+      UserIds errResult = UserIds.fromData(jsonDecode(response.body));
+      print(errResult.aid);
+      //UserIds(result: "Conn Failue", aid: "NULL", userType: "NULL");
       return errResult;
     } catch (e) {
       print(e);
