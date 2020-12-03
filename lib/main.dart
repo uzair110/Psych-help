@@ -9,7 +9,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:psych_help/signup.dart';
 import 'package:psych_help/home.dart';
-import 'package:psych_help/globals.dart';
+import 'package:psych_help/globals.dart' as userFile;
 import 'psyprofile.dart';
 import 'psyprofileuser.dart';
 

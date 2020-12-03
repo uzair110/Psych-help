@@ -20,7 +20,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  @override
   final emailcontroller = TextEditingController();
   final pass1controller = TextEditingController();
   final pass2controller = TextEditingController();
