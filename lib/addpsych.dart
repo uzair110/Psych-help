@@ -237,8 +237,34 @@ class _AddPsych extends State<AddPsych> {
                         index.toString(),
                         city.text);
                     print(psychAddResponse);
-                    Navigator.popUntil(context,
-                        ModalRoute.withName(Navigator.defaultRouteName));
+                    if (psychAddResponse == "Successfully Added Psychologist") {
+                      Navigator.pop(context);
+                    } else {
+                      showDialog(
+                        //User friendly error message when the screen has been displayed
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text(
+                            "Connection Failure",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 28),
+                          ),
+                          content: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: ListBody(
+                              mainAxis: Axis.vertical,
+                              children: <Widget>[
+                                Icon(Icons.clear,
+                                    color: Colors.red[300], size: 50),
+                                // Text(
+                                //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        barrierDismissible: true,
+                      );
+                    }
                   },
                   child: Center(
                     child: Text(
