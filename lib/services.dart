@@ -183,7 +183,7 @@ class AppServices {
     try {
       var map1 = Map<String, dynamic>();
 
-      map1['action'] = 'EDIT_PROFILE';
+      map1['action'] = 'ADD_PSYCH';
       map1['First_Name'] = firstName;
       map1['Last_Name'] = lastName;
       map1['Phone_Number'] = phoneNumber;

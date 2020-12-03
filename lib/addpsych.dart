@@ -17,6 +17,7 @@ class _AddPsych extends State<AddPsych> {
   TextEditingController email = new TextEditingController();
 
   SingingCharacter _character = SingingCharacter.oncall;
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -196,6 +197,7 @@ class _AddPsych extends State<AddPsych> {
               onChanged: (SingingCharacter value) {
                 setState(() {
                   _character = value;
+                  index = 0;
                 });
               },
             ),
@@ -208,6 +210,7 @@ class _AddPsych extends State<AddPsych> {
               onChanged: (SingingCharacter value) {
                 setState(() {
                   _character = value;
+                  index = 1;
                 });
               },
             ),
@@ -224,15 +227,16 @@ class _AddPsych extends State<AddPsych> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
+                    print(_character.toString());
                     var psychAddResponse = await AppServices.psychAdd(
-                        fname.toString(),
-                        lname.toString(),
-                        phone.toString(),
-                        email.toString(),
-                        address.toString(),
-                        _character.toString(),
-                        city.toString());
-
+                        fname.text,
+                        lname.text,
+                        phone.text,
+                        email.text,
+                        address.text,
+                        index.toString(),
+                        city.text);
+                    print(psychAddResponse);
                     Navigator.popUntil(context,
                         ModalRoute.withName(Navigator.defaultRouteName));
                   },
