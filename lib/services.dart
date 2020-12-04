@@ -58,25 +58,29 @@ class AppServices {
       map['name'] = name;
       map['City'] = city;
       final response = await http.post(ROOT, body: map);
-      if (200 == response.statusCode) {
-        var decodedJsonList = jsonDecode(response.body);
-        List<PsyData> promiseResult =
-            List<PsyData>.from(decodedJsonList.map((val) {
-          return PsyData(
-            pid: int.parse(val['PID']) ?? -1,
-            firstName: val['First_Name'] ?? '',
-            lastName: val['Last_Name'] ?? '',
-            phoneNumber: int.parse(val['Phone_Number']) ?? 0,
-            email: val['email'] ?? '',
-            address: val['Address'] ?? '',
-            counsellType: val['Counselling_Type'] ?? '',
-            city: val['City'] ?? '',
-          );
-        }));
-        return promiseResult;
+      if (response.body == "List is Empty") {
+        return [];
       } else {
-        List<PsyData> errResult = []; //result: "Conn Failure"
-        return errResult;
+        if (200 == response.statusCode) {
+          var decodedJsonList = jsonDecode(response.body);
+          List<PsyData> promiseResult =
+              List<PsyData>.from(decodedJsonList.map((val) {
+            return PsyData(
+              pid: int.parse(val['PID']) ?? -1,
+              firstName: val['First_Name'] ?? '',
+              lastName: val['Last_Name'] ?? '',
+              phoneNumber: int.parse(val['Phone_Number']) ?? 0,
+              email: val['email'] ?? '',
+              address: val['Address'] ?? '',
+              counsellType: val['Counselling_Type'] ?? '',
+              city: val['City'] ?? '',
+            );
+          }));
+          return promiseResult;
+        } else {
+          List<PsyData> errResult = []; //result: "Conn Failure"
+          return errResult;
+        }
       }
     } catch (e) {
       print(e);
@@ -220,25 +224,30 @@ class AppServices {
       var map = Map<String, dynamic>();
       map['action'] = 'PSYCH_LIST';
       final response = await http.post(ROOT, body: map);
-      if (200 == response.statusCode) {
-        var decodedJsonList = jsonDecode(response.body);
-        List<PsyData> promiseResult =
-            List<PsyData>.from(decodedJsonList.map((val) {
-          return PsyData(
-            pid: int.parse(val['PID']) ?? -1,
-            firstName: val['First_Name'] ?? '',
-            lastName: val['Last_Name'] ?? '',
-            phoneNumber: int.parse(val['Phone_Number']) ?? 0,
-            email: val['email'] ?? '',
-            address: val['Address'] ?? '',
-            counsellType: val['Counselling_Type'] ?? '',
-            city: val['City'] ?? '',
-          );
-        }));
-        return promiseResult;
+
+      if (response.body == "List is Empty") {
+        return [];
       } else {
-        List<PsyData> errResult = []; //result: "Conn Failure"
-        return errResult;
+        if (200 == response.statusCode) {
+          var decodedJsonList = jsonDecode(response.body);
+          List<PsyData> promiseResult =
+              List<PsyData>.from(decodedJsonList.map((val) {
+            return PsyData(
+              pid: int.parse(val['PID']) ?? -1,
+              firstName: val['First_Name'] ?? '',
+              lastName: val['Last_Name'] ?? '',
+              phoneNumber: int.parse(val['Phone_Number']) ?? 0,
+              email: val['email'] ?? '',
+              address: val['Address'] ?? '',
+              counsellType: val['Counselling_Type'] ?? '',
+              city: val['City'] ?? '',
+            );
+          }));
+          return promiseResult;
+        } else {
+          List<PsyData> errResult = []; //result: "Conn Failure"
+          return errResult;
+        }
       }
     } catch (e) {
       print(e);
