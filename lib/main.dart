@@ -246,15 +246,16 @@ class _LoginPageState extends State<LoginPage> {
               ]),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          PsyData res = await AppServices.searchPromise("ali", "12345");
-          print(res.firstName);
-          print(res.toString());
-        },
-        child: Icon(Icons.navigation),
-        backgroundColor: Colors.green,
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     List<PsyData> res =
+      //         await AppServices.searchPromise("trump", "newark");
+      //     print(res[0].firstName);
+      //     print(res.toString());
+      //   },
+      //   child: Icon(Icons.navigation),
+      //   backgroundColor: Colors.green,
+      // ),
     );
   }
 }

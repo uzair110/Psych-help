@@ -50,8 +50,8 @@ class AppServices {
     }
   }
 
-//Sign-In Function which validates username and password from the Database and also fetches user type for redirecting user to the appropriate screen
-  static Future<PsyData> searchPromise(String name, String city) async {
+//
+  static Future<List<PsyData>> searchPromise(String name, String city) async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = 'PSYCH_SEARCH';
@@ -59,15 +59,28 @@ class AppServices {
       map['City'] = city;
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
-        PsyData promiseResult = PsyData.fromData(jsonDecode(response.body));
+        var decodedJsonList = jsonDecode(response.body);
+        List<PsyData> promiseResult =
+            List<PsyData>.from(decodedJsonList.map((val) {
+          return PsyData(
+            pid: int.parse(val['PID']) ?? -1,
+            firstName: val['First_Name'] ?? '',
+            lastName: val['Last_Name'] ?? '',
+            phoneNumber: int.parse(val['Phone_Number']) ?? 0,
+            email: val['email'] ?? '',
+            address: val['Address'] ?? '',
+            counsellType: val['Counselling_Type'] ?? '',
+            city: val['City'] ?? '',
+          );
+        }));
         return promiseResult;
       } else {
-        PsyData errResult = PsyData(result: "Conn Failure");
+        List<PsyData> errResult = []; //result: "Conn Failure"
         return errResult;
       }
     } catch (e) {
       print(e);
-      PsyData errResult = PsyData(result: "Auth Failure");
+      List<PsyData> errResult = []; //result: "Auth Failure"
       return errResult;
     }
   }
@@ -202,20 +215,35 @@ class AppServices {
     }
   }
 
-  static Future<String> psychList(String aid) async {
+  static Future<List<PsyData>> psychList() async {
     try {
-      var map1 = Map<String, dynamic>();
-      map1['AID'] = aid;
-
-      final response = await http.post(ROOT, body: map1);
+      var map = Map<String, dynamic>();
+      map['action'] = 'PSYCH_LIST';
+      final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
-        return response.body;
+        var decodedJsonList = jsonDecode(response.body);
+        List<PsyData> promiseResult =
+            List<PsyData>.from(decodedJsonList.map((val) {
+          return PsyData(
+            pid: int.parse(val['PID']) ?? -1,
+            firstName: val['First_Name'] ?? '',
+            lastName: val['Last_Name'] ?? '',
+            phoneNumber: int.parse(val['Phone_Number']) ?? 0,
+            email: val['email'] ?? '',
+            address: val['Address'] ?? '',
+            counsellType: val['Counselling_Type'] ?? '',
+            city: val['City'] ?? '',
+          );
+        }));
+        return promiseResult;
       } else {
-        return "error1";
+        List<PsyData> errResult = []; //result: "Conn Failure"
+        return errResult;
       }
     } catch (e) {
       print(e);
-      return "Failure";
+      List<PsyData> errResult = []; //result: "Auth Failure"
+      return errResult;
     }
   }
 

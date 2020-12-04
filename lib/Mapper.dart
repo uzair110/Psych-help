@@ -55,8 +55,8 @@ class ModData {
 }
 
 class PsyData {
-  String result;
-  String pid;
+  //String result;
+  int pid;
   String firstName;
   String lastName;
   int phoneNumber;
@@ -66,7 +66,8 @@ class PsyData {
   String city;
 
   PsyData(
-      {this.result,
+      {
+      //this.result,
       this.pid,
       this.firstName,
       this.lastName,
@@ -77,13 +78,14 @@ class PsyData {
       this.city});
 
   PsyData.fromData(Map<String, dynamic> data)
-      : result = data['result'],
-        pid = data['pid'],
-        firstName = data['firstName'],
-        lastName = data['lastName'],
-        phoneNumber = data['phoneNumber'],
+      :
+        //result = data['result'],
+        pid = data['PID'],
+        firstName = data['First _Name'],
+        lastName = data['Last_Name'],
+        phoneNumber = data['Phone_Number'],
         email = data['email'],
-        address = data['address'],
-        counsellType = data['counsellType'],
-        city = data['city'];
+        address = data['Address'],
+        counsellType = data['Counselling_Type'],
+        city = data['City'];
 }

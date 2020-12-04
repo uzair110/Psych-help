@@ -106,7 +106,7 @@ class _ModHomePageState extends State<ModHomePage> {
                   hoverColor: Colors.red,
                   splashColor: Colors.blueAccent,
                   onTap: () async {
-                    var fetchedData = await AppServices.psychList(aid);
+                    var fetchedData = await AppServices.psychList();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PsychList()),
