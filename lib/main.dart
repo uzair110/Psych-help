@@ -203,7 +203,6 @@ class _LoginPageState extends State<LoginPage> {
                         barrierDismissible: true,
                       );
                     } else {
-                      print(result + "K");
                       print(userFile.usrID.userType);
                       print(userFile.usrID.userType == "User");
                       if (userFile.usrID.userType == "User") {
@@ -252,6 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                       } else if (userFile.usrID.userType == "Moderator") {
                         userFile.modData =
                             await AppServices.modDatPromise(userFile.usrID.aid);
+                        userFile.usrData.uid = userFile.modData.mid;
                         setState(() {
                           _isLoading = false;
                         });

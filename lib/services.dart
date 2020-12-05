@@ -1,5 +1,5 @@
 import 'dart:ffi';
-
+import 'package:psych_help/globals.dart' as userFile;
 import 'package:http/http.dart' as http;
 import 'package:psych_help/Mapper.dart';
 import 'dart:convert';
@@ -221,16 +221,16 @@ class AppServices {
     }
   }
 
-  static Future<List<PsyData>> psychList() async {
+  static Future<List<PsyData>> psychSearchHistory() async {
     try {
       var map = Map<String, dynamic>();
-      map['action'] = 'PSYCH_LIST';
+      map['action'] = 'PSYCH_SUG';
       final response = await http.post(ROOT, body: map);
 
       if (response.body == "List is Empty") {
         return [];
       } else {
-        print('valEmployeeId Response: ${response.body}');
+        print('Search Suggestion Response: ${response.body}');
         if (200 == response.statusCode) {
           var decodedJsonList = jsonDecode(response.body);
           List<PsyData> promiseResult =
@@ -350,11 +350,13 @@ class AppServices {
     try {
       var map1 = Map<String, dynamic>();
 
-      map1['action'] = 'EDIT_PROFILE';
+      map1['action'] = 'ADD_SEARCH';
       map1['searchQuery'] = searchQuery;
+      map1['uid'] = userFile.usrData.uid;
 
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
+        print(response.body);
         print("Success");
       } else {
         print("DB Failure");
