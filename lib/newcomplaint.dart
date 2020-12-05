@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:psych_help/newcomplaint.dart';
-import 'package:psych_help/newcomplaint.dart';
+// import 'package:psych_help/addpsych.dart';
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
 
-class PsyProfileUsr extends StatefulWidget {
+class newcomplaint extends StatefulWidget {
   @override
-  _PsyProfileUsr createState() => _PsyProfileUsr();
+  _newcomplaint createState() => _newcomplaint();
 }
 
-class _PsyProfileUsr extends State<PsyProfileUsr> {
+class _newcomplaint extends State<newcomplaint> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -105,10 +104,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                         size: 30.0,
                       ),
                       onPressed: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => newcomplaint()),
-                        );
+                        
                       },
                       ),
                     ),
