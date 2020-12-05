@@ -6,6 +6,7 @@ import 'package:psych_help/psyprofile.dart';
 import 'package:psych_help/profileuser.dart';
 import 'package:psych_help/services.dart';
 //import 'dart:async';
+import 'package:psych_help/psychProfileUsr.dart';
 import 'package:psych_help/signup.dart';
 import 'package:psych_help/home.dart';
 import 'package:psych_help/Loading.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       //   '/psyprofile': (BuildContext context) => new PsyProfile(),
       //   '/psyprofileuser': (BuildContext context) => new PsyProfileUser()
       // },
-      home: LoginPage(),
+      home: PsyProfileUsr(),
     );
   }
 }
