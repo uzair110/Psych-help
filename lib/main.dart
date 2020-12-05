@@ -10,6 +10,7 @@ import 'package:psych_help/psychProfileUsr.dart';
 import 'package:psych_help/signup.dart';
 import 'package:psych_help/home.dart';
 import 'package:psych_help/Loading.dart';
+
 import 'package:psych_help/globals.dart' as userFile;
 import 'psyprofile.dart';
 import 'profileuser.dart';
@@ -30,9 +31,7 @@ class MyApp extends StatelessWidget {
       //   '/psyprofile': (BuildContext context) => new PsyProfile(),
       //   '/psyprofileuser': (BuildContext context) => new PsyProfileUser()
       // },
-      
-      
-      
+
       home: LoginPage(), //UNCOMMENT THIS TO FIX PROBLEM
       // home: PsyProfileUsr(),
     );
