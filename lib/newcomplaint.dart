@@ -232,7 +232,9 @@ class _newcomplaint extends State<newcomplaint> {
             
           ),
           const SizedBox(height: 10),
-          RaisedButton(
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            child: RaisedButton(
             color: Colors.green,
             onPressed: () {},
             textColor: Colors.white,
@@ -241,7 +243,8 @@ class _newcomplaint extends State<newcomplaint> {
             child: Container(
               child:
                 const Text('Submit Complaint', style: TextStyle(fontSize: 20)),
-              ),   
+              ),
+          ),   
           ),       
           // Row(
           //   children: <Widget>[
