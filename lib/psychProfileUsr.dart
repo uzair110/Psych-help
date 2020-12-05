@@ -10,16 +10,21 @@ class PsyProfileUsr extends StatefulWidget {
   _PsyProfileUsr createState() => _PsyProfileUsr();
 }
 
+TextEditingController _reviewController = TextEditingController();
+String review = '';
+List<String> litems = [];
+
 class _PsyProfileUsr extends State<PsyProfileUsr> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar:
           AppBar(title: Text('Psych Search'), backgroundColor: Colors.green),
       drawer: Drawer(
-        child: ListView(
+        child: Column(
           // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
+          // padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
               child: Text('Username'),
@@ -62,7 +67,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
       body: ListView(
         children: <Widget>[
           Container(
-            height: 250,
+            height: 150,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.green, Colors.green.shade300],
@@ -75,36 +80,36 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.green.shade300,
-                      minRadius: 35.0,
-                      child: Icon(
-                        Icons.call,
-                        size: 30.0,
-                      ),
-                    ),
-                    CircleAvatar(
-                      backgroundColor: Colors.white70,
-                      minRadius: 60.0,
-                      child: CircleAvatar(
-                        radius: 50.0,
-                        backgroundImage: NetworkImage(
-                            'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
-                      ),
-                    ),
-                    CircleAvatar(
-                      backgroundColor: Colors.green.shade500,
-                      minRadius: 35.0,
-                      child: Icon(
-                        Icons.message,
-                        size: 30.0,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: <Widget>[
+                //     CircleAvatar(
+                //       backgroundColor: Colors.green.shade300,
+                //       minRadius: 35.0,
+                //       child: Icon(
+                //         Icons.call,
+                //         size: 30.0,
+                //       ),
+                //     ),
+                //     CircleAvatar(
+                //       backgroundColor: Colors.white70,
+                //       minRadius: 60.0,
+                //       child: CircleAvatar(
+                //         radius: 50.0,
+                //         backgroundImage: NetworkImage(
+                //             'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
+                //       ),
+                //     ),
+                //     CircleAvatar(
+                //       backgroundColor: Colors.green.shade500,
+                //       minRadius: 35.0,
+                //       child: Icon(
+                //         Icons.message,
+                //         size: 30.0,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(
                   height: 10,
                 ),
@@ -163,7 +168,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                     padding: new EdgeInsets.all(20.0),
                     child: RatingBar.builder(
                         initialRating: 3,
-                        minRating: 1,
+                        minRating: 0,
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
@@ -176,22 +181,68 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                           print(rating);
                         })),
                 Divider(),
-                ListTile(
-                  title: Text(
-                    'Counseling Type',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Text(
-                    'Child Psychologist',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
+                // ListTile(
+                //   title: Text(
+                //     'Counseling Type',
+                //     style: TextStyle(
+                //       color: Colors.green,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                //   subtitle: Text(
+                //     'Child Psychologist',
+                //     style: TextStyle(
+                //       fontSize: 18,
+                //     ),
+                //   ),tr
+                // ),
+                Padding(
+                    padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                    child: Container(
+                        child: TextFormField(
+                      scrollPadding: new EdgeInsets.all(0.0),
+                      controller: _reviewController,
+                      maxLines: 2,
+                      decoration: InputDecoration(
+                          hintText: "Add A Review",
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.send),
+                            color: Colors.green,
+                            onPressed: () {
+                              litems.add(_reviewController.text);
+                              _reviewController.clear();
+                              setState(() {});
+                              showDialog(
+                                //User friendly error message when the screen has been displayed
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text(
+                                    "Rating and review saved!",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 28),
+                                  ),
+                                  content: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: ListBody(
+                                      mainAxis: Axis.vertical,
+                                      children: <Widget>[
+                                        Icon(Icons.check,
+                                            color: Colors.green[300], size: 50),
+                                        // Text(
+                                        //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                barrierDismissible: true,
+                              );
+                            },
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green),
+                          )),
+                    ))),
                 Divider(),
                 ListTile(
                   title: Text(
@@ -202,17 +253,31 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text(
-                    'sex bomb',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
                 ),
+                ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: litems.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                          onTap: () {
+                            print("Card Clicked");
+                          },
+                          child: new Card(
+                            child: ListTile(
+                              leading: Icon(Icons.account_circle_rounded),
+                              title: Text('Uzair Mustafa'),
+                              subtitle: Text(litems[index]),
+
+                              // trailing: Icon(Icons.account_circle_rounded),
+                              isThreeLine: false,
+                            ),
+                          ));
+                    })
               ],
             ),
           ),
-          SizedBox(height: 30),
+          // SizedBox(height: 30),
           // Row(
           //   children: <Widget>[
           //     SizedBox(width: 60),
