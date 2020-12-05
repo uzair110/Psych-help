@@ -89,3 +89,17 @@ class PsyData {
         counsellType = data['Counselling_Type'],
         city = data['City'];
 }
+
+class SearchData {
+  //String result;
+  int count;
+  String seacrhHis;
+
+  SearchData({this.count, this.seacrhHis});
+
+  SearchData.fromData(Map<String, dynamic> data)
+      :
+        //result = data['result'],
+        count = data['PID'],
+        seacrhHis = data['First _Name'];
+}

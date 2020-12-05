@@ -122,7 +122,7 @@ class _ModHomePageState extends State<ModHomePage> {
                   hoverColor: Colors.red,
                   splashColor: Colors.blueAccent,
                   onTap: () async {
-                    var fetchedData = await AppServices.psychList();
+                    var fetchedData = await AppServices.psychSearchHistory();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ModPsychList()),
@@ -153,7 +153,7 @@ class UserPsychList extends StatefulWidget {
   _UserPsychList createState() => _UserPsychList();
 }
 
-enum SingingChrUsrPsyLst { oncall, onsite }
+// enum SingingChrUsrPsyLst { oncall, onsite }
 
 class _UserPsychList extends State<UserPsychList> {
   _UserPsychList({this.psyListUsr});
@@ -199,12 +199,14 @@ class _UserPsychList extends State<UserPsychList> {
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.search),
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       searchQuery = searchText.text;
                       this.isSearching = !this.isSearching;
                     });
-                    AppServices.addSearch(searchQuery);
+                    if (searchQuery.isNotEmpty) {
+                      await AppServices.addSearch(searchQuery);
+                    }
                   })
             ],
           ),
@@ -250,8 +252,9 @@ class _UserPsychList extends State<UserPsychList> {
               ],
             ),
           ),
-          resizeToAvoidBottomPadding: false,
+          // resizeToAvoidBottomPadding: false,
           body: UsrPsychList(),
+          //body: this.isSearching ? UsrPsychList() : UsrPsychSearch(),
         ));
   }
 }
