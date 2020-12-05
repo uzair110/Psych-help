@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:http/http.dart' as http;
 import 'package:psych_help/Mapper.dart';
 import 'dart:convert';
@@ -135,23 +137,23 @@ class AppServices {
     }
   }
 
-  // This function validates username field while logging an issue on behalf of employee
-  static Future<String> valEmployeeId(String un) async {
-    try {
-      var map = Map<String, dynamic>();
-      map['action'] = 'VALIDATE_EMP_ID';
-      map['Employee_ID'] = un;
-      final response = await http.post(ROOT, body: map);
-      print('valEmployeeId Response: ${response.body}');
-      if (200 == response.statusCode) {
-        return response.body;
-      } else {
-        return "error1";
-      }
-    } catch (e) {
-      return "Failure";
-    }
-  }
+  // // This function validates username field while logging an issue on behalf of employee
+  // static Future<String> valEmployeeId(String un) async {
+  //   try {
+  //     var map = Map<String, dynamic>();
+  //     map['action'] = 'VALIDATE_EMP_ID';
+  //     map['Employee_ID'] = un;
+  //     final response = await http.post(ROOT, body: map);
+  //     print('valEmployeeId Response: ${response.body}');
+  //     if (200 == response.statusCode) {
+  //       return response.body;
+  //     } else {
+  //       return "error1";
+  //     }
+  //   } catch (e) {
+  //     return "Failure";
+  //   }
+  // }
 
   static Future<String> signup(String username, String password) async {
     try {
@@ -339,6 +341,28 @@ class AppServices {
     } catch (e) {
       print(e);
       return "Failure";
+    }
+  }
+
+  static Future<Void> addSearch(
+    String searchQuery,
+  ) async {
+    try {
+      var map1 = Map<String, dynamic>();
+
+      map1['action'] = 'EDIT_PROFILE';
+      map1['searchQuery'] = searchQuery;
+
+      final response = await http.post(ROOT, body: map1);
+      if (200 == response.statusCode) {
+        print("Success");
+      } else {
+        print("DB Failure");
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
     }
   }
 }

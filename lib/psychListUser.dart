@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
+import 'package:psych_help/psychProfileUsr.dart';
 
 class UsrPsychList extends StatefulWidget {
   @override
@@ -24,13 +25,10 @@ class _UsrPsychList extends State<UsrPsychList> {
                 child: ListTile(
               onTap: () {
                 debugPrint('${psychs[index].email} is pressed!');
-                // var route = new MaterialPageRoute(
-                //   builder: (BuildContext context) => new TopRatedItems(
-                //     value: '${vendors[index].name}',
-                //     image: '${vendors[index].logo}',
-                //   ),
-                // );
-                // Navigator.of(context).push(route);
+                var route = new MaterialPageRoute(
+                  builder: (BuildContext context) => new PsyProfileUsr(),
+                );
+                Navigator.of(context).push(route);
               },
               title:
                   Text(psychs[index].firstName + " " + psychs[index].lastName),

@@ -204,6 +204,7 @@ class _UserPsychList extends State<UserPsychList> {
                       searchQuery = searchText.text;
                       this.isSearching = !this.isSearching;
                     });
+                    AppServices.addSearch(searchQuery);
                   })
             ],
           ),

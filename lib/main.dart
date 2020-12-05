@@ -3,14 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/psyprofile.dart';
-import 'package:psych_help/psyprofileuser.dart';
+import 'package:psych_help/profileuser.dart';
 import 'package:psych_help/services.dart';
 //import 'dart:async';
 import 'package:psych_help/signup.dart';
 import 'package:psych_help/home.dart';
+import 'package:psych_help/Loading.dart';
 import 'package:psych_help/globals.dart' as userFile;
 import 'psyprofile.dart';
-import 'psyprofileuser.dart';
+import 'profileuser.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,10 +25,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: <String, WidgetBuilder>{
-        '/psyprofile': (BuildContext context) => new PsyProfile(),
-        '/psyprofileuser': (BuildContext context) => new PsyProfileUser()
-      },
+      // routes: <String, WidgetBuilder>{
+      //   '/psyprofile': (BuildContext context) => new PsyProfile(),
+      //   '/psyprofileuser': (BuildContext context) => new PsyProfileUser()
+      // },
       home: LoginPage(),
     );
   }
@@ -47,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController username = new TextEditingController();
   TextEditingController pwd = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
   Type rsp;
   String result;
 
@@ -139,11 +141,19 @@ class _LoginPageState extends State<LoginPage> {
                   hoverColor: Colors.red,
                   splashColor: Colors.blueAccent,
                   onTap: () async {
+                    setState(() {
+                      _isLoading = !_isLoading;
+                    });
+
                     userFile.usrID = await AppServices.signInPromise(
                         username.text, pwd.text);
 
                     result = userFile.usrID.result;
                     if (result == "Auth Failure") {
+                      setState(() {
+                        _isLoading = !_isLoading;
+                      });
+                      print("KKK");
                       showDialog(
                         //User friendly error message when the screen has been displayed
                         context: context,
@@ -160,8 +170,6 @@ class _LoginPageState extends State<LoginPage> {
                               children: <Widget>[
                                 Icon(Icons.clear,
                                     color: Colors.red[300], size: 50),
-                                // Text(
-                                //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
                               ],
                             ),
                           ),
@@ -169,6 +177,9 @@ class _LoginPageState extends State<LoginPage> {
                         barrierDismissible: true,
                       );
                     } else if (result == "Conn Failure") {
+                      setState(() {
+                        _isLoading = !_isLoading;
+                      });
                       showDialog(
                         //User friendly error message when the screen has been displayed
                         context: context,
@@ -192,22 +203,58 @@ class _LoginPageState extends State<LoginPage> {
                         barrierDismissible: true,
                       );
                     } else {
+                      print(result + "K");
                       print(userFile.usrID.userType);
                       print(userFile.usrID.userType == "User");
                       if (userFile.usrID.userType == "User") {
                         userFile.usrData = await AppServices.userDatPromise(
                             userFile.usrID.aid);
-                        List<PsyData> iniList = await AppServices.psychList();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserPsychList(
-                                    lists: iniList,
-                                  )),
-                        );
+                        if (userFile.usrData.blacklist == "True") {
+                          setState(() {
+                            _isLoading = !_isLoading;
+                          });
+                          showDialog(
+                            //User friendly error message when the screen has been displayed
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text(
+                                "This User is Banned",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 28),
+                              ),
+                              content: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: ListBody(
+                                  mainAxis: Axis.vertical,
+                                  children: <Widget>[
+                                    Icon(Icons.block,
+                                        color: Colors.red[300], size: 50),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            barrierDismissible: true,
+                          );
+                        } else if (userFile.usrData.blacklist == "False") {
+                          List<PsyData> iniList = [];
+                          //await AppServices.psychList();
+                          setState(() {
+                            _isLoading = !_isLoading;
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserPsychList(
+                                      lists: iniList,
+                                    )),
+                          );
+                        }
                       } else if (userFile.usrID.userType == "Moderator") {
                         userFile.modData =
                             await AppServices.modDatPromise(userFile.usrID.aid);
+                        setState(() {
+                          _isLoading = false;
+                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -248,18 +295,18 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline)))
               ]),
+          _isLoading ? LoadingScreen() : EmptyScreen(),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () async {
-      //     List<PsyData> res =
-      //         await AppServices.searchPromise("trump", "newark");
-      //     print(res[0].firstName);
-      //     print(res.toString());
-      //   },
-      //   child: Icon(Icons.navigation),
-      //   backgroundColor: Colors.green,
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          setState(() {
+            _isLoading = !_isLoading;
+          });
+        },
+        child: Icon(Icons.navigation),
+        backgroundColor: Colors.green,
+      ),
     );
   }
 }
