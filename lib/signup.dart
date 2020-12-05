@@ -188,6 +188,7 @@ class _SignUpState extends State<SignUp> {
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
+                  obscureText: true,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
@@ -219,7 +220,9 @@ class _SignUpState extends State<SignUp> {
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
+                  obscureText: true,
                   decoration: InputDecoration(
+                    
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
                         borderSide: const BorderSide(
