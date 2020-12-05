@@ -6,9 +6,10 @@ import 'package:psych_help/services.dart';
 void firstSignUp() => runApp(SignUp());
 
 String tempEmail = "";
-String tempUsername = "";
+String tempfname = "";
 String tempPass1 = "";
 String tempPass2 = "";
+String templname = "";
 
 class SignUp extends StatefulWidget {
   @override
@@ -20,14 +21,15 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final emailcontroller = TextEditingController();
+  final fnamecontroller = TextEditingController();
+  final lnamecontroller = TextEditingController();
   final pass1controller = TextEditingController();
   final pass2controller = TextEditingController();
   final usernamecontroller = TextEditingController();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    emailcontroller.dispose();
+    fnamecontroller.dispose();
     pass1controller.dispose();
     pass2controller.dispose();
     usernamecontroller.dispose();
@@ -45,8 +47,10 @@ class _SignUpState extends State<SignUp> {
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildSignUpText(),
-          // SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
-          // _EmailAddress(),
+          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+          firstName(),
+          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+          lastName(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
           usernameContainer(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
@@ -76,36 +80,67 @@ class _SignUpState extends State<SignUp> {
   }
 
   //Text field input for SignUp
-  // Container _EmailAddress() {
-  //   return Container(
-  //       child: Center(
-  //           child: Container(
-  //               width: 230,
-  //               child: TextField(
-  //                 controller: emailcontroller,
-  //                 onChanged: (String text1) {
-  //                   temp_email = text1;
-  //                 },
-  //                 style: TextStyle(
-  //                   fontWeight: FontWeight.bold,
-  //                   color: Color(0xFF66CCCC),
-  //                   fontSize: 20,
-  //                 ),
-  //                 textAlign: TextAlign.center,
-  //                 decoration: InputDecoration(
-  //                   border: InputBorder.none,
-  //                   enabledBorder: UnderlineInputBorder(
-  //                       borderSide: const BorderSide(
-  //                           color: Color(0xFF66CCCC), width: 3.0)),
-  //                   hintText: "Email address",
-  //                   hintStyle: TextStyle(
-  //                     fontWeight: FontWeight.bold,
-  //                     color: Color(0xFF66CCCC),
-  //                     fontSize: 20,
-  //                   ),
-  //                 ),
-  //               ))));
-  // }
+  Container firstName() {
+    return Container(
+        child: Center(
+            child: Container(
+                width: 230,
+                child: TextField(
+                  controller: fnamecontroller,
+                  onChanged: (String text1) {
+                    tempEmail = text1;
+                  },
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF66CCCC),
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color(0xFF66CCCC), width: 3.0)),
+                    hintText: "First Name",
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF66CCCC),
+                      fontSize: 20,
+                    ),
+                  ),
+                ))));
+  }
+
+  Container lastName() {
+    return Container(
+        child: Center(
+            child: Container(
+                width: 230,
+                child: TextField(
+                  controller: lnamecontroller,
+                  onChanged: (String text6) {
+                    templname = text6;
+                  },
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF66CCCC),
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color(0xFF66CCCC), width: 3.0)),
+                    hintText: "Last Name",
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF66CCCC),
+                      fontSize: 20,
+                    ),
+                  ),
+                ))));
+  }
   Container usernameContainer() {
     return Container(
         child: Center(
@@ -114,7 +149,7 @@ class _SignUpState extends State<SignUp> {
                 child: TextField(
                   controller: usernamecontroller,
                   onChanged: (String text4) {
-                    tempUsername = text4;
+                    tempfname = text4;
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
