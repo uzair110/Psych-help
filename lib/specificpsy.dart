@@ -118,17 +118,13 @@ class _SpecificPsy extends State<SpecificPsy> {
                   height: 300,
                   child: Card(
                     child: ListTile(
-                      title: Text('Uzair Mustafa'),
-                      trailing: InkWell(
-                        hoverColor: Colors.red,
-                        splashColor: Colors.blueAccent,
-                        child: Text('delete',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.grey,
-                            )),
-                      ),
-                    ),
+                        title: Text('Uzair Mustafa'),
+                        trailing: IconButton(
+                            icon: Icon(
+                              Icons.delete_outline,
+                              size: 30.0,
+                            ),
+                            onPressed: () {})),
                   ),
                 ),
               ],
