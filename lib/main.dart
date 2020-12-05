@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
       
       
       
-      //home: LoginPage(), //UNCOMMENT THIS TO FIX PROBLEM
-      home: PsyProfileUsr(),
+      home: LoginPage(), //UNCOMMENT THIS TO FIX PROBLEM
+      // home: PsyProfileUsr(),
     );
   }
 }
