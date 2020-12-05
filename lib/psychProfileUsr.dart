@@ -175,23 +175,23 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                         onRatingUpdate: (rating) {
                           print(rating);
                         })),
-                Divider(),
-                ListTile(
-                  title: Text(
-                    'Counseling Type',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Text(
-                    'Child Psychologist',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
+                // Divider(),
+                // ListTile(
+                //   title: Text(
+                //     'Counseling Type',
+                //     style: TextStyle(
+                //       color: Colors.green,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                //   subtitle: Text(
+                //     'Child Psychologist',
+                //     style: TextStyle(
+                //       fontSize: 18,
+                //     ),
+                //   ),
+                // ),
                 Divider(),
                 ListTile(
                   title: Text(
