@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
       //   '/psyprofile': (BuildContext context) => new PsyProfile(),
       //   '/psyprofileuser': (BuildContext context) => new PsyProfileUser()
       // },
-      home: PsyProfileUsr(),
+      home: LoginPage(),
+      // home: PsyProfileUsr(),
     );
   }
 }
