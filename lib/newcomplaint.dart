@@ -11,11 +11,13 @@ class newcomplaint extends StatefulWidget {
 }
 
 class _newcomplaint extends State<newcomplaint> {
+    String tempcomplaint;
+   final complaintcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar:
-          AppBar(title: Text('Psych Search'), backgroundColor: Colors.green),
+          AppBar(title: Text('New Complaint'), backgroundColor: Colors.green),
       drawer: Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
@@ -78,14 +80,14 @@ class _newcomplaint extends State<newcomplaint> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.green.shade300,
-                      minRadius: 35.0,
-                      child: Icon(
-                        Icons.call,
-                        size: 30.0,
-                      ),
-                    ),
+                    // CircleAvatar(
+                    //   backgroundColor: Colors.green.shade300,
+                    //   minRadius: 35.0,
+                    //   child: Icon(
+                    //     Icons.call,
+                    //     size: 30.0,
+                    //   ),
+                    // ),
                     CircleAvatar(
                       backgroundColor: Colors.white70,
                       minRadius: 60.0,
@@ -95,19 +97,19 @@ class _newcomplaint extends State<newcomplaint> {
                             'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
                       ),
                     ),
-                    CircleAvatar(
-                      backgroundColor: Colors.green.shade500,
-                      minRadius: 35.0,
-                      child: IconButton (
-                      icon: Icon(
-                        Icons.message,
-                        size: 30.0,
-                      ),
-                      onPressed: () {
+                    // CircleAvatar(
+                    //   backgroundColor: Colors.green.shade500,
+                    //   minRadius: 35.0,
+                    //   child: IconButton (
+                    //   icon: Icon(
+                    //     Icons.message,
+                    //     size: 30.0,
+                    //   ),
+                    //   onPressed: () {
                         
-                      },
-                      ),
-                    ),
+                    //   },
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(
@@ -134,52 +136,52 @@ class _newcomplaint extends State<newcomplaint> {
           Container(
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: Container(
-                    color: Colors.green.shade300,
-                    child: ListTile(
-                      title: Text(
-                        '5',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Average Rating',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Expanded(
+                //   child: Container(
+                //     color: Colors.green.shade300,
+                //     child: ListTile(
+                //       title: Text(
+                //         '5',
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontWeight: FontWeight.bold,
+                //           fontSize: 30,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //       subtitle: Text(
+                //         'Average Rating',
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontSize: 20,
+                //           color: Colors.white70,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
           Container(
             child: Column(
               children: <Widget>[
-                Container(
-                    padding: new EdgeInsets.all(20.0),
-                    child: RatingBar.builder(
-                        initialRating: 3,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                        itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Colors.green,
-                            ),
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        })),
+                // Container(
+                //     padding: new EdgeInsets.all(20.0),
+                //     child: RatingBar.builder(
+                //         initialRating: 3,
+                //         minRating: 1,
+                //         direction: Axis.horizontal,
+                //         allowHalfRating: true,
+                //         itemCount: 5,
+                //         itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                //         itemBuilder: (context, _) => Icon(
+                //               Icons.star,
+                //               color: Colors.green,
+                //             ),
+                //         onRatingUpdate: (rating) {
+                //           print(rating);
+                //         })),
                 // Divider(),
                 // ListTile(
                 //   title: Text(
@@ -200,24 +202,47 @@ class _newcomplaint extends State<newcomplaint> {
                 Divider(),
                 ListTile(
                   title: Text(
-                    'Reviews',
+                    'Please enter your complaint: ',
                     style: TextStyle(
                       color: Colors.green,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text(
-                    'sex bomb',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
+                  // subtitle: Text(
+                  //   'sex bomb',
+                  //   style: TextStyle(
+                  //     fontSize: 18,
+                  //   ),
+                  // ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 30),
+          TextFormField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(10.0),
+            ),
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            controller: complaintcontroller,
+            onChanged: (String text1) {
+                    tempcomplaint = text1;
+                  },
+            
+          ),
+          const SizedBox(height: 10),
+          RaisedButton(
+            color: Colors.green,
+            onPressed: () {},
+            textColor: Colors.white,
+            
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              child:
+                const Text('Submit Complaint', style: TextStyle(fontSize: 20)),
+              ),   
+          ),       
           // Row(
           //   children: <Widget>[
           //     SizedBox(width: 60),
