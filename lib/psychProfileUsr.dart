@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-// import 'package:psych_help/addpsych.dart';
+import 'package:psych_help/newcomplaint.dart';
+import 'package:psych_help/newcomplaint.dart';
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
@@ -98,9 +99,17 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                     CircleAvatar(
                       backgroundColor: Colors.green.shade500,
                       minRadius: 35.0,
-                      child: Icon(
+                      child: IconButton (
+                      icon: Icon(
                         Icons.message,
                         size: 30.0,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => newcomplaint()),
+                        );
+                      },
                       ),
                     ),
                   ],
