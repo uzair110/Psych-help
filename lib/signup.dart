@@ -10,6 +10,7 @@ String tempfname = "";
 String tempPass1 = "";
 String tempPass2 = "";
 String templname = "";
+String tempcity = "";
 
 class SignUp extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final fnamecontroller = TextEditingController();
   final lnamecontroller = TextEditingController();
+  final citycontroller = TextEditingController();
   final pass1controller = TextEditingController();
   final pass2controller = TextEditingController();
   final usernamecontroller = TextEditingController();
@@ -33,6 +35,8 @@ class _SignUpState extends State<SignUp> {
     pass1controller.dispose();
     pass2controller.dispose();
     usernamecontroller.dispose();
+    lnamecontroller.dispose();
+    citycontroller.dispose();
 
     super.dispose();
   }
@@ -52,6 +56,8 @@ class _SignUpState extends State<SignUp> {
           SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
           lastName(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+          city(),
+          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
           usernameContainer(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
           containerPassword1(),
@@ -59,6 +65,7 @@ class _SignUpState extends State<SignUp> {
           containerPassword2(),
           SizedBox(height: SizeConfig.safeBlockHorizontal * 12),
           _confirmbutton(),
+          SizedBox(height: SizeConfig.safeBlockHorizontal * 50),
         ],
       ))),
     );
@@ -92,7 +99,7 @@ class _SignUpState extends State<SignUp> {
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF66CCCC),
+                    color: Colors.green,
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
@@ -100,11 +107,11 @@ class _SignUpState extends State<SignUp> {
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
                         borderSide: const BorderSide(
-                            color: Color(0xFF66CCCC), width: 3.0)),
+                            color: Colors.green, width: 3.0)),
                     hintText: "First Name",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF66CCCC),
+                      color: Colors.green,
                       fontSize: 20,
                     ),
                   ),
@@ -123,7 +130,7 @@ class _SignUpState extends State<SignUp> {
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF66CCCC),
+                    color: Colors.green,
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
@@ -131,11 +138,41 @@ class _SignUpState extends State<SignUp> {
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
                         borderSide: const BorderSide(
-                            color: Color(0xFF66CCCC), width: 3.0)),
+                            color: Colors.green, width: 3.0)),
                     hintText: "Last Name",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF66CCCC),
+                      color: Colors.green,
+                      fontSize: 20,
+                    ),
+                  ),
+                ))));
+  }
+  Container city() {
+    return Container(
+        child: Center(
+            child: Container(
+                width: 230,
+                child: TextField(
+                  controller: citycontroller,
+                  onChanged: (String text7) {
+                    tempcity = text7;
+                  },
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Colors.green, width: 3.0)),
+                    hintText: "City",
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
                       fontSize: 20,
                     ),
                   ),
@@ -153,7 +190,7 @@ class _SignUpState extends State<SignUp> {
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF66CCCC),
+                    color: Colors.green,
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
@@ -161,11 +198,11 @@ class _SignUpState extends State<SignUp> {
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
                         borderSide: const BorderSide(
-                            color: Color(0xFF66CCCC), width: 3.0)),
+                            color: Colors.green, width: 3.0)),
                     hintText: "New Username",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF66CCCC),
+                      color: Colors.green,
                       fontSize: 20,
                     ),
                   ),
@@ -184,7 +221,7 @@ class _SignUpState extends State<SignUp> {
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF66CCCC),
+                    color: Colors.green,
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
@@ -193,11 +230,11 @@ class _SignUpState extends State<SignUp> {
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
                         borderSide: const BorderSide(
-                            color: Color(0xFF66CCCC), width: 3.0)),
+                            color: Colors.green, width: 3.0)),
                     hintText: "Enter Password",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF66CCCC),
+                      color: Colors.green,
                       fontSize: 20,
                     ),
                   ),
@@ -216,7 +253,7 @@ class _SignUpState extends State<SignUp> {
                   },
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF66CCCC),
+                    color: Colors.green,
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,
@@ -226,11 +263,11 @@ class _SignUpState extends State<SignUp> {
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
                         borderSide: const BorderSide(
-                            color: Color(0xFF66CCCC), width: 3.0)),
+                            color: Colors.green, width: 3.0)),
                     hintText: "Re-enter Password",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF66CCCC),
+                      color: Colors.green,
                       fontSize: 20,
                     ),
                   ),
@@ -241,13 +278,13 @@ class _SignUpState extends State<SignUp> {
   Container _confirmbutton() {
     return Container(
       child: Center(
-          child: FlatButton(
+          child: InkWell(
               child: Text("Confirm",
                   style: TextStyle(
-                      color: Color(0xffCC0066),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
-              onPressed: () async {
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      )),
+              onTap: () async {
                 if (pass2controller.text != pass1controller.text) {
                   showDialog(
                     //User friendly error message when the screen has been displayed
