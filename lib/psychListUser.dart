@@ -18,7 +18,7 @@ class _UsrPsychList extends State<UsrPsychList> {
     } else {
       return ListView.builder(
           shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           itemCount: psychs.length,
           itemBuilder: (context, index) {
             return Card(
@@ -52,26 +52,30 @@ class _UsrPsychSearch extends State<UsrPsychSearch> {
     if (psychs == null) {
       return LoadingScreen();
     } else {
-      return ListView.builder(
-          shrinkWrap: true,
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: psychs.length,
-          itemBuilder: (context, index) {
-            return Card(
-                child: ListTile(
-              onTap: () {
-                debugPrint('${psychs[index].email} is pressed!');
-                var route = new MaterialPageRoute(
-                  builder: (BuildContext context) => new PsyProfileUsr(),
-                );
-                Navigator.of(context).push(route);
-              },
-              title:
-                  Text(psychs[index].firstName + " " + psychs[index].lastName),
-              leading: Icon(Icons.account_circle),
-              trailing: Text(psychs[index].city),
-            ));
-          });
+      return SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child: ListView.builder(
+            // primary: false,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: psychs.length,
+            itemBuilder: (context, index) {
+              return Card(
+                  child: ListTile(
+                onTap: () {
+                  debugPrint('${psychs[index].email} is pressed!');
+                  var route = new MaterialPageRoute(
+                    builder: (BuildContext context) => new PsyProfileUsr(),
+                  );
+                  Navigator.of(context).push(route);
+                },
+                title: Text(
+                    psychs[index].firstName + " " + psychs[index].lastName),
+                leading: Icon(Icons.account_circle),
+                trailing: Text(psychs[index].city),
+              ));
+            }),
+      );
     }
   }
 }
