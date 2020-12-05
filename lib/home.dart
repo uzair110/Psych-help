@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/addpsych.dart';
 import 'package:psych_help/globals.dart' as userFile;
+import 'package:psych_help/myrating.dart';
 import 'package:psych_help/services.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/psychListUser.dart';
 import 'package:psych_help/psychListMod.dart';
+import 'package:psych_help/signup.dart';
 
 class ModHomePage extends StatefulWidget {
   @override
@@ -45,6 +47,17 @@ class _ModHomePageState extends State<ModHomePage> {
             ListTile(
               title: Text('View User Complaints'),
               onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text('My Ratings'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyRating()),
+                );
                 // Update the state of the app.
                 // ...
               },
@@ -224,6 +237,17 @@ class _UserPsychList extends State<UserPsychList> {
                 ListTile(
                   title: Text('View User Complaints'),
                   onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: Text('View my ratings'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyRating()),
+                    );
                     // Update the state of the app.
                     // ...
                   },

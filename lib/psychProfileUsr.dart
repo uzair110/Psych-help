@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-// import 'package:psych_help/addpsych.dart';
+import 'package:psych_help/newcomplaint.dart';
+import 'package:psych_help/newcomplaint.dart';
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
@@ -67,7 +68,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
       body: ListView(
         children: <Widget>[
           Container(
-            height: 150,
+            height: 250,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.green, Colors.green.shade300],
@@ -80,36 +81,45 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //   children: <Widget>[
-                //     CircleAvatar(
-                //       backgroundColor: Colors.green.shade300,
-                //       minRadius: 35.0,
-                //       child: Icon(
-                //         Icons.call,
-                //         size: 30.0,
-                //       ),
-                //     ),
-                //     CircleAvatar(
-                //       backgroundColor: Colors.white70,
-                //       minRadius: 60.0,
-                //       child: CircleAvatar(
-                //         radius: 50.0,
-                //         backgroundImage: NetworkImage(
-                //             'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
-                //       ),
-                //     ),
-                //     CircleAvatar(
-                //       backgroundColor: Colors.green.shade500,
-                //       minRadius: 35.0,
-                //       child: Icon(
-                //         Icons.message,
-                //         size: 30.0,
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundColor: Colors.green.shade300,
+                      minRadius: 35.0,
+                      child: Icon(
+                        Icons.call,
+                        size: 30.0,
+                      ),
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.white70,
+                      minRadius: 60.0,
+                      child: CircleAvatar(
+                        radius: 50.0,
+                        backgroundImage: NetworkImage(
+                            'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
+                      ),
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.green.shade500,
+                      minRadius: 35.0,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.message,
+                          size: 30.0,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => newcomplaint()),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -243,6 +253,8 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                             borderSide: BorderSide(color: Colors.green),
                           )),
                     ))),
+                //   ),
+                // ),
                 Divider(),
                 ListTile(
                   title: Text(
