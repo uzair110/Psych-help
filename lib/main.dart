@@ -185,8 +185,6 @@ class _LoginPageState extends State<LoginPage> {
                               children: <Widget>[
                                 Icon(Icons.clear,
                                     color: Colors.red[300], size: 50),
-                                // Text(
-                                //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
                               ],
                             ),
                           ),
@@ -197,13 +195,19 @@ class _LoginPageState extends State<LoginPage> {
                       print(userFile.usrID.userType);
                       print(userFile.usrID.userType == "User");
                       if (userFile.usrID.userType == "User") {
+                        userFile.usrData = await AppServices.userDatPromise(
+                            userFile.usrID.aid);
+                        List<PsyData> iniList = await AppServices.psychList();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  PsyProfileUser()), //change direction later
+                              builder: (context) => UserPsychList(
+                                    lists: iniList,
+                                  )),
                         );
                       } else if (userFile.usrID.userType == "Moderator") {
+                        userFile.modData =
+                            await AppServices.modDatPromise(userFile.usrID.aid);
                         Navigator.push(
                           context,
                           MaterialPageRoute(

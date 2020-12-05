@@ -51,7 +51,7 @@ class ModData {
         mid = data['mid'],
         firstName = data['firstName'],
         lastName = data['lastName'],
-        modLevel = data['modLevel'];
+        modLevel = int.parse(data['modLevel']);
 }
 
 class PsyData {

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/addpsych.dart';
-import 'package:psych_help/psychlist.dart';
-import 'package:psych_help/globals.dart';
+import 'package:psych_help/globals.dart' as userFile;
 import 'package:psych_help/services.dart';
+import 'package:provider/provider.dart';
+import 'package:psych_help/psychListUser.dart';
+import 'package:psych_help/psychListMod.dart';
 
 class ModHomePage extends StatefulWidget {
   @override
@@ -10,6 +13,19 @@ class ModHomePage extends StatefulWidget {
 }
 
 class _ModHomePageState extends State<ModHomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getData();
+    });
+  }
+
+  void getData() async {
+    print(userFile.modData.firstName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -21,7 +37,7 @@ class _ModHomePageState extends State<ModHomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Username'),
+              child: Text(userFile.modData.firstName),
               decoration: BoxDecoration(
                 color: Colors.green,
               ),
@@ -109,7 +125,7 @@ class _ModHomePageState extends State<ModHomePage> {
                     var fetchedData = await AppServices.psychList();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PsychList()),
+                      MaterialPageRoute(builder: (context) => ModPsychList()),
                     );
                   },
                   child: Center(
@@ -127,5 +143,114 @@ class _ModHomePageState extends State<ModHomePage> {
         ],
       ),
     );
+  }
+}
+
+class UserPsychList extends StatefulWidget {
+  UserPsychList({Key key, this.lists}) : super(key: key);
+  final List<PsyData> lists;
+  @override
+  _UserPsychList createState() => _UserPsychList();
+}
+
+enum SingingChrUsrPsyLst { oncall, onsite }
+
+class _UserPsychList extends State<UserPsychList> {
+  _UserPsychList({this.psyListUsr});
+  final List<PsyData> psyListUsr;
+  bool isSearching = false;
+  String searchQuery = "";
+  //List<PsyData> psyListUsr;
+
+  //SingingCharacter _character = SingingCharacter.oncall;
+  TextEditingController searchText = new TextEditingController();
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getData();
+    });
+  }
+
+  void getData() async {
+    print(userFile.usrData.firstName);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamProvider<List<PsyData>>.value(
+        value: AppServices.searchPromise(searchQuery).asStream(),
+        child: Scaffold(
+          key: scaffoldKey,
+          appBar: AppBar(
+            title: !isSearching
+                ? Text('All Psychs')
+                : TextField(
+                    controller: searchText,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: "Search here...",
+                      hintStyle: TextStyle(color: Colors.white),
+                    ),
+                  ),
+            backgroundColor: Colors.green,
+            actions: <Widget>[
+              IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    setState(() {
+                      searchQuery = searchText.text;
+                      this.isSearching = !this.isSearching;
+                    });
+                  })
+            ],
+          ),
+          drawer: Drawer(
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                DrawerHeader(
+                  child: Text("userFile.usrData.firstName"),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                  ),
+                ),
+                ListTile(
+                  title: Text('View User Complaints'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: Text('Legal'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: Text('Help'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: Text('Logout'),
+                  onTap: () async {
+                    Navigator.popUntil(context,
+                        ModalRoute.withName(Navigator.defaultRouteName));
+                  },
+                ),
+              ],
+            ),
+          ),
+          resizeToAvoidBottomPadding: false,
+          body: UsrPsychList(),
+        ));
   }
 }

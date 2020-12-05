@@ -4,27 +4,28 @@ import 'dart:convert';
 
 class AppServices {
   static const ROOT = 'http://psychsearch12.000webhostapp.com';
-  // This function validates username and password at login screen
-  static Future<String> valEmployee(String un, String pw) async {
-    try {
-      var map = Map<String, dynamic>();
-      map['action'] = 'VALIDATE_EMP';
-      map['Username'] = un;
-      map['Password'] = pw;
-      print(map);
-      final response = await http.post(ROOT, body: map);
-      print('valEmployee Response: ${response.body}');
-      print(response.statusCode);
-      if (200 == response.statusCode) {
-        return response.body;
-      } else {
-        return "error1";
-      }
-    } catch (e) {
-      print(e);
-      return "Failure";
-    }
-  }
+
+  // // This function validates username and password at login screen
+  // static Future<String> valEmployee(String un, String pw) async {
+  //   try {
+  //     var map = Map<String, dynamic>();
+  //     map['action'] = 'VALIDATE_EMP';
+  //     map['Username'] = un;
+  //     map['Password'] = pw;
+  //     print(map);
+  //     final response = await http.post(ROOT, body: map);
+  //     print('valEmployee Response: ${response.body}');
+  //     print(response.statusCode);
+  //     if (200 == response.statusCode) {
+  //       return response.body;
+  //     } else {
+  //       return "error1";
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     return "Failure";
+  //   }
+  // }
 
 //Sign-In Function which validates username and password from the Database and also fetches user type for redirecting user to the appropriate screen
   static Future<UserIds> signInPromise(String un, String pw) async {
@@ -51,12 +52,12 @@ class AppServices {
   }
 
 //
-  static Future<List<PsyData>> searchPromise(String name, String city) async {
+  static Future<List<PsyData>> searchPromise(String searchName) async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = 'PSYCH_SEARCH';
-      map['name'] = name;
-      map['City'] = city;
+      map['searchName'] = searchName;
+      //map['City'] = city;
       final response = await http.post(ROOT, body: map);
       if (response.body == "List is Empty") {
         return [];
@@ -119,13 +120,12 @@ class AppServices {
       map['action'] = 'MOD_DAT';
       map['aid'] = aid;
       final response = await http.post(ROOT, body: map);
-      print('sign in Response: ${response.body}');
-      print(response.statusCode);
       if (200 == response.statusCode) {
         ModData promiseResult = ModData.fromData(jsonDecode(response.body));
         return promiseResult;
       } else {
         ModData errResult = ModData(result: "Conn Failure");
+        print(response.statusCode);
         return errResult;
       }
     } catch (e) {
@@ -228,6 +228,7 @@ class AppServices {
       if (response.body == "List is Empty") {
         return [];
       } else {
+        print('valEmployeeId Response: ${response.body}');
         if (200 == response.statusCode) {
           var decodedJsonList = jsonDecode(response.body);
           List<PsyData> promiseResult =
