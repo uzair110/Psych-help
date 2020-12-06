@@ -155,20 +155,24 @@ class AppServices {
   //   }
   // }
 
-  static Future<String> signup(String username, String password) async {
+  static Future<String> signup(String fname, String lname, String username,
+      String password, String city) async {
     try {
       var map = Map<String, dynamic>();
       var map1 = Map<String, dynamic>();
       map['action'] = 'SIGN_UP';
       map['Username'] = username;
       map['Password'] = password;
+      map['First_Name'] = fname;
+      map['Last_Name'] = lname;
       map['User_type'] = 'User';
+      map['City'] = city;
 
       map1['action'] = 'Add_User';
-      map1['First_Name'] = username;
-      map1['Last_Name'] = 'No Last Name Selected';
+      map1['First_Name'] = fname;
+      map1['Last_Name'] = lname;
       map1['Blacklist'] = 'false';
-      map1['City'] = 'No City Selected';
+      map1['City'] = city;
       //var aid = '';
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {

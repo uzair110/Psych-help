@@ -44,6 +44,7 @@ Map<String, Widget Function(BuildContext)> route0 = <String, WidgetBuilder>{
 };
 
 class LoginPage extends StatefulWidget {
+//  /
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -55,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
   Type rsp;
   String result;
+  String name;
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                         username.text, pwd.text);
 
                     result = userFile.usrID.result;
+                    name = userFile.usrID.username;
                     if (result == "Auth Failure") {
                       setState(() {
                         _isLoading = !_isLoading;
@@ -249,6 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                             MaterialPageRoute(
                                 builder: (context) => UserPsychList(
                                       lists: iniList,
+                                      // name: name,
                                     )),
                           );
                         }
