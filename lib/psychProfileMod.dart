@@ -8,6 +8,10 @@ import 'package:psych_help/newcomplaint.dart';
 
 class PsyProfileMod extends StatefulWidget {
   @override
+  final String firstName, lastName, pid, city;
+
+  @override
+  PsyProfileMod({this.firstName, this.lastName, this.pid, this.city});
   _PsyProfileMod createState() => _PsyProfileMod();
 }
 
