@@ -2,18 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:psych_help/Mapper.dart';
-import 'package:psych_help/psyprofile.dart';
-import 'package:psych_help/profileuser.dart';
 import 'package:psych_help/services.dart';
 //import 'dart:async';
-import 'package:psych_help/psychProfileUsr.dart';
 import 'package:psych_help/signup.dart';
 import 'package:psych_help/home.dart';
 import 'package:psych_help/Loading.dart';
 
 import 'package:psych_help/globals.dart' as userFile;
-import 'psyprofile.dart';
-import 'profileuser.dart';
 
 void main() {
   runApp(MyApp());
@@ -256,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                       } else if (userFile.usrID.userType == "Moderator") {
                         userFile.modData =
                             await AppServices.modDatPromise(userFile.usrID.aid);
-                        userFile.usrData.uid = userFile.modData.mid;
+                        userFile.usrData = UserData(uid: userFile.modData.mid);
                         setState(() {
                           _isLoading = false;
                         });

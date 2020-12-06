@@ -237,18 +237,7 @@ class AppServices {
           List<SearchData> promiseResult =
               List<SearchData>.from(decodedJsonList.map((val) {
             return SearchData.fromData(val);
-            // PsyData(
-            //   pid: int.parse(val['PID']) ?? -1,
-            //   firstName: val['First_Name'] ?? '',
-            //   lastName: val['Last_Name'] ?? '',
-            //   phoneNumber: int.parse(val['Phone_Number']) ?? 0,
-            //   email: val['email'] ?? '',
-            //   address: val['Address'] ?? '',
-            //   counsellType: val['Counselling_Type'] ?? '',
-            //   city: val['City'] ?? '',
-            // );
           }));
-          print("GG ${promiseResult.first.seacrhHis}");
           return promiseResult;
         } else {
           List<SearchData> errResult = []; //result: "Conn Failure"
@@ -258,6 +247,36 @@ class AppServices {
     } catch (e) {
       print(e);
       List<SearchData> errResult = []; //result: "Auth Failure"
+      return errResult;
+    }
+  }
+
+  static Future<List<ComplaintData>> psychComplaints() async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'PSYCH_COMPLAIN';
+
+      final response = await http.post(ROOT, body: map);
+
+      if (response.body == "List is Empty") {
+        return [];
+      } else {
+        print('Search Suggestion Response: ${response.body}');
+        if (200 == response.statusCode) {
+          var decodedJsonList = jsonDecode(response.body);
+          List<ComplaintData> promiseResult =
+              List<ComplaintData>.from(decodedJsonList.map((val) {
+            return ComplaintData.fromData(val);
+          }));
+          return promiseResult;
+        } else {
+          List<ComplaintData> errResult = []; //result: "Conn Failure"
+          return errResult;
+        }
+      }
+    } catch (e) {
+      print(e);
+      List<ComplaintData> errResult = []; //result: "Auth Failure"
       return errResult;
     }
   }

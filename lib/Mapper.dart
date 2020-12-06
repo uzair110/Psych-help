@@ -104,3 +104,16 @@ class SearchData {
         uid = data['UID'],
         sid = int.parse(data['SID']);
 }
+
+class ComplaintData {
+  String review;
+  String complain;
+  String type;
+
+  ComplaintData({this.review, this.complain, this.type});
+
+  ComplaintData.fromData(Map<String, dynamic> data)
+      : review = data['rev'],
+        complain = data['complain'],
+        type = data['cType'];
+}

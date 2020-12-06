@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:psych_help/newcomplaint.dart';
-import 'package:psych_help/newcomplaint.dart';
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
@@ -113,7 +112,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => newcomplaint()),
+                                builder: (context) => NewComplaint()),
                           );
                         },
                       ),
