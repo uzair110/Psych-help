@@ -286,7 +286,9 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                           children: <Widget>[
                             Icon(Icons.delete),
                             Text("Delete"),
-                            
+                            GestureDetector(
+                              // onTap: SEND DELETE QUERY AND UPDATE THE SCREEN
+                            )
                           ],
                         ),
                       )
