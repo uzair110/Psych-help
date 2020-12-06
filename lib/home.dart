@@ -8,7 +8,7 @@ import 'package:psych_help/services.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/psychListUser.dart';
 import 'package:psych_help/psychListMod.dart';
-import 'package:psych_help/signup.dart';
+import 'package:psych_help/complaintlist.dart';
 
 class ModHomePage extends StatefulWidget {
   @override
@@ -48,8 +48,11 @@ class _ModHomePageState extends State<ModHomePage> {
             ListTile(
               title: Text('View User Complaints'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                print("Here");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ModComplainList()),
+                );
               },
             ),
             ListTile(
@@ -59,8 +62,6 @@ class _ModHomePageState extends State<ModHomePage> {
                   context,
                   MaterialPageRoute(builder: (context) => MyRating()),
                 );
-                // Update the state of the app.
-                // ...
               },
             ),
             ListTile(
@@ -136,7 +137,7 @@ class _ModHomePageState extends State<ModHomePage> {
                   hoverColor: Colors.red,
                   splashColor: Colors.blueAccent,
                   onTap: () async {
-                    var fetchedData = await AppServices.psychSearchHistory();
+                    await AppServices.psychSearchHistory();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ModPsychList()),
@@ -307,8 +308,7 @@ class _UserPsychList extends State<UserPsychList> {
             ),
           ),
           // resizeToAvoidBottomPadding: false,
-          //body: UsrPsychList(),
-          body: this.isSearching ? UsrPsychList() : UsrPsychSearch(),
+          body: UsrPsychList(),
         ));
   }
 }
