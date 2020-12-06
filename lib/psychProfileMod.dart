@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:psych_help/editpsych.dart';
 import 'package:psych_help/globals.dart';
 import 'package:psych_help/services.dart';
+import 'package:psych_help/editpsych.dart';
 import 'package:psych_help/newcomplaint.dart';
 import 'package:psych_help/globals.dart' as userFile;
 // import 'package:psych_help/psychlist.dart';
@@ -440,7 +442,12 @@ class _PsyProfileMod extends State<PsyProfileMod> {
               SizedBox(width: 160),
               Container(
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditPsych()), // Ye daal dena iss ke andar {this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number}
+                    );
+                  },
                   child: Text('Edit Details',
                       style: TextStyle(
                           color: Colors.grey,
