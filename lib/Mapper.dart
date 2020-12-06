@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class UserIds {
   String username;
   String result;
@@ -145,6 +143,8 @@ class PsychRevData {
   int pid;
   double rating;
   String review;
+  int upvote;
+  int downvote;
   int ratID;
 
   PsychRevData(
@@ -153,13 +153,17 @@ class PsychRevData {
       this.pid,
       this.ratID,
       this.review,
+      this.upvote,
+      this.downvote,
       this.rating});
 
   PsychRevData.fromData(Map<String, dynamic> data)
-      : uid = data['Counter'],
-        firstName = data['Search_Name'],
-        pid = int.parse(data['UID']),
-        rating = double.parse(data['SID']),
-        review = data['UID'],
-        ratID = int.parse(data['']);
+      : uid = data['UID'],
+        firstName = data['First_Name'],
+        pid = int.parse(data['PID']),
+        rating = double.parse(data['Rating']),
+        review = data['review'],
+        upvote = int.parse(data['Upvote']),
+        downvote = int.parse(data['downvote']),
+        ratID = int.parse(data['Rating_ID']);
 }

@@ -34,7 +34,7 @@ class UsrPsychRevList extends StatefulWidget {
 //           ));
 //     })
 class _UsrPsychRevList extends State<UsrPsychRevList> {
-  final String pid;
+  final int pid;
   _UsrPsychRevList({this.pid});
   // UsrPsychList({this.first_name, this.last_name, this.id})
   @override
@@ -53,16 +53,23 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
                 children: <Widget>[
                   Text(
                     revs[index].firstName,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                    textAlign: TextAlign.left,
                   ),
                   RatingBar.readOnly(
+                    size: 20,
                     initialRating: revs[index].rating,
                     isHalfAllowed: true,
                     halfFilledIcon: Icons.star_half,
                     filledIcon: Icons.star,
                     emptyIcon: Icons.star_border,
                   ),
-                  Text(revs[index].review),
+                  Text(
+                    revs[index].review,
+                    style: TextStyle(fontSize: 20),
+                    textAlign: TextAlign.left,
+                  ),
+                  //await ()
                 ],
 
                 // leading: Icon(Icons.account_circle_rounded),

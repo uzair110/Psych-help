@@ -5,9 +5,7 @@ import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/psychProfileUsr.dart';
 
 class UsrPsychList extends StatefulWidget {
-  final String firstName, lastName, pid, city;
-
-  UsrPsychList({this.firstName, this.lastName, this.pid, this.city});
+  UsrPsychList();
   @override
   _UsrPsychList createState() => _UsrPsychList();
 }
@@ -31,10 +29,10 @@ class _UsrPsychList extends State<UsrPsychList> {
                 debugPrint('${psychs[index].email} is pressed!');
                 var route = new MaterialPageRoute(
                     builder: (BuildContext context) => new PsyProfileUsr(
-                          firstName: '${psychs[index].firstName}',
-                          lastName: '${psychs[index].lastName}',
-                          pid: '${psychs[index].pid}',
-                          city: '${psychs[index].city}',
+                          firstName: psychs[index].firstName,
+                          lastName: psychs[index].lastName,
+                          pid: psychs[index].pid,
+                          city: psychs[index].city,
                         ));
                 Navigator.of(context).push(route);
               },

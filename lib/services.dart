@@ -289,10 +289,10 @@ class AppServices {
     try {
       var map = Map<String, dynamic>();
       map['action'] = 'PSYCH_REV_USR';
-      map['pid'] = pid;
+      map['pid'] = "$pid";
 
       final response = await http.post(ROOT, body: map);
-
+      print(pid);
       if (response.body == "List is Empty") {
         return [];
       } else {
@@ -310,7 +310,7 @@ class AppServices {
         }
       }
     } catch (e) {
-      print(e);
+      print("Backend Error: $e");
       List<PsychRevData> errResult = []; //result: "Auth Failure"
       return errResult;
     }
