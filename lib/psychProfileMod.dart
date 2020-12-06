@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:psych_help/globals.dart';
+import 'package:psych_help/services.dart';
 import 'package:psych_help/newcomplaint.dart';
+import 'package:psych_help/globals.dart' as userFile;
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
@@ -14,9 +17,20 @@ class PsyProfileMod extends StatefulWidget {
   _PsyProfileMod createState() => _PsyProfileMod();
 }
 
+String fname;
 TextEditingController _reviewController = TextEditingController();
 String review = '';
+String result = '';
+
 List<String> litems = [];
+Widget cancelButton = FlatButton(
+  child: Text("Cancel"),
+  onPressed: () {},
+);
+Widget continueButton = FlatButton(
+  child: Text("Continue"),
+  onPressed: () {},
+);
 
 class _PsyProfileMod extends State<PsyProfileMod> {
   @override
@@ -31,7 +45,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
           // padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Username'),
+              child: Text(userFile.usrID.username),
               decoration: BoxDecoration(
                 color: Colors.green,
               ),
@@ -127,7 +141,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                   height: 10,
                 ),
                 Text(
-                  'Uzair Mustafa',
+                  "${widget.firstName}" + " " + "${widget.lastName}",
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
@@ -135,7 +149,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                   ),
                 ),
                 Text(
-                  'Karachi, Pakistan',
+                  '${widget.city}' + ', Pakistan',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
@@ -279,23 +293,30 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                           onLongPress: () {
                             print("Card Clicked");
                             showMenu(
-                    items: <PopupMenuEntry>[
-                      PopupMenuItem(
-                        value: this.widget,
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.delete),
-                            Text("Delete"),
-                            GestureDetector(
-                              // onTap: SEND DELETE QUERY AND UPDATE THE SCREEN
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                    context: context,
-                    position: RelativeRect.fromLTRB(100,500,0,0),
-                  );
+                              items: <PopupMenuEntry>[
+                                PopupMenuItem(
+                                  value: this.widget,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(Icons.delete),
+                                      Text("Delete"),
+                                      // GestureDetector(onTap: () async {
+                                      //   result = await AppServices.psychDel(
+                                      //       '${widget.pid}');
+                                      //   print(result);
+                                      //   if (result == "Success Deletion") {
+                                      //     Navigator.pop(context);
+                                      //   } else {
+                                      //     //stay
+                                      //   }
+                                      // })
+                                    ],
+                                  ),
+                                )
+                              ],
+                              context: context,
+                              position: RelativeRect.fromLTRB(100, 500, 0, 0),
+                            );
                           },
                           child: new Card(
                             child: ListTile(
@@ -326,7 +347,82 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                   child: InkWell(
                       hoverColor: Colors.red,
                       splashColor: Colors.blueAccent,
-                      onTap: () {},
+                      onTap: () async {
+                        showDialog(
+                          //User friendly error message when the screen has been displayed
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text(
+                              "Are you sure you want to delete " +
+                                  "${widget.firstName}" +
+                                  " " +
+                                  "${widget.lastName}" +
+                                  "?",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            actions: <Widget>[
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Cancel"),
+                              ),
+                              FlatButton(
+                                onPressed: () async {
+                                  result = await AppServices.psychDel(
+                                      '${widget.pid}');
+                                  print(result);
+                                  if (result == "Success Deletion") {
+                                    Navigator.pop(context);
+                                  } else {
+                                    showDialog(
+                                      //User friendly error message when the screen has been displayed
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                        title: Text(
+                                          "Connection Failure",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 28),
+                                        ),
+                                        content: SingleChildScrollView(
+                                          scrollDirection: Axis.vertical,
+                                          child: ListBody(
+                                            mainAxis: Axis.vertical,
+                                            children: <Widget>[
+                                              Icon(Icons.clear,
+                                                  color: Colors.red[300],
+                                                  size: 50),
+                                              // Text(
+                                              //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      barrierDismissible: true,
+                                    );
+                                  }
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Continue"),
+                              ),
+                            ],
+                            content: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: ListBody(
+                                mainAxis: Axis.vertical,
+                                children: <Widget>[
+                                  Icon(Icons.clear,
+                                      color: Colors.red[300], size: 50),
+                                  // Text(
+                                  //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                ],
+                              ),
+                            ),
+                          ),
+                          barrierDismissible: true,
+                        );
+                      },
                       child: Center(
                         child: Text("Delete",
                             style: TextStyle(

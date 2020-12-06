@@ -288,8 +288,9 @@ class AppServices {
   static Future<String> psychDel(String pid) async {
     try {
       var map1 = Map<String, dynamic>();
+      map1['action'] = 'DELETE_PSYCH';
       map1['PID'] = pid;
-
+      print(map1);
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
         return response.body;
