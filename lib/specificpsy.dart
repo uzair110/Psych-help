@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/services.dart';
 import 'package:psych_help/Mapper.dart';
-import 'package:psych_help/psychProfileUsr.dart';
 import 'package:psych_help/globals.dart' as userFile;
 
 class SpecificPsy extends StatefulWidget {

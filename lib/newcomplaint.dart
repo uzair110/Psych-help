@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+// import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // import 'package:psych_help/addpsych.dart';
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
 
-class newcomplaint extends StatefulWidget {
+class NewComplaint extends StatefulWidget {
   @override
-  _newcomplaint createState() => _newcomplaint();
+  _NewComplaint createState() => _NewComplaint();
 }
 
-class _newcomplaint extends State<newcomplaint> {
-    String tempcomplaint;
-   final complaintcontroller = TextEditingController();
+class _NewComplaint extends State<NewComplaint> {
+  String tempcomplaint;
+  final complaintcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -106,7 +106,7 @@ class _newcomplaint extends State<newcomplaint> {
                     //     size: 30.0,
                     //   ),
                     //   onPressed: () {
-                        
+
                     //   },
                     //   ),
                     // ),
@@ -227,25 +227,23 @@ class _newcomplaint extends State<newcomplaint> {
             maxLines: null,
             controller: complaintcontroller,
             onChanged: (String text1) {
-                    tempcomplaint = text1;
-                  },
-            
+              tempcomplaint = text1;
+            },
           ),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(20.0),
             child: RaisedButton(
-            color: Colors.green,
-            onPressed: () {},
-            textColor: Colors.white,
-            
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              child:
-                const Text('Submit Complaint', style: TextStyle(fontSize: 20)),
+              color: Colors.green,
+              onPressed: () {},
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                child: const Text('Submit Complaint',
+                    style: TextStyle(fontSize: 20)),
               ),
-          ),   
-          ),       
+            ),
+          ),
           // Row(
           //   children: <Widget>[
           //     SizedBox(width: 60),

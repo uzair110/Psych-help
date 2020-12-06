@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:psych_help/newcomplaint.dart';
-import 'package:psych_help/newcomplaint.dart';
 import 'package:psych_help/globals.dart' as userFile;
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
@@ -117,7 +116,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => newcomplaint()),
+                                builder: (context) => NewComplaint()),
                           );
                         },
                       ),
