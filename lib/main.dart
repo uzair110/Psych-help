@@ -239,7 +239,8 @@ class _LoginPageState extends State<LoginPage> {
                             barrierDismissible: true,
                           );
                         } else if (userFile.usrData.blacklist == "False") {
-                          List<PsyData> iniList = [];
+                          List<SearchData> iniList =
+                              await AppServices.psychSearchHistory();
                           //await AppServices.psychList();
                           setState(() {
                             _isLoading = !_isLoading;

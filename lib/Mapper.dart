@@ -91,15 +91,16 @@ class PsyData {
 }
 
 class SearchData {
-  //String result;
   int count;
   String seacrhHis;
+  int sid;
+  String uid;
 
-  SearchData({this.count, this.seacrhHis});
+  SearchData({this.count, this.seacrhHis, this.sid, this.uid});
 
   SearchData.fromData(Map<String, dynamic> data)
-      :
-        //result = data['result'],
-        count = data['PID'],
-        seacrhHis = data['First _Name'];
+      : count = int.parse(data['Counter']),
+        seacrhHis = data['Search_Name'],
+        uid = data['UID'],
+        sid = int.parse(data['SID']);
 }

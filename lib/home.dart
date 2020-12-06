@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/addpsych.dart';
 import 'package:psych_help/globals.dart' as userFile;
@@ -161,7 +162,7 @@ class _ModHomePageState extends State<ModHomePage> {
 
 class UserPsychList extends StatefulWidget {
   UserPsychList({Key key, this.lists}) : super(key: key);
-  final List<PsyData> lists;
+  final List<SearchData> lists;
   @override
   _UserPsychList createState() => _UserPsychList();
 }
@@ -170,7 +171,7 @@ class UserPsychList extends StatefulWidget {
 
 class _UserPsychList extends State<UserPsychList> {
   _UserPsychList({this.psyListUsr});
-  final List<PsyData> psyListUsr;
+  final List<SearchData> psyListUsr;
   bool isSearching = false;
   String searchQuery = "";
   //List<PsyData> psyListUsr;
@@ -199,15 +200,42 @@ class _UserPsychList extends State<UserPsychList> {
           key: scaffoldKey,
           appBar: AppBar(
             title: !isSearching
-                ? Text('All Psychs')
-                : TextField(
-                    controller: searchText,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Search here...",
-                      hintStyle: TextStyle(color: Colors.white),
-                    ),
+                ? Text('Search Results')
+                : TypeAheadField(
+                    textFieldConfiguration: TextFieldConfiguration(
+                        controller: searchText,
+                        autofocus: true,
+                        style: DefaultTextStyle.of(context).style.copyWith(
+                            fontStyle: FontStyle.italic, fontSize: 12),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: "Search here...",
+                          hintStyle: TextStyle(color: Colors.white),
+                        )),
+                    onSuggestionSelected: (suggestion) {
+                      setState(() {
+                        searchText.text = suggestion.seacrhHis;
+                      });
+                      //searchText.text = suggestion;
+                    },
+                    itemBuilder: (context, suggestion) {
+                      return ListTile(
+                        leading: Icon(Icons.history),
+                        title: Text(suggestion.seacrhHis),
+                      );
+                    },
+                    suggestionsCallback: (_) async {
+                      return AppServices.psychSearchHistory();
+                    },
                   ),
+            // : TextField(
+            //     controller: searchText,
+            //     style: TextStyle(color: Colors.white),
+            //     decoration: InputDecoration(
+            //       hintText: "Search here...",
+            //       hintStyle: TextStyle(color: Colors.white),
+            //     ),
+            //   ),
             backgroundColor: Colors.green,
             actions: <Widget>[
               IconButton(
@@ -229,7 +257,7 @@ class _UserPsychList extends State<UserPsychList> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
-                  child: Text("userFile.usrData.firstName"),
+                  child: Text(userFile.usrData.firstName),
                   decoration: BoxDecoration(
                     color: Colors.green,
                   ),
@@ -277,8 +305,8 @@ class _UserPsychList extends State<UserPsychList> {
             ),
           ),
           // resizeToAvoidBottomPadding: false,
-          body: UsrPsychList(),
-          //body: this.isSearching ? UsrPsychList() : UsrPsychSearch(),
+          //body: UsrPsychList(),
+          body: this.isSearching ? UsrPsychList() : UsrPsychSearch(),
         ));
   }
 }

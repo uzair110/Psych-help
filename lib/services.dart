@@ -221,10 +221,11 @@ class AppServices {
     }
   }
 
-  static Future<List<PsyData>> psychSearchHistory() async {
+  static Future<List<SearchData>> psychSearchHistory() async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = 'PSYCH_SUG';
+      map['uid'] = userFile.usrData.uid;
       final response = await http.post(ROOT, body: map);
 
       if (response.body == "List is Empty") {
@@ -233,28 +234,30 @@ class AppServices {
         print('Search Suggestion Response: ${response.body}');
         if (200 == response.statusCode) {
           var decodedJsonList = jsonDecode(response.body);
-          List<PsyData> promiseResult =
-              List<PsyData>.from(decodedJsonList.map((val) {
-            return PsyData(
-              pid: int.parse(val['PID']) ?? -1,
-              firstName: val['First_Name'] ?? '',
-              lastName: val['Last_Name'] ?? '',
-              phoneNumber: int.parse(val['Phone_Number']) ?? 0,
-              email: val['email'] ?? '',
-              address: val['Address'] ?? '',
-              counsellType: val['Counselling_Type'] ?? '',
-              city: val['City'] ?? '',
-            );
+          List<SearchData> promiseResult =
+              List<SearchData>.from(decodedJsonList.map((val) {
+            return SearchData.fromData(val);
+            // PsyData(
+            //   pid: int.parse(val['PID']) ?? -1,
+            //   firstName: val['First_Name'] ?? '',
+            //   lastName: val['Last_Name'] ?? '',
+            //   phoneNumber: int.parse(val['Phone_Number']) ?? 0,
+            //   email: val['email'] ?? '',
+            //   address: val['Address'] ?? '',
+            //   counsellType: val['Counselling_Type'] ?? '',
+            //   city: val['City'] ?? '',
+            // );
           }));
+          print("GG ${promiseResult.first.seacrhHis}");
           return promiseResult;
         } else {
-          List<PsyData> errResult = []; //result: "Conn Failure"
+          List<SearchData> errResult = []; //result: "Conn Failure"
           return errResult;
         }
       }
     } catch (e) {
       print(e);
-      List<PsyData> errResult = []; //result: "Auth Failure"
+      List<SearchData> errResult = []; //result: "Auth Failure"
       return errResult;
     }
   }
@@ -353,7 +356,7 @@ class AppServices {
       map1['action'] = 'ADD_SEARCH';
       map1['searchQuery'] = searchQuery;
       map1['uid'] = userFile.usrData.uid;
-
+      print("${userFile.usrData.uid}, $searchQuery");
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
         print(response.body);
