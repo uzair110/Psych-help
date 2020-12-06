@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:psych_help/editpsych.dart';
-import 'package:psych_help/globals.dart';
 import 'package:psych_help/services.dart';
-import 'package:psych_help/editpsych.dart';
 import 'package:psych_help/newcomplaint.dart';
 import 'package:psych_help/globals.dart' as userFile;
 // import 'package:psych_help/psychlist.dart';
@@ -11,7 +9,6 @@ import 'package:psych_help/globals.dart' as userFile;
 // import 'package:psych_help/services.dart';
 
 class PsyProfileMod extends StatefulWidget {
-  @override
   final String firstName, lastName, pid, city;
 
   @override
@@ -445,7 +442,9 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => EditPsych()), // Ye daal dena iss ke andar {this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number}
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EditPsych()), // Ye daal dena iss ke andar {this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number}
                     );
                   },
                   child: Text('Edit Details',

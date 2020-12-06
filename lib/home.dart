@@ -3,12 +3,11 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/addpsych.dart';
 import 'package:psych_help/globals.dart' as userFile;
-import 'package:psych_help/myrating.dart';
 import 'package:psych_help/services.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/psychListUser.dart';
 import 'package:psych_help/psychListMod.dart';
-import 'package:psych_help/complaintlist.dart';
+import 'package:psych_help/Sidebars.dart';
 
 class ModHomePage extends StatefulWidget {
   @override
@@ -34,60 +33,7 @@ class _ModHomePageState extends State<ModHomePage> {
     return new Scaffold(
       appBar:
           AppBar(title: Text('Psych Search'), backgroundColor: Colors.green),
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(userFile.modData.firstName),
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-            ),
-            ListTile(
-              title: Text('View User Complaints'),
-              onTap: () {
-                print("Here");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ModComplainList()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('My Ratings'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyRating()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Legal'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Help'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Logout'),
-              onTap: () async {
-                Navigator.popUntil(
-                    context, ModalRoute.withName(Navigator.defaultRouteName));
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: SideBarMod(),
       resizeToAvoidBottomPadding: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,14 +177,6 @@ class _UserPsychList extends State<UserPsychList> {
                       return AppServices.psychSearchHistory();
                     },
                   ),
-            // : TextField(
-            //     controller: searchText,
-            //     style: TextStyle(color: Colors.white),
-            //     decoration: InputDecoration(
-            //       hintText: "Search here...",
-            //       hintStyle: TextStyle(color: Colors.white),
-            //     ),
-            //   ),
             backgroundColor: Colors.green,
             actions: <Widget>[
               IconButton(
@@ -254,60 +192,7 @@ class _UserPsychList extends State<UserPsychList> {
                   })
             ],
           ),
-          drawer: Drawer(
-            child: ListView(
-              // Important: Remove any padding from the ListView.
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  child: Text(userFile.usrID.username),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                  ),
-                ),
-                ListTile(
-                  title: Text('View User Complaints'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                  },
-                ),
-                ListTile(
-                  title: Text('View my ratings'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MyRating()),
-                    );
-                    // Update the state of the app.
-                    // ...
-                  },
-                ),
-                ListTile(
-                  title: Text('Legal'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                  },
-                ),
-                ListTile(
-                  title: Text('Help'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                  },
-                ),
-                ListTile(
-                  title: Text('Logout'),
-                  onTap: () async {
-                    Navigator.popUntil(context,
-                        ModalRoute.withName(Navigator.defaultRouteName));
-                  },
-                ),
-              ],
-            ),
-          ),
-          // resizeToAvoidBottomPadding: false,
+          drawer: SideBarUser(),
           body: UsrPsychList(),
         ));
   }

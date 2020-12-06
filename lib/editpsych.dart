@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:psych_help/Sidebars.dart';
 import 'package:psych_help/services.dart';
 
 class EditPsych extends StatefulWidget {
   final String firstName, lastName, pid, city, address, email, number;
   @override
-  EditPsych({this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number});
+  EditPsych(
+      {this.firstName,
+      this.lastName,
+      this.pid,
+      this.city,
+      this.address,
+      this.email,
+      this.number});
   _EditPsych createState() => _EditPsych();
 }
 
@@ -25,48 +33,7 @@ class _EditPsych extends State<EditPsych> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(title: Text('Edit Psych'), backgroundColor: Colors.green),
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Username'),
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-            ),
-            ListTile(
-              title: Text('View User Complaints'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Legal'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Help'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Logout'),
-              onTap: () async {
-                Navigator.popUntil(
-                    context, ModalRoute.withName(Navigator.defaultRouteName));
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: SideBarMod(),
       resizeToAvoidBottomPadding: false,
       body: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:psych_help/newcomplaint.dart';
 import 'package:psych_help/globals.dart' as userFile;
+import 'package:psych_help/Sidebars.dart';
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
@@ -25,48 +26,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
       resizeToAvoidBottomInset: true,
       appBar:
           AppBar(title: Text('Psych Search'), backgroundColor: Colors.green),
-      drawer: Drawer(
-        child: Column(
-          // Important: Remove any padding from the ListView.
-          // padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(userFile.usrID.username),
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-            ),
-            ListTile(
-              title: Text('View User Complaints'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Legal'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Help'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Logout'),
-              onTap: () async {
-                Navigator.popUntil(
-                    context, ModalRoute.withName(Navigator.defaultRouteName));
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: SideBarUser(),
       resizeToAvoidBottomPadding: false,
       body: ListView(
         children: <Widget>[

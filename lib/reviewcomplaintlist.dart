@@ -8,7 +8,6 @@ import 'package:psych_help/globals.dart' as userFile;
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:psych_help/psychProfileMod.dart';
 
-
 class ViewComplaints extends StatefulWidget {
   ViewComplaints({Key key, this.lists, this.name}) : super(key: key);
   final List<SearchData> lists;
@@ -159,7 +158,6 @@ class _ViewComplaints extends State<ViewComplaints> {
           //     ],
           //   ),
           // ),
-        
         ));
   }
 }
