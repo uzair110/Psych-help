@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
-import 'package:psych_help/psychProfileUsr.dart';
+import 'package:psych_help/ViewComplaints.dart';
+import 'package:psych_help/complaintlist.dart';
 import 'package:psych_help/services.dart';
 import 'package:psych_help/globals.dart' as userFile;
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -204,21 +205,25 @@ class _ModPsychList extends State<ModPsychList> {
                 ListTile(
                   title: Text('View User Complaints'),
                   onTap: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ModComplainList()),
+                );
                     // Update the state of the app.
                     // ...
                   },
                 ),
-                ListTile(
-                  title: Text('View my ratings'),
-                  onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => MyRating()),
-                    // );
-                    // Update the state of the app.
-                    // ...
-                  },
-                ),
+                // ListTile(
+                //   title: Text('View my ratings'),
+                //   onTap: () {
+                //     // Navigator.push(
+                //     //   context,
+                //     //   MaterialPageRoute(builder: (context) => MyRating()),
+                //     // );
+                //     // Update the state of the app.
+                //     // ...
+                //   },
+                // ),
                 ListTile(
                   title: Text('Legal'),
                   onTap: () {
