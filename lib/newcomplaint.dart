@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:psych_help/Sidebars.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // import 'package:psych_help/addpsych.dart';
 // import 'package:psych_help/psychlist.dart';
@@ -18,48 +19,7 @@ class _NewComplaint extends State<NewComplaint> {
     return new Scaffold(
       appBar:
           AppBar(title: Text('New Complaint'), backgroundColor: Colors.green),
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Username'),
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-            ),
-            ListTile(
-              title: Text('View User Complaints'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Legal'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Help'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Logout'),
-              onTap: () async {
-                Navigator.popUntil(
-                    context, ModalRoute.withName(Navigator.defaultRouteName));
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: SideBarUser(),
       resizeToAvoidBottomPadding: false,
       body: ListView(
         children: <Widget>[

@@ -44,6 +44,9 @@ class _MyRating extends State<MyRating> {
         child: Scaffold(
             key: scaffoldKey,
             appBar: AppBar(
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => {Navigator.pop(context)}),
               title: !isSearching
                   ? Text('All Psychs')
                   : TextField(
@@ -56,62 +59,6 @@ class _MyRating extends State<MyRating> {
                     ),
               backgroundColor: Colors.green,
             ),
-            drawer: Drawer(
-              child: ListView(
-                // Important: Remove any padding from the ListView.
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  DrawerHeader(
-                    child: Text("userFile.usrData.firstName"),
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                    ),
-                  ),
-                  ListTile(
-                    title: Text('View User Complaints'),
-                    onTap: () {
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: Text('View my ratings'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyRating()),
-                      );
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Legal'),
-                    onTap: () {
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Help'),
-                    onTap: () {
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Logout'),
-                    onTap: () async {
-                      Navigator.popUntil(context,
-                          ModalRoute.withName(Navigator.defaultRouteName));
-                    },
-                  ),
-                ],
-              ),
-            ),
-            // resizeToAvoidBottomPadding: false,
-            //body: UsrPsychList(),
-            //body: this.isSearching ? UsrPsychList() : UsrPsychSearch(),
             body: Column(
               children: <Widget>[
                 Card(
