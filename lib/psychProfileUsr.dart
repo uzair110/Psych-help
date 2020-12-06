@@ -7,7 +7,10 @@ import 'package:psych_help/newcomplaint.dart';
 // import 'package:psych_help/services.dart';
 
 class PsyProfileUsr extends StatefulWidget {
+  final String firstName, lastName, pid, city;
+
   @override
+  PsyProfileUsr({this.firstName, this.lastName, this.pid, this.city});
   _PsyProfileUsr createState() => _PsyProfileUsr();
 }
 
@@ -124,7 +127,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                   height: 10,
                 ),
                 Text(
-                  'Uzair Mustafa',
+                  "${widget.firstName}" + " " + "${widget.lastName}",
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
@@ -132,7 +135,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                   ),
                 ),
                 Text(
-                  'Karachi, Pakistan',
+                  '${widget.city}' + ', Pakistan',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
