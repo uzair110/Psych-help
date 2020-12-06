@@ -285,6 +285,37 @@ class AppServices {
     }
   }
 
+  static Future<List<PsychRevData>> viewPsychRevUsr(int pid) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'PSYCH_REV_USR';
+      map['pid'] = pid;
+
+      final response = await http.post(ROOT, body: map);
+
+      if (response.body == "List is Empty") {
+        return [];
+      } else {
+        print('Search Suggestion Response: ${response.body}');
+        if (200 == response.statusCode) {
+          var decodedJsonList = jsonDecode(response.body);
+          List<PsychRevData> promiseResult =
+              List<PsychRevData>.from(decodedJsonList.map((val) {
+            return PsychRevData.fromData(val);
+          }));
+          return promiseResult;
+        } else {
+          List<PsychRevData> errResult = []; //result: "Conn Failure"
+          return errResult;
+        }
+      }
+    } catch (e) {
+      print(e);
+      List<PsychRevData> errResult = []; //result: "Auth Failure"
+      return errResult;
+    }
+  }
+
   static Future<String> psychDel(String pid) async {
     try {
       var map1 = Map<String, dynamic>();

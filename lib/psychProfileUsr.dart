@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:psych_help/newcomplaint.dart';
 import 'package:psych_help/globals.dart' as userFile;
 import 'package:psych_help/Sidebars.dart';
-// import 'package:psych_help/psychlist.dart';
+import 'package:psych_help/RatingBuilder.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
 
@@ -229,26 +229,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                     ),
                   ),
                 ),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: litems.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                          onTap: () {
-                            print("Card Clicked");
-                          },
-                          child: new Card(
-                            child: ListTile(
-                              leading: Icon(Icons.account_circle_rounded),
-                              title: Text(userFile.usrID.username),
-                              subtitle: Text(litems[index]),
-
-                              // trailing: Icon(Icons.account_circle_rounded),
-                              isThreeLine: false,
-                            ),
-                          ));
-                    })
+                UsrPsychRevList(),
               ],
             ),
           ),
