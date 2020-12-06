@@ -115,16 +115,15 @@ class _SpecificPsy extends State<SpecificPsy> {
             body: Column(
               children: <Widget>[
                 Container(
-                  height: 300,
+                  height: 80,
                   child: Card(
                     child: ListTile(
-                        title: Text('Uzair Mustafa'),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete_outline,
-                              size: 30.0,
-                            ),
-                            onPressed: () {})),
+                      leading: Icon(Icons.account_circle_rounded),
+                      title: Text('Uzair Mustafa'),
+                      subtitle: Text("This is my review"),
+                      trailing: Icon(Icons.delete),
+                      isThreeLine: false,
+                    ),
                   ),
                 ),
               ],

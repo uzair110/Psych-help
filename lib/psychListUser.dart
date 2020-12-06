@@ -6,11 +6,15 @@ import 'package:psych_help/psychProfileUsr.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class UsrPsychList extends StatefulWidget {
+  final String firstName, lastName, pid, city;
+
+  UsrPsychList({this.firstName, this.lastName, this.pid, this.city});
   @override
   _UsrPsychList createState() => _UsrPsychList();
 }
 
 class _UsrPsychList extends State<UsrPsychList> {
+  // UsrPsychList({this.first_name, this.last_name, this.id})
   @override
   Widget build(BuildContext context) {
     final psychs = Provider.of<List<PsyData>>(context);
@@ -27,8 +31,12 @@ class _UsrPsychList extends State<UsrPsychList> {
               onTap: () {
                 debugPrint('${psychs[index].email} is pressed!');
                 var route = new MaterialPageRoute(
-                  builder: (BuildContext context) => new PsyProfileUsr(),
-                );
+                    builder: (BuildContext context) => new PsyProfileUsr(
+                          firstName: '${psychs[index].firstName}',
+                          lastName: '${psychs[index].lastName}',
+                          pid: '${psychs[index].pid}',
+                          city: '${psychs[index].city}',
+                        ));
                 Navigator.of(context).push(route);
               },
               title:
@@ -66,8 +74,12 @@ class _UsrPsychSearch extends State<UsrPsychSearch> {
                 onTap: () {
                   debugPrint('${psychs[index].email} is pressed!');
                   var route = new MaterialPageRoute(
-                    builder: (BuildContext context) => new PsyProfileUsr(),
-                  );
+                      builder: (BuildContext context) => new PsyProfileUsr(
+                            firstName: '${psychs[index].firstName}',
+                            lastName: '${psychs[index].lastName}',
+                            pid: '${psychs[index].pid}',
+                            city: '${psychs[index].city}',
+                          ));
                   Navigator.of(context).push(route);
                 },
                 title: Text(

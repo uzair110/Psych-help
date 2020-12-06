@@ -6,19 +6,16 @@ import 'package:psych_help/newcomplaint.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
 
-class PsyProfileUsr extends StatefulWidget {
-  final String firstName, lastName, pid, city;
-
+class PsyProfileMod extends StatefulWidget {
   @override
-  PsyProfileUsr({this.firstName, this.lastName, this.pid, this.city});
-  _PsyProfileUsr createState() => _PsyProfileUsr();
+  _PsyProfileMod createState() => _PsyProfileMod();
 }
 
 TextEditingController _reviewController = TextEditingController();
 String review = '';
 List<String> litems = [];
 
-class _PsyProfileUsr extends State<PsyProfileUsr> {
+class _PsyProfileMod extends State<PsyProfileMod> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -127,7 +124,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                   height: 10,
                 ),
                 Text(
-                  "${widget.firstName}" + " " + "${widget.lastName}",
+                  'Uzair Mustafa',
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
@@ -135,7 +132,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                   ),
                 ),
                 Text(
-                  '${widget.city}' + ', Pakistan',
+                  'Karachi, Pakistan',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
