@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/psychProfileUsr.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class UsrPsychList extends StatefulWidget {
   final String firstName, lastName, pid, city;
