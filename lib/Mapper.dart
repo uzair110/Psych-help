@@ -13,6 +13,23 @@ class UserIds {
         userType = data['userType'];
 }
 
+class ReviewData {
+  String review;
+  String pid;
+  String uid;
+  String fname;
+  String lname;
+
+  ReviewData({this.review, this.pid, this.uid, this.fname, this.lname});
+
+  ReviewData.fromData(Map<String, dynamic> data)
+      : review = data['reviews'],
+        pid = data['PID'],
+        uid = data['UID'],
+        fname = data['First_Name'],
+        lname = data['Last_Name'];
+}
+
 class UserData {
   String result;
   String uid;

@@ -191,6 +191,55 @@
             echo "Adding Psych Failed";
         }
  }
+ if("EDIT_PROFILE" == $action)
+ {  
+    $pid = $_POST['PID'];
+    $fname = $_POST['First_Name'];
+    $lname = $_POST['Last_Name'];
+    $number = $_POST['Phone_Number'];
+    $email = $_POST['email'];
+    $address = $_POST['Address'];
+    $city = $_POST['City'];
+    $Counselling_index = $_POST['Counselling_Type']; 
+     if ($Counselling_index == '1')
+    {
+        $Counselling_Type = "Clinic Appointment";
+    }
+    else if ($Counselling_index == '0') 
+    {
+        $Counselling_Type = "On Call Counselling";
+    }
+    $check2 = "SET FOREIGN_KEY_CHECKS = 0";
+     if (mysqli_query($conn,$check2))
+     {
+         $sql = "UPDATE `heroku_c82c28fdbe3ee78`.`psychologist`
+                SET
+                `First_Name` = '$fname',
+                `Last_Name` = '$lname',
+                `Phone_Number` = '$number',
+                `email` = '$email',
+                `Address` = '$address',
+                `Counselling_Type` = '$Counselling_Type',
+                `City` = '$city'
+                WHERE `PID` = '$pid'";
+                
+                if(mysqli_query($conn, $sql))
+                {
+                    echo "Successfully Updated Psychologist";
+                }
+                else
+                {
+                    echo "Update Failed";
+                }
+     }
+     else
+     {
+         echo "constraint failed!";
+     }
+    
+    
+ }
+ 
  if( "DELETE_PSYCH" == $action)
  {
      $pid = $_POST['PID'];

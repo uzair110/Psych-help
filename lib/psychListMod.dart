@@ -19,7 +19,7 @@ import 'package:psych_help/psychProfileMod.dart';
 
 // class _ModPsychList extends State<ModPsychList> {
 //   @override
-  
+
 //   Widget build(BuildContext context) {
 //     final psychs = Provider.of<List<PsyData>>(context);
 //     if (psychs == null) {
@@ -54,7 +54,9 @@ import 'package:psych_help/psychProfileMod.dart';
 // }
 
 class ModPsychSearch extends StatefulWidget {
+  final String number;
   @override
+  ModPsychSearch({this.number});
   _ModPsychSearch createState() => _ModPsychSearch();
 }
 
@@ -79,11 +81,11 @@ class _ModPsychSearch extends State<ModPsychSearch> {
                   debugPrint('${psychs[index].email} is pressed!');
                   var route = new MaterialPageRoute(
                       builder: (BuildContext context) => new PsyProfileMod(
-                            firstName: '${psychs[index].firstName}',
-                            lastName: '${psychs[index].lastName}',
-                            pid: '${psychs[index].pid}',
-                            city: '${psychs[index].city}',
-                          ));
+                          firstName: '${psychs[index].firstName}',
+                          lastName: '${psychs[index].lastName}',
+                          pid: '${psychs[index].pid}',
+                          city: '${psychs[index].city}',
+                          number: '${psychs[index].phoneNumber}'));
                   Navigator.of(context).push(route);
                 },
                 title: Text(
@@ -96,7 +98,6 @@ class _ModPsychSearch extends State<ModPsychSearch> {
     }
   }
 }
-
 
 class ModPsychList extends StatefulWidget {
   ModPsychList({Key key, this.lists, this.name}) : super(key: key);
@@ -206,9 +207,10 @@ class _ModPsychList extends State<ModPsychList> {
                   title: Text('View User Complaints'),
                   onTap: () {
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ModComplainList()),
-                );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ModComplainList()),
+                    );
                     // Update the state of the app.
                     // ...
                   },
