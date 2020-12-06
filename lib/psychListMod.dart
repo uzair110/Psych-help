@@ -53,7 +53,9 @@ import 'package:psych_help/psychProfileMod.dart';
 // }
 
 class ModPsychSearch extends StatefulWidget {
+  final String number;
   @override
+  ModPsychSearch({this.number});
   _ModPsychSearch createState() => _ModPsychSearch();
 }
 
@@ -78,11 +80,11 @@ class _ModPsychSearch extends State<ModPsychSearch> {
                   debugPrint('${psychs[index].email} is pressed!');
                   var route = new MaterialPageRoute(
                       builder: (BuildContext context) => new PsyProfileMod(
-                            firstName: '${psychs[index].firstName}',
-                            lastName: '${psychs[index].lastName}',
-                            pid: '${psychs[index].pid}',
-                            city: '${psychs[index].city}',
-                          ));
+                          firstName: '${psychs[index].firstName}',
+                          lastName: '${psychs[index].lastName}',
+                          pid: '${psychs[index].pid}',
+                          city: '${psychs[index].city}',
+                          number: '${psychs[index].phoneNumber}'));
                   Navigator.of(context).push(route);
                 },
                 title: Text(

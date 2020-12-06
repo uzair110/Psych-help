@@ -8,10 +8,11 @@ import 'package:psych_help/RatingBuilder.dart';
 // import 'package:psych_help/services.dart';
 
 class PsyProfileUsr extends StatefulWidget {
-  final String firstName, lastName, pid, city;
+  final String firstName, lastName, pid, city, number;
 
   @override
-  PsyProfileUsr({this.firstName, this.lastName, this.pid, this.city});
+  PsyProfileUsr(
+      {this.firstName, this.lastName, this.pid, this.city, this.number});
   _PsyProfileUsr createState() => _PsyProfileUsr();
 }
 

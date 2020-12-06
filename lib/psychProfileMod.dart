@@ -9,10 +9,11 @@ import 'package:psych_help/globals.dart' as userFile;
 // import 'package:psych_help/services.dart';
 
 class PsyProfileMod extends StatefulWidget {
-  final String firstName, lastName, pid, city;
+  final String firstName, lastName, pid, city, number;
 
   @override
-  PsyProfileMod({this.firstName, this.lastName, this.pid, this.city});
+  PsyProfileMod(
+      {this.firstName, this.lastName, this.pid, this.city, this.number});
   _PsyProfileMod createState() => _PsyProfileMod();
 }
 
@@ -443,8 +444,13 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              EditPsych()), // Ye daal dena iss ke andar {this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number}
+                          builder: (context) => EditPsych(
+                                firstName: '${widget.firstName}',
+                                lastName: '${widget.lastName}',
+                                pid: '${widget.pid}',
+                                city: '${widget.city}',
+                                number: '${widget.number}',
+                              )), // Ye daal dena iss ke andar {this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number}
                     );
                   },
                   child: Text('Edit Details',

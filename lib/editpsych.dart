@@ -32,6 +32,7 @@ class _EditPsych extends State<EditPsych> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(title: Text('Edit Psych'), backgroundColor: Colors.green),
       drawer: SideBarMod(),
       resizeToAvoidBottomPadding: false,
@@ -194,19 +195,21 @@ class _EditPsych extends State<EditPsych> {
               shadowColor: Colors.greenAccent,
               elevation: 7.0,
               color: Colors.green,
-              child: GestureDetector(
+              child: InkWell(
                   onTap: () async {
                     print(_character.toString());
-                    var psychAddResponse = await AppServices.psychAdd(
+                    var psychAddResponse = await AppServices.psychEdit(
                         fname.text,
                         lname.text,
                         phone.text,
                         email.text,
                         address.text,
                         index.toString(),
-                        city.text);
+                        city.text,
+                        '${widget.pid}');
                     print(psychAddResponse);
-                    if (psychAddResponse == "Successfully Added Psychologist") {
+                    if (psychAddResponse ==
+                        "Successfully Updated Psychologist") {
                       Navigator.pop(context);
                     } else {
                       showDialog(
@@ -234,6 +237,7 @@ class _EditPsych extends State<EditPsych> {
                         barrierDismissible: true,
                       );
                     }
+                    Navigator.pop(context);
                   },
                   child: Center(
                     child: Text(
