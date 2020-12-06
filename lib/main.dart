@@ -39,17 +39,23 @@ Map<String, Widget Function(BuildContext)> route0 = <String, WidgetBuilder>{
 };
 
 class LoginPage extends StatefulWidget {
+//  /
+  // final String uname;
   @override
+  // LoginPage({this.uname});
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final String uname;
+  _LoginPageState({this.uname});
   TextEditingController username = new TextEditingController();
   TextEditingController pwd = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   Type rsp;
   String result;
+  String name;
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                         username.text, pwd.text);
 
                     result = userFile.usrID.result;
+                    // uname = userFile.usrID.username;
                     if (result == "Auth Failure") {
                       setState(() {
                         _isLoading = !_isLoading;
@@ -245,6 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                             MaterialPageRoute(
                                 builder: (context) => UserPsychList(
                                       lists: iniList,
+                                      // uname: '${userFile.usrID.username}',
                                     )),
                           );
                         }

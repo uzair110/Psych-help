@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:psych_help/newcomplaint.dart';
+import 'package:psych_help/globals.dart' as userFile;
 // import 'package:psych_help/psychlist.dart';
 // import 'package:psych_help/globals.dart';
 // import 'package:psych_help/services.dart';
@@ -30,7 +31,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
           // padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Username'),
+              child: Text(userFile.usrID.username),
               decoration: BoxDecoration(
                 color: Colors.green,
               ),
@@ -280,7 +281,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                           child: new Card(
                             child: ListTile(
                               leading: Icon(Icons.account_circle_rounded),
-                              title: Text('Uzair Mustafa'),
+                              title: Text(userFile.usrID.username),
                               subtitle: Text(litems[index]),
 
                               // trailing: Icon(Icons.account_circle_rounded),

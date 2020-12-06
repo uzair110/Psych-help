@@ -1,12 +1,14 @@
 class UserIds {
+  String username;
   String result;
   String aid;
   String userType;
 
-  UserIds({this.result, this.aid, this.userType});
+  UserIds({this.username, this.result, this.aid, this.userType});
 
   UserIds.fromData(Map<String, dynamic> data)
-      : result = data['result'],
+      : username = data['username'],
+        result = data['result'],
         aid = data['aid'],
         userType = data['userType'];
 }

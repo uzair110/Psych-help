@@ -45,6 +45,7 @@ class _SignUpState extends State<SignUp> {
     SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: true,
       body: Container(
           child: Center(
               child: ListView(
@@ -106,8 +107,8 @@ class _SignUpState extends State<SignUp> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.green, width: 3.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.green, width: 3.0)),
                     hintText: "First Name",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -137,8 +138,8 @@ class _SignUpState extends State<SignUp> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.green, width: 3.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.green, width: 3.0)),
                     hintText: "Last Name",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -148,6 +149,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ))));
   }
+
   Container city() {
     return Container(
         child: Center(
@@ -167,8 +169,8 @@ class _SignUpState extends State<SignUp> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.green, width: 3.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.green, width: 3.0)),
                     hintText: "City",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -178,6 +180,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ))));
   }
+
   Container usernameContainer() {
     return Container(
         child: Center(
@@ -197,8 +200,8 @@ class _SignUpState extends State<SignUp> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.green, width: 3.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.green, width: 3.0)),
                     hintText: "New Username",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -229,8 +232,8 @@ class _SignUpState extends State<SignUp> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.green, width: 3.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.green, width: 3.0)),
                     hintText: "Enter Password",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -259,11 +262,10 @@ class _SignUpState extends State<SignUp> {
                   textAlign: TextAlign.center,
                   obscureText: true,
                   decoration: InputDecoration(
-                    
                     border: InputBorder.none,
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.green, width: 3.0)),
+                        borderSide:
+                            const BorderSide(color: Colors.green, width: 3.0)),
                     hintText: "Re-enter Password",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -281,9 +283,9 @@ class _SignUpState extends State<SignUp> {
           child: InkWell(
               child: Text("Confirm",
                   style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                      )),
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  )),
               onTap: () async {
                 if (pass2controller.text != pass1controller.text) {
                   showDialog(
@@ -311,7 +313,11 @@ class _SignUpState extends State<SignUp> {
                   );
                 } else {
                   result = await AppServices.signup(
-                      usernamecontroller.text, pass2controller.text);
+                      fnamecontroller.text,
+                      lnamecontroller.text,
+                      usernamecontroller.text,
+                      pass2controller.text,
+                      citycontroller.text);
                   print(result);
                   if (result == "Failure") {
                     showDialog(
