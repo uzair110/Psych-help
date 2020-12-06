@@ -161,8 +161,9 @@ class _ModHomePageState extends State<ModHomePage> {
 }
 
 class UserPsychList extends StatefulWidget {
-  UserPsychList({Key key, this.lists}) : super(key: key);
+  UserPsychList({Key key, this.lists, this.name}) : super(key: key);
   final List<SearchData> lists;
+  final String name;
   @override
   _UserPsychList createState() => _UserPsychList();
 }
@@ -170,7 +171,8 @@ class UserPsychList extends StatefulWidget {
 // enum SingingChrUsrPsyLst { oncall, onsite }
 
 class _UserPsychList extends State<UserPsychList> {
-  _UserPsychList({this.psyListUsr});
+  _UserPsychList({this.psyListUsr, this.uname});
+  final String uname;
   final List<SearchData> psyListUsr;
   bool isSearching = false;
   String searchQuery = "";
@@ -257,7 +259,7 @@ class _UserPsychList extends State<UserPsychList> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
-                  child: Text(userFile.usrData.firstName),
+                  child: Text(userFile.usrID.username),
                   decoration: BoxDecoration(
                     color: Colors.green,
                   ),
