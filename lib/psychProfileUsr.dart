@@ -148,7 +148,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                   Container(
                       padding: new EdgeInsets.all(20.0),
                       child: RatingBar.builder(
-                          initialRating: 2,
+                          initialRating: 0,
                           minRating: 0,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
