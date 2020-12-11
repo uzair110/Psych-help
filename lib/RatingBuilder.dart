@@ -154,10 +154,10 @@ class _UsrRevList extends State<UsrRevList> {
     final revs = Provider.of<List<PsychRevData>>(context);
     if (revs == null) {
       return LoadingScreen();
-    } else if (revs == [] or revs.length==0) {
+    } else if (revs == [] || revs.length == 0) {
       print("Nothing to see here");
-      return Container(
-        child: Text("Nothing to see here"),
+      return Center(
+        child: Text("No Items to Display"),
       );
     } else {
       return ListView.builder(

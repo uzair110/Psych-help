@@ -40,7 +40,7 @@ class _MyRating extends State<MyRating> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<PsychRevData>>.value(
-        value: AppServices.viewRevUsr(userFile.usrData.uid).asStream(),
+        value: AppServices.viewRevUsr().asStream(),
         child: Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
