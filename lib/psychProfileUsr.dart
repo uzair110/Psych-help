@@ -206,6 +206,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                                 print(result);
                                 if (result ==
                                     "Successfully inserted rating and review!") {
+                                  FocusScope.of(context).unfocus();
                                   showDialog(
                                     //User friendly error message when the screen has been displayed
                                     context: context,
@@ -232,6 +233,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                                     barrierDismissible: true,
                                   );
                                 } else {
+                                  FocusScope.of(context).unfocus();
                                   showDialog(
                                     //User friendly error message when the screen has been displayed
                                     context: context,

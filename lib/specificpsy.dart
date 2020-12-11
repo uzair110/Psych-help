@@ -1,131 +1,97 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:psych_help/services.dart';
-import 'package:psych_help/Mapper.dart';
-import 'package:psych_help/globals.dart' as userFile;
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:psych_help/Sidebars.dart';
 
-class SpecificPsy extends StatefulWidget {
-  SpecificPsy({Key key, this.lists}) : super(key: key);
-  final List<PsyData> lists;
+class EditRating extends StatefulWidget {
+  final int ratId, theRating;
+  final String theReview;
   @override
-  _SpecificPsy createState() => _SpecificPsy();
+  EditRating({this.ratId, this.theRating, this.theReview});
+  _EditRating createState() => _EditRating();
 }
 
-// enum SingingChrUsrPsyLst { oncall, onsite }
+TextEditingController _reviewController = TextEditingController();
+String review = '';
+List<String> litems = [];
 
-class _SpecificPsy extends State<SpecificPsy> {
-  _SpecificPsy({this.psyListUsr});
-  final List<PsyData> psyListUsr;
-  bool isSearching = false;
-  String searchQuery = "";
-  //List<PsyData> psyListUsr;
-
-  //SingingCharacter _character = SingingCharacter.oncall;
-  TextEditingController searchText = new TextEditingController();
-  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getData();
-    });
-  }
-
-  void getData() async {
-    print(userFile.usrData.firstName);
-  }
-
+class _EditRating extends State<EditRating> {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<PsyData>>.value(
-        value: AppServices.searchPromise(searchQuery).asStream(),
-        child: Scaffold(
-            key: scaffoldKey,
-            appBar: AppBar(
-              title: !isSearching
-                  ? Text('All Psychs')
-                  : TextField(
-                      controller: searchText,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        hintText: "Search here...",
-                        hintStyle: TextStyle(color: Colors.white),
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar:
+          AppBar(title: Text('Psych Search'), backgroundColor: Colors.green),
+      drawer: SideBarUser(),
+      resizeToAvoidBottomPadding: false,
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Container(
+                padding: new EdgeInsets.all(20.0),
+                child: RatingBar.builder(
+                    initialRating: 2,
+                    minRating: 0,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.green,
+                        ),
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                    })),
+            Divider(),
+            Padding(
+                padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                child: Container(
+                    child: TextFormField(
+                  scrollPadding: new EdgeInsets.all(0.0),
+                  controller: _reviewController,
+                  maxLines: 2,
+                  decoration: InputDecoration(
+                      hintText: "Add A Review",
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.send),
+                        color: Colors.green,
+                        onPressed: () {
+                          litems.add(_reviewController.text);
+                          _reviewController.clear();
+                          setState(() {});
+                          showDialog(
+                            //User friendly error message when the screen has been displayed
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text(
+                                "Rating and review saved!",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 28),
+                              ),
+                              content: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: ListBody(
+                                  mainAxis: Axis.vertical,
+                                  children: <Widget>[
+                                    Icon(Icons.check,
+                                        color: Colors.green[300], size: 50),
+                                    // Text(
+                                    //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            barrierDismissible: true,
+                          );
+                        },
                       ),
-                    ),
-              backgroundColor: Colors.green,
-            ),
-            drawer: Drawer(
-              child: ListView(
-                // Important: Remove any padding from the ListView.
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  DrawerHeader(
-                    child: Text("userFile.usrData.firstName"),
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                    ),
-                  ),
-                  ListTile(
-                    title: Text('View User Complaints'),
-                    onTap: () {
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: Text('View my ratings'),
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => MyRating()),
-                      // );
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Legal'),
-                    onTap: () {
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Help'),
-                    onTap: () {
-                      // Update the state of the app.
-                      // ...
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Logout'),
-                    onTap: () async {
-                      Navigator.popUntil(context,
-                          ModalRoute.withName(Navigator.defaultRouteName));
-                    },
-                  ),
-                ],
-              ),
-            ),
-            // resizeToAvoidBottomPadding: false,
-            //body: UsrPsychList(),
-            //body: this.isSearching ? UsrPsychList() : UsrPsychSearch(),
-            body: Column(
-              children: <Widget>[
-                Container(
-                  height: 80,
-                  child: Card(
-                    child: ListTile(
-                      leading: Icon(Icons.account_circle_rounded),
-                      title: Text('Uzair Mustafa'),
-                      subtitle: Text("This is my review"),
-                      trailing: Icon(Icons.delete),
-                      isThreeLine: false,
-                    ),
-                  ),
-                ),
-              ],
-            )));
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      )),
+                ))),
+          ],
+        ),
+      ),
+    );
   }
 }

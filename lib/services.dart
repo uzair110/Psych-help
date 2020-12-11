@@ -419,15 +419,15 @@ class AppServices {
     }
   }
 
-  static Future<List<PsychRevData>> viewRevUsr(String uid) async {
+  static Future<List<PsychRevData>> viewRevUsr() async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = 'REV_USR';
-      map['uid'] = "$uid";
-
+      map['uid'] = "${userFile.usrData.uid}";
+      
       final response = await http.post(ROOT, body: map);
-      print(uid);
       if (response.body == "List is Empty") {
+        print("idhr");
         return [];
       } else {
         print('Search Suggestion Response: ${response.body}');
