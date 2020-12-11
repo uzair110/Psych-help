@@ -124,22 +124,44 @@ class SearchData {
         sid = int.parse(data['SID']);
 }
 
-class ComplaintData {
+class RevComplaintData {
+  int revID;
   String review;
   String complain;
   String type;
 
-  ComplaintData({this.review, this.complain, this.type});
+  RevComplaintData({this.revID, this.review, this.complain, this.type});
 
-  ComplaintData.fromData(Map<String, dynamic> data)
-      : review = data['rev'],
+  RevComplaintData.fromData(Map<String, dynamic> data)
+      : revID = int.parse(data['rev_id']),
+        review = data['rev'],
         complain = data['complain'],
         type = data['cType'];
+}
+
+class PsychComplaintData {
+  int pid;
+  String uid;
+  String firstName;
+  String lastName;
+  String complain;
+
+  PsychComplaintData(
+      {this.pid, this.uid, this.firstName, this.lastName, this.complain});
+
+  PsychComplaintData.fromData(Map<String, dynamic> data)
+      : pid = data['pid'],
+        uid = data['uid'],
+        firstName = data['firstName'],
+        lastName = data['lastName'],
+        complain = data['complaint'];
 }
 
 class PsychRevData {
   String uid;
   String firstName;
+  String psyfirstName;
+  String psylastName;
   int pid;
   double rating;
   String review;
@@ -153,6 +175,8 @@ class PsychRevData {
       this.pid,
       this.ratID,
       this.review,
+      this.psyfirstName,
+      this.psylastName,
       this.upvote,
       this.downvote,
       this.rating});
@@ -163,6 +187,8 @@ class PsychRevData {
         pid = int.parse(data['PID']),
         rating = double.parse(data['Rating']),
         review = data['review'],
+        psyfirstName = data['psyfirstName'],
+        psylastName = data['psylastName'],
         upvote = int.parse(data['Upvote']),
         downvote = int.parse(data['downvote']),
         ratID = int.parse(data['Rating_ID']);

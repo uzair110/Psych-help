@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/services.dart';
 import 'package:psych_help/Mapper.dart';
-import 'package:psych_help/specificpsy.dart';
+import 'package:psych_help/RatingBuilder.dart';
 import 'package:psych_help/globals.dart' as userFile;
 
 class MyRating extends StatefulWidget {
@@ -39,43 +39,27 @@ class _MyRating extends State<MyRating> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<PsyData>>.value(
-        value: AppServices.searchPromise(searchQuery).asStream(),
+    return StreamProvider<List<PsychRevData>>.value(
+        value: AppServices.viewRevUsr(userFile.usrData.uid).asStream(),
         child: Scaffold(
-            key: scaffoldKey,
-            appBar: AppBar(
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () => {Navigator.pop(context)}),
-              title: !isSearching
-                  ? Text('All Psychs')
-                  : TextField(
-                      controller: searchText,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        hintText: "Search here...",
-                        hintStyle: TextStyle(color: Colors.white),
-                      ),
+          key: scaffoldKey,
+          appBar: AppBar(
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => {Navigator.pop(context)}),
+            title: !isSearching
+                ? Text('All Psychs')
+                : TextField(
+                    controller: searchText,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: "Search here...",
+                      hintStyle: TextStyle(color: Colors.white),
                     ),
-              backgroundColor: Colors.green,
-            ),
-            body: Column(
-              children: <Widget>[
-                Card(
-                  child: ListTile(
-                    title: Text('Psy 1'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SpecificPsy()),
-                      );
-                      // Update the state of the app.
-                      // ...
-                    },
-                    trailing: Text('<insert rating>'),
                   ),
-                ),
-              ],
-            )));
+            backgroundColor: Colors.green,
+          ),
+          body: UsrRevList(),
+        ));
   }
 }

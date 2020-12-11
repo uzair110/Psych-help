@@ -141,3 +141,82 @@ class _ModPsychRevList extends State<ModPsychRevList> {
     }
   }
 }
+
+class UsrRevList extends StatefulWidget {
+  @override
+  _UsrRevList createState() => _UsrRevList();
+}
+
+class _UsrRevList extends State<UsrRevList> {
+  // UsrPsychList({this.first_name, this.last_name, this.id})
+  @override
+  Widget build(BuildContext context) {
+    final revs = Provider.of<List<PsychRevData>>(context);
+    if (revs == null) {
+      return LoadingScreen();
+    } else {
+      return ListView.builder(
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: revs.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onLongPress: () {
+                print("Card Clicked");
+                showMenu(
+                  items: <PopupMenuEntry>[
+                    PopupMenuItem(
+                      value: this.widget,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.delete),
+                          Text("Delete"),
+                          GestureDetector(onTap: () async {
+                            print("Del Button Pressed");
+                            //   result = await AppServices.psychDel(
+                            //       '${widget.pid}');
+                            //   print(result);
+                            //   if (result == "Success Deletion") {
+                            //     Navigator.pop(context);
+                            //   } else {
+                            //     //stay
+                            //   }
+                          })
+                        ],
+                      ),
+                    )
+                  ],
+                  context: context,
+                  position: RelativeRect.fromLTRB(100, 500, 0, 0),
+                );
+              },
+              child: new Card(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "${revs[index].psyfirstName} ${revs[index].psylastName}",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                      textAlign: TextAlign.left,
+                    ),
+                    RatingBar.readOnly(
+                      size: 20,
+                      initialRating: revs[index].rating,
+                      isHalfAllowed: true,
+                      halfFilledIcon: Icons.star_half,
+                      filledIcon: Icons.star,
+                      emptyIcon: Icons.star_border,
+                    ),
+                    Text(
+                      revs[index].review,
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+    }
+  }
+}

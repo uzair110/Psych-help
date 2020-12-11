@@ -5,14 +5,14 @@ import 'package:psych_help/services.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/Loading.dart';
 
-class ModComplainList extends StatefulWidget {
+class ModPsychComplain extends StatefulWidget {
   @override
-  _ModComplainList createState() => _ModComplainList();
+  _ModPsychComplain createState() => _ModPsychComplain();
 }
 
 // enum SingingChrUsrPsyLst { oncall, onsite }
 
-class _ModComplainList extends State<ModComplainList> {
+class _ModPsychComplain extends State<ModPsychComplain> {
   bool isSearching = false;
   String searchQuery = "";
 
@@ -33,7 +33,7 @@ class _ModComplainList extends State<ModComplainList> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<ComplaintData>>.value(
+    return StreamProvider<List<PsychComplaintData>>.value(
         value: AppServices.psychComplaints().asStream(),
         child: Scaffold(
           key: scaffoldKey,
@@ -64,20 +64,20 @@ class _ModComplainList extends State<ModComplainList> {
             ],
           ),
           // resizeToAvoidBottomPadding: false,
-          body: ComplaintLst(),
+          body: PsychComplaint(),
         ));
   }
 }
 
-class ComplaintLst extends StatefulWidget {
+class PsychComplaint extends StatefulWidget {
   @override
-  _ComplaintLst createState() => _ComplaintLst();
+  _PsychComplaint createState() => _PsychComplaint();
 }
 
-class _ComplaintLst extends State<ComplaintLst> {
+class _PsychComplaint extends State<PsychComplaint> {
   @override
   Widget build(BuildContext context) {
-    final complains = Provider.of<List<ComplaintData>>(context);
+    final complains = Provider.of<List<PsychComplaintData>>(context);
     if (complains == null) {
       return LoadingScreen();
     } else {
@@ -97,14 +97,15 @@ class _ComplaintLst extends State<ComplaintLst> {
                   ),
                   RichText(
                     text: TextSpan(
-                      text: 'Review:\n',
+                      text: 'Psychologist Name\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 36,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
-                          text: complains[index].review,
+                          text:
+                              '${complains[index].firstName} ${complains[index].lastName}',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 18,
@@ -114,10 +115,7 @@ class _ComplaintLst extends State<ComplaintLst> {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   RichText(
                     text: TextSpan(
@@ -129,30 +127,6 @@ class _ComplaintLst extends State<ComplaintLst> {
                       children: <TextSpan>[
                         TextSpan(
                           text: complains[index].complain,
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 18,
-                              color: Colors.black87),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: '\nComplaint Type:\n',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 36,
-                          color: Colors.black),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: complains[index].type,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 18,

@@ -255,36 +255,6 @@ class AppServices {
     }
   }
 
-  static Future<List<ComplaintData>> psychComplaints() async {
-    try {
-      var map = Map<String, dynamic>();
-      map['action'] = 'PSYCH_COMPLAIN';
-
-      final response = await http.post(ROOT, body: map);
-
-      if (response.body == "List is Empty") {
-        return [];
-      } else {
-        print('Search Suggestion Response: ${response.body}');
-        if (200 == response.statusCode) {
-          var decodedJsonList = jsonDecode(response.body);
-          List<ComplaintData> promiseResult =
-              List<ComplaintData>.from(decodedJsonList.map((val) {
-            return ComplaintData.fromData(val);
-          }));
-          return promiseResult;
-        } else {
-          List<ComplaintData> errResult = []; //result: "Conn Failure"
-          return errResult;
-        }
-      }
-    } catch (e) {
-      print(e);
-      List<ComplaintData> errResult = []; //result: "Auth Failure"
-      return errResult;
-    }
-  }
-
   static Future<List<PsychRevData>> viewPsychRevUsr(int pid) async {
     try {
       var map = Map<String, dynamic>();
@@ -423,6 +393,97 @@ class AppServices {
     } catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  static Future<List<PsychRevData>> viewRevUsr(String uid) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'REV_USR';
+      map['uid'] = "$uid";
+
+      final response = await http.post(ROOT, body: map);
+      print(uid);
+      if (response.body == "List is Empty") {
+        return [];
+      } else {
+        print('Search Suggestion Response: ${response.body}');
+        if (200 == response.statusCode) {
+          var decodedJsonList = jsonDecode(response.body);
+          List<PsychRevData> promiseResult =
+              List<PsychRevData>.from(decodedJsonList.map((val) {
+            return PsychRevData.fromData(val);
+          }));
+          return promiseResult;
+        } else {
+          List<PsychRevData> errResult = []; //result: "Conn Failure"
+          return errResult;
+        }
+      }
+    } catch (e) {
+      print("Backend Error: $e");
+      List<PsychRevData> errResult = []; //result: "Auth Failure"
+      return errResult;
+    }
+  }
+
+  static Future<List<PsychComplaintData>> psychComplaints() async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'PSYCH_COMPLAIN';
+
+      final response = await http.post(ROOT, body: map);
+
+      if (response.body == "List is Empty") {
+        return [];
+      } else {
+        print('Search Suggestion Response: ${response.body}');
+        if (200 == response.statusCode) {
+          var decodedJsonList = jsonDecode(response.body);
+          List<PsychComplaintData> promiseResult =
+              List<PsychComplaintData>.from(decodedJsonList.map((val) {
+            return PsychComplaintData.fromData(val);
+          }));
+          return promiseResult;
+        } else {
+          List<PsychComplaintData> errResult = []; //result: "Conn Failure"
+          return errResult;
+        }
+      }
+    } catch (e) {
+      print(e);
+      List<PsychComplaintData> errResult = []; //result: "Auth Failure"
+      return errResult;
+    }
+  }
+
+  static Future<List<RevComplaintData>> revComplaints() async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = 'REV_COMPLAIN';
+
+      final response = await http.post(ROOT, body: map);
+
+      if (response.body == "List is Empty") {
+        return [];
+      } else {
+        print('Search Suggestion Response: ${response.body}');
+        if (200 == response.statusCode) {
+          var decodedJsonList = jsonDecode(response.body);
+          List<RevComplaintData> promiseResult =
+              List<RevComplaintData>.from(decodedJsonList.map((val) {
+            return RevComplaintData.fromData(val);
+          }));
+          return promiseResult;
+        } else {
+          List<RevComplaintData> errResult = []; //result: "Conn Failure"
+          return errResult;
+        }
+      }
+    } catch (e) {
+      print(e);
+      List<RevComplaintData> errResult = []; //result: "Auth Failure"
+      return errResult;
     }
   }
 }
