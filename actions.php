@@ -240,6 +240,7 @@
     
  }
  
+ 
  if( "DELETE_PSYCH" == $action)
  {
      $pid = $_POST['PID'];
@@ -325,6 +326,18 @@
      }
     
  }
+ 
+ if ("GET_RATING" == $action)
+ {
+     $pid = $_POST['PID'];
+     $sql = "SELECT ROUND(avg(Rating),2) FROM heroku_c82c28fdbe3ee78.ratings
+            where PID = '$pid' ;";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $rid = $row['ROUND(avg(Rating),2)'];
+    echo $rid;
+    }
+ 
  
  if("USR_DAT" == $action){
         // printf( $action);
