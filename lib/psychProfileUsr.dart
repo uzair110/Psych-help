@@ -20,23 +20,30 @@ class PsyProfileUsr extends StatefulWidget {
 TextEditingController _reviewController = TextEditingController();
 String review = '';
 String myrating;
+String avg_rating = '';
 List<String> litems = [];
 
 class _PsyProfileUsr extends State<PsyProfileUsr> {
+  Future getData() async {
+    final response = await AppServices.getRating('${widget.pid}');
+    avg_rating = response;
+  }
+
   @override
   Widget build(BuildContext context) {
+    getData();
     return StreamProvider<List<PsychRevData>>.value(
       value: AppServices.viewPsychRevUsr(widget.pid).asStream(),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar:
-            AppBar(title: Text('Psych Search'), backgroundColor: Colors.green),
+        appBar: AppBar(
+            title: Text('Psychologist Details'), backgroundColor: Colors.green),
         drawer: SideBarUser(),
         resizeToAvoidBottomPadding: false,
         body: ListView(
           children: <Widget>[
             Container(
-              height: 250,
+              height: 150,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Colors.green, Colors.green.shade300],
@@ -52,36 +59,58 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Colors.green.shade300,
-                        minRadius: 35.0,
-                        child: Icon(
-                          Icons.call,
-                          size: 30.0,
+                      // CircleAvatar(
+                      //   backgroundColor: Colors.green.shade300,
+                      //   minRadius: 35.0,
+                      //   child: Icon(
+                      //     Icons.call,
+                      //     size: 30.0,
+                      //   ),
+                      // ),
+                      // CircleAvatar(
+                      //   backgroundColor: Colors.white70,
+                      //   minRadius: 60.0,
+                      //   child: CircleAvatar(
+                      //     radius: 50.0,
+                      //     backgroundImage: NetworkImage(
+                      //         'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
+                      //   ),
+                      // ),
+                      Column(children: <Widget>[
+                        Text(
+                          "${widget.firstName}" + " " + "${widget.lastName}",
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      CircleAvatar(
-                        backgroundColor: Colors.white70,
-                        minRadius: 60.0,
-                        child: CircleAvatar(
-                          radius: 50.0,
-                          backgroundImage: NetworkImage(
-                              'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
+                        Text(
+                          '${widget.city}' + ', Pakistan',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                          ),
                         ),
-                      ),
+                      ]),
                       CircleAvatar(
                         backgroundColor: Colors.green.shade500,
                         minRadius: 35.0,
                         child: IconButton(
                           icon: Icon(
-                            Icons.message,
+                            Icons.report,
                             size: 30.0,
                           ),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => NewComplaint()),
+                                  builder: (context) => NewComplaint(
+                                        firstName: "${widget.firstName}",
+                                        lastName: "${widget.lastName}",
+                                        pid: widget.pid,
+                                        city: "${widget.city}",
+                                      )),
                             );
                           },
                         ),
@@ -90,21 +119,6 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                   ),
                   SizedBox(
                     height: 10,
-                  ),
-                  Text(
-                    "${widget.firstName}" + " " + "${widget.lastName}",
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    '${widget.city}' + ', Pakistan',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
                   ),
                 ],
               ),
@@ -117,7 +131,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                       color: Colors.green.shade300,
                       child: ListTile(
                         title: Text(
-                          '5',
+                          avg_rating,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,

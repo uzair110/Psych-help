@@ -41,6 +41,7 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
                     isHalfAllowed: true,
                     halfFilledIcon: Icons.star_half,
                     filledIcon: Icons.star,
+                    filledColor: Colors.green,
                     emptyIcon: Icons.star_border,
                   ),
                   Text(
@@ -107,7 +108,7 @@ class _ModPsychRevList extends State<ModPsychRevList> {
                     )
                   ],
                   context: context,
-                  position: RelativeRect.fromLTRB(100, 500, 0, 0),
+                  position: RelativeRect.fromLTRB(10, 10, 0, 0),
                 );
               },
               child: new Card(
@@ -125,6 +126,7 @@ class _ModPsychRevList extends State<ModPsychRevList> {
                       isHalfAllowed: true,
                       halfFilledIcon: Icons.star_half,
                       filledIcon: Icons.star,
+                      filledColor: Colors.green,
                       emptyIcon: Icons.star_border,
                     ),
                     Text(

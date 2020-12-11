@@ -7,7 +7,10 @@ import 'package:psych_help/Sidebars.dart';
 // import 'package:psych_help/services.dart';
 
 class NewComplaint extends StatefulWidget {
+  final String firstName, lastName, city;
+  final int pid;
   @override
+  NewComplaint({this.firstName, this.lastName, this.pid, this.city});
   _NewComplaint createState() => _NewComplaint();
 }
 
@@ -24,7 +27,7 @@ class _NewComplaint extends State<NewComplaint> {
       body: ListView(
         children: <Widget>[
           Container(
-            height: 250,
+            height: 150,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Colors.green, Colors.green.shade300],
@@ -48,15 +51,15 @@ class _NewComplaint extends State<NewComplaint> {
                     //     size: 30.0,
                     //   ),
                     // ),
-                    CircleAvatar(
-                      backgroundColor: Colors.white70,
-                      minRadius: 60.0,
-                      child: CircleAvatar(
-                        radius: 50.0,
-                        backgroundImage: NetworkImage(
-                            'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
-                      ),
-                    ),
+                    // CircleAvatar(
+                    //   backgroundColor: Colors.white70,
+                    //   minRadius: 60.0,
+                    //   child: CircleAvatar(
+                    //     radius: 50.0,
+                    //     backgroundImage: NetworkImage(
+                    //         'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
+                    //   ),
+                    // ),
                     // CircleAvatar(
                     //   backgroundColor: Colors.green.shade500,
                     //   minRadius: 35.0,
@@ -76,7 +79,7 @@ class _NewComplaint extends State<NewComplaint> {
                   height: 10,
                 ),
                 Text(
-                  'Uzair Mustafa',
+                  "${widget.firstName}" + " ${widget.lastName}",
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
@@ -84,7 +87,7 @@ class _NewComplaint extends State<NewComplaint> {
                   ),
                 ),
                 Text(
-                  'Karachi, Pakistan',
+                  "${widget.city}" + ', Pakistan',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
@@ -187,7 +190,7 @@ class _NewComplaint extends State<NewComplaint> {
             maxLines: null,
             controller: complaintcontroller,
             onChanged: (String text1) {
-              tempcomplaint = text1;
+              tempcomplaint = complaintcontroller.text;
             },
           ),
           const SizedBox(height: 10),

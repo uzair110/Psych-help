@@ -327,6 +327,25 @@ class AppServices {
     }
   }
 
+  static Future<String> getRating(String pid) async {
+    try {
+      var map1 = Map<String, dynamic>();
+      map1['action'] = 'GET_RATING';
+      map1['PID'] = pid;
+      print(map1);
+      final response = await http.post(ROOT, body: map1);
+      if (200 == response.statusCode) {
+        print(response.body);
+        return response.body;
+      } else {
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
+
   static Future<String> psychAdd(
     String firstName,
     String lastName,
