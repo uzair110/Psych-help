@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:psych_help/main.dart';
 import 'package:psych_help/newcomplaint.dart';
 import 'package:psych_help/Sidebars.dart';
 import 'package:provider/provider.dart';
@@ -206,6 +203,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                                 print(result);
                                 if (result ==
                                     "Successfully inserted rating and review!") {
+                                  FocusScope.of(context).unfocus();
                                   showDialog(
                                     //User friendly error message when the screen has been displayed
                                     context: context,
@@ -232,6 +230,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                                     barrierDismissible: true,
                                   );
                                 } else {
+                                  FocusScope.of(context).unfocus();
                                   showDialog(
                                     //User friendly error message when the screen has been displayed
                                     context: context,

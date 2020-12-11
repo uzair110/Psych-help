@@ -40,23 +40,14 @@ class _MyRating extends State<MyRating> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<PsychRevData>>.value(
-        value: AppServices.viewRevUsr(userFile.usrData.uid).asStream(),
+        value: AppServices.viewRevUsr().asStream(),
         child: Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () => {Navigator.pop(context)}),
-            title: !isSearching
-                ? Text('All Psychs')
-                : TextField(
-                    controller: searchText,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Search here...",
-                      hintStyle: TextStyle(color: Colors.white),
-                    ),
-                  ),
+            title: Text('My Ratings and Reviews'),
             backgroundColor: Colors.green,
           ),
           body: UsrRevList(),
