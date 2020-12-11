@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
-import 'package:psych_help/psychProfileUsr.dart';
 import 'package:psych_help/services.dart';
 import 'package:psych_help/globals.dart' as userFile;
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:psych_help/psychProfileMod.dart';
 
 class ViewComplaints extends StatefulWidget {
   ViewComplaints({Key key, this.lists, this.name}) : super(key: key);

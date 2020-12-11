@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
-import 'package:psych_help/psychcomplaintlist.dart';
+import 'package:psych_help/Sidebars.dart';
 import 'package:psych_help/services.dart';
 import 'package:psych_help/globals.dart' as userFile;
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:psych_help/psychProfileMod.dart';
 
 // class ModPsychList extends StatefulWidget {
@@ -52,14 +51,14 @@ import 'package:psych_help/psychProfileMod.dart';
 //   }
 // }
 
-class ModPsychSearch extends StatefulWidget {
+class ModPsychCard extends StatefulWidget {
   final String number;
   @override
-  ModPsychSearch({this.number});
-  _ModPsychSearch createState() => _ModPsychSearch();
+  ModPsychCard({this.number});
+  _ModPsychCard createState() => _ModPsychCard();
 }
 
-class _ModPsychSearch extends State<ModPsychSearch> {
+class _ModPsychCard extends State<ModPsychCard> {
   @override
   Widget build(BuildContext context) {
     final psychs = Provider.of<List<PsyData>>(context);
@@ -80,11 +79,11 @@ class _ModPsychSearch extends State<ModPsychSearch> {
                   debugPrint('${psychs[index].email} is pressed!');
                   var route = new MaterialPageRoute(
                       builder: (BuildContext context) => new PsyProfileMod(
-                          firstName: '${psychs[index].firstName}',
-                          lastName: '${psychs[index].lastName}',
-                          pid: '${psychs[index].pid}',
-                          city: '${psychs[index].city}',
-                          number: '${psychs[index].phoneNumber}'));
+                          firstName: psychs[index].firstName,
+                          lastName: psychs[index].lastName,
+                          pid: psychs[index].pid,
+                          city: psychs[index].city,
+                          number: psychs[index].phoneNumber));
                   Navigator.of(context).push(route);
                 },
                 title: Text(
@@ -141,41 +140,41 @@ class _ModPsychList extends State<ModPsychList> {
           appBar: AppBar(
             title: !isSearching
                 ? Text('Search Results')
-                : TypeAheadField(
-                    textFieldConfiguration: TextFieldConfiguration(
-                        controller: searchText,
-                        autofocus: true,
-                        style: DefaultTextStyle.of(context).style.copyWith(
-                            fontStyle: FontStyle.italic, fontSize: 12),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Search here...",
-                          hintStyle: TextStyle(color: Colors.white),
-                        )),
-                    onSuggestionSelected: (suggestion) {
-                      setState(() {
-                        searchText.text = suggestion.seacrhHis;
-                      });
-                      //searchText.text = suggestion;
-                    },
-                    itemBuilder: (context, suggestion) {
-                      return ListTile(
-                        leading: Icon(Icons.history),
-                        title: Text(suggestion.seacrhHis),
-                      );
-                    },
-                    suggestionsCallback: (_) async {
-                      return AppServices.psychSearchHistory();
-                    },
+                // : TypeAheadField(
+                //     textFieldConfiguration: TextFieldConfiguration(
+                //         controller: searchText,
+                //         autofocus: true,
+                //         style: DefaultTextStyle.of(context).style.copyWith(
+                //             fontStyle: FontStyle.italic, fontSize: 12),
+                //         decoration: InputDecoration(
+                //           border: OutlineInputBorder(),
+                //           hintText: "Search here...",
+                //           hintStyle: TextStyle(color: Colors.white),
+                //         )),
+                //     onSuggestionSelected: (suggestion) {
+                //       setState(() {
+                //         searchText.text = suggestion.seacrhHis;
+                //       });
+                //       //searchText.text = suggestion;
+                //     },
+                //     itemBuilder: (context, suggestion) {
+                //       return ListTile(
+                //         leading: Icon(Icons.history),
+                //         title: Text(suggestion.seacrhHis),
+                //       );
+                //     },
+                //     suggestionsCallback: (_) async {
+                //       return AppServices.psychSearchHistory();
+                //     },
+                //   ),
+                : TextField(
+                    controller: searchText,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: "Search here...",
+                      hintStyle: TextStyle(color: Colors.white),
+                    ),
                   ),
-            // : TextField(
-            //     controller: searchText,
-            //     style: TextStyle(color: Colors.white),
-            //     decoration: InputDecoration(
-            //       hintText: "Search here...",
-            //       hintStyle: TextStyle(color: Colors.white),
-            //     ),
-            //   ),
             backgroundColor: Colors.green,
             actions: <Widget>[
               IconButton(
@@ -185,73 +184,11 @@ class _ModPsychList extends State<ModPsychList> {
                       searchQuery = searchText.text;
                       this.isSearching = !this.isSearching;
                     });
-                    if (searchQuery.isNotEmpty) {
-                      await AppServices.addSearch(searchQuery);
-                    }
                   })
             ],
           ),
-          drawer: Drawer(
-            child: ListView(
-              // Important: Remove any padding from the ListView.
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  child: Text(userFile.usrID.username),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                  ),
-                ),
-                ListTile(
-                  title: Text('View User Complaints'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ModComplainList()),
-                    );
-                    // Update the state of the app.
-                    // ...
-                  },
-                ),
-                // ListTile(
-                //   title: Text('View my ratings'),
-                //   onTap: () {
-                //     // Navigator.push(
-                //     //   context,
-                //     //   MaterialPageRoute(builder: (context) => MyRating()),
-                //     // );
-                //     // Update the state of the app.
-                //     // ...
-                //   },
-                // ),
-                ListTile(
-                  title: Text('Legal'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                  },
-                ),
-                ListTile(
-                  title: Text('Help'),
-                  onTap: () {
-                    // Update the state of the app.
-                    // ...
-                  },
-                ),
-                ListTile(
-                  title: Text('Logout'),
-                  onTap: () async {
-                    Navigator.popUntil(context,
-                        ModalRoute.withName(Navigator.defaultRouteName));
-                  },
-                ),
-              ],
-            ),
-          ),
-          // resizeToAvoidBottomPadding: false,
-          //body: ModPsychList(),
-          body: this.isSearching ? ModPsychList() : ModPsychSearch(),
+          drawer: SideBarMod(),
+          body: ModPsychCard(),
         ));
   }
 }

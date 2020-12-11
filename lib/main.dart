@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                     setState(() {
                       _isLoading = !_isLoading;
                     });
-
+                    FocusScope.of(context).unfocus();
                     userFile.usrID = await AppServices.signInPromise(
                         username.text, pwd.text);
 

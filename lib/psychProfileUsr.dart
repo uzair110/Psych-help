@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:psych_help/newcomplaint.dart';
-import 'package:psych_help/globals.dart' as userFile;
 import 'package:psych_help/Sidebars.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/RatingBuilder.dart';
@@ -22,9 +21,6 @@ String review = '';
 List<String> litems = [];
 
 class _PsyProfileUsr extends State<PsyProfileUsr> {
-  // final String firstName, lastName, pid, city, number;
-  // _PsyProfileUsr(
-  //     {this.firstName, this.lastName, this.pid, this.city, this.number});
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<PsychRevData>>.value(
@@ -237,53 +233,12 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                       ),
                     ),
                   ),
-                  UsrPsychRevList(),
+                  UsrPsychRevList(
+                    pid: widget.pid,
+                  ),
                 ],
               ),
             ),
-            // SizedBox(height: 30),
-            // Row(
-            //   children: <Widget>[
-            //     SizedBox(width: 60),
-            //     Container(
-            //       height: 40.0,
-            //       width: 275.0,
-            //       child: Material(
-            //         borderRadius: BorderRadius.circular(20.0),
-            //         shadowColor: Colors.red,
-            //         color: Colors.red,
-            //         elevation: 7.0,
-            //         child: InkWell(
-            //             hoverColor: Colors.red,
-            //             splashColor: Colors.blueAccent,
-            //             onTap: () {},
-            //             child: Center(
-            //               child: Text("Delete",
-            //                   style: TextStyle(
-            //                     color: Colors.white,
-            //                     fontWeight: FontWeight.bold,
-            //                   )),
-            //             )),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // SizedBox(height: 10),
-            // Row(
-            //   children: <Widget>[
-            //     SizedBox(width: 160),
-            //     Container(
-            //       child: InkWell(
-            //         onTap: () {},
-            //         child: Text('Edit Details',
-            //             style: TextStyle(
-            //                 color: Colors.grey,
-            //                 fontWeight: FontWeight.bold,
-            //                 decoration: TextDecoration.underline)),
-            //       ),
-            //     ),
-            //   ],
-            // )
           ],
         ),
       ),

@@ -22,7 +22,8 @@ class SideBarPropertiesMod extends State<SideBarMod> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text(userFile.modData.firstName),
+            child: Text(
+                userFile.modData.firstName + " " + userFile.modData.lastName),
             decoration: BoxDecoration(
               color: Colors.green,
             ),
@@ -83,7 +84,8 @@ class SideBarPropertiesUser extends State<SideBarUser> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text(userFile.modData.firstName),
+            child: Text(
+                userFile.usrData.firstName + " " + userFile.usrData.lastName),
             decoration: BoxDecoration(
               color: Colors.green,
             ),

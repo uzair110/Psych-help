@@ -3,36 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:rating_bar/rating_bar.dart';
-import 'package:psych_help/psychProfileUsr.dart';
-import 'package:psych_help/globals.dart' as userFile;
 
 class UsrPsychRevList extends StatefulWidget {
-  final String pid;
+  final int pid;
 
   UsrPsychRevList({this.pid});
   @override
   _UsrPsychRevList createState() => _UsrPsychRevList();
 }
-// ListView.builder(
-//     physics: NeverScrollableScrollPhysics(),
-//     shrinkWrap: true,
-//     itemCount: litems.length,
-//     itemBuilder: (context, index) {
-//       return InkWell(
-//           onTap: () {
-//             print("Card Clicked");
-//           },
-//           child: new Card(
-//             child: ListTile(
-//               leading: Icon(Icons.account_circle_rounded),
-//               title: Text(userFile.usrID.username),
-//               subtitle: Text(litems[index]),
 
-//               // trailing: Icon(Icons.account_circle_rounded),
-//               isThreeLine: false,
-//             ),
-//           ));
-//     })
 class _UsrPsychRevList extends State<UsrPsychRevList> {
   final int pid;
   _UsrPsychRevList({this.pid});
@@ -45,7 +24,7 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
     } else {
       return ListView.builder(
           shrinkWrap: true,
-          physics: const AlwaysScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: revs.length,
           itemBuilder: (context, index) {
             return Card(
@@ -71,13 +50,91 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
                   ),
                   //await ()
                 ],
+              ),
+            );
+          });
+    }
+  }
+}
 
-                // leading: Icon(Icons.account_circle_rounded),
-                // title: Text(userFile.usrID.username),
-                // subtitle: Text(litems[index]),
+class ModPsychRevList extends StatefulWidget {
+  final int pid;
 
-                // // trailing: Icon(Icons.account_circle_rounded),
-                // isThreeLine: false,
+  ModPsychRevList({this.pid});
+  @override
+  _ModPsychRevList createState() => _ModPsychRevList();
+}
+
+class _ModPsychRevList extends State<ModPsychRevList> {
+  final int pid;
+  _ModPsychRevList({this.pid});
+  // UsrPsychList({this.first_name, this.last_name, this.id})
+  @override
+  Widget build(BuildContext context) {
+    final revs = Provider.of<List<PsychRevData>>(context);
+    if (revs == null) {
+      return LoadingScreen();
+    } else {
+      return ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: revs.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onLongPress: () {
+                print("Card Clicked");
+                showMenu(
+                  items: <PopupMenuEntry>[
+                    PopupMenuItem(
+                      value: this.widget,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.delete),
+                          Text("Delete"),
+                          GestureDetector(onTap: () async {
+                            print("Del Button Pressed");
+                            //   result = await AppServices.psychDel(
+                            //       '${widget.pid}');
+                            //   print(result);
+                            //   if (result == "Success Deletion") {
+                            //     Navigator.pop(context);
+                            //   } else {
+                            //     //stay
+                            //   }
+                          })
+                        ],
+                      ),
+                    )
+                  ],
+                  context: context,
+                  position: RelativeRect.fromLTRB(100, 500, 0, 0),
+                );
+              },
+              child: new Card(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      revs[index].firstName,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                      textAlign: TextAlign.left,
+                    ),
+                    RatingBar.readOnly(
+                      size: 20,
+                      initialRating: revs[index].rating,
+                      isHalfAllowed: true,
+                      halfFilledIcon: Icons.star_half,
+                      filledIcon: Icons.star,
+                      emptyIcon: Icons.star_border,
+                    ),
+                    Text(
+                      revs[index].review,
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.left,
+                    ),
+                    //await ()
+                  ],
+                ),
               ),
             );
           });
