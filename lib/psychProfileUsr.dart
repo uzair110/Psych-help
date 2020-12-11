@@ -1,11 +1,15 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:psych_help/main.dart';
 import 'package:psych_help/newcomplaint.dart';
 import 'package:psych_help/Sidebars.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/RatingBuilder.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/services.dart';
+import 'package:psych_help/globals.dart' as userFile;
 
 class PsyProfileUsr extends StatefulWidget {
   final String firstName, lastName, city;
@@ -18,6 +22,7 @@ class PsyProfileUsr extends StatefulWidget {
 
 TextEditingController _reviewController = TextEditingController();
 String review = '';
+String myrating;
 List<String> litems = [];
 
 class _PsyProfileUsr extends State<PsyProfileUsr> {
@@ -154,6 +159,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                                 color: Colors.green,
                               ),
                           onRatingUpdate: (rating) {
+                            myrating = rating.toString();
                             print(rating);
                           })),
                   Divider(),
@@ -185,35 +191,73 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                             suffixIcon: IconButton(
                               icon: Icon(Icons.send),
                               color: Colors.green,
-                              onPressed: () {
+                              onPressed: () async {
+                                review = _reviewController.text;
                                 litems.add(_reviewController.text);
                                 _reviewController.clear();
                                 setState(() {});
-                                showDialog(
-                                  //User friendly error message when the screen has been displayed
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    title: Text(
-                                      "Rating and review saved!",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 28),
-                                    ),
-                                    content: SingleChildScrollView(
-                                      scrollDirection: Axis.vertical,
-                                      child: ListBody(
-                                        mainAxis: Axis.vertical,
-                                        children: <Widget>[
-                                          Icon(Icons.check,
-                                              color: Colors.green[300],
-                                              size: 50),
-                                          // Text(
-                                          //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
-                                        ],
+
+                                final result =
+                                    await AppServices.addRatingReview(
+                                        myrating,
+                                        review,
+                                        userFile.usrData.uid,
+                                        widget.pid);
+                                print(result);
+                                if (result ==
+                                    "Successfully inserted rating and review!") {
+                                  showDialog(
+                                    //User friendly error message when the screen has been displayed
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      title: Text(
+                                        "Rating and review saved!",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 28),
+                                      ),
+                                      content: SingleChildScrollView(
+                                        scrollDirection: Axis.vertical,
+                                        child: ListBody(
+                                          mainAxis: Axis.vertical,
+                                          children: <Widget>[
+                                            Icon(Icons.check,
+                                                color: Colors.green[300],
+                                                size: 50),
+                                            // Text(
+                                            //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  barrierDismissible: true,
-                                );
+                                    barrierDismissible: true,
+                                  );
+                                } else {
+                                  showDialog(
+                                    //User friendly error message when the screen has been displayed
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      title: Text(
+                                        "Connection Failure",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 28),
+                                      ),
+                                      content: SingleChildScrollView(
+                                        scrollDirection: Axis.vertical,
+                                        child: ListBody(
+                                          mainAxis: Axis.vertical,
+                                          children: <Widget>[
+                                            Icon(Icons.check,
+                                                color: Colors.green[300],
+                                                size: 50),
+                                            // Text(
+                                            //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    barrierDismissible: true,
+                                  );
+                                }
                               },
                             ),
                             focusedBorder: UnderlineInputBorder(

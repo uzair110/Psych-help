@@ -225,6 +225,29 @@ class AppServices {
     }
   }
 
+  static Future<String> addRatingReview(
+      String rating, String review, String uid, int pid) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = "ADD_RATING_REVIEW";
+      map['rating'] = rating;
+      map['review'] = review;
+      map['uid'] = uid;
+      map['pid'] = "$pid";
+      print(map);
+      final response = await http.post(ROOT, body: map);
+      print(response.body);
+      if (200 == response.statusCode) {
+        return response.body;
+      } else {
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
+
   static Future<List<SearchData>> psychSearchHistory() async {
     try {
       var map = Map<String, dynamic>();
