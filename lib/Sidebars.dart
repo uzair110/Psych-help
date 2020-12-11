@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:psych_help/globals.dart' as userFile;
 import 'package:psych_help/psychcomplaintlist.dart';
+import 'package:psych_help/reviewcomplaintlist.dart';
 import 'package:psych_help/myrating.dart';
 
 class SideBarMod extends StatefulWidget {
@@ -34,7 +35,7 @@ class SideBarPropertiesMod extends State<SideBarMod> {
               print("Here");
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ModComplainList()),
+                MaterialPageRoute(builder: (context) => ModPsychComplain()),
               );
             },
           ),
@@ -44,7 +45,7 @@ class SideBarPropertiesMod extends State<SideBarMod> {
               print("Here");
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ModComplainList()),
+                MaterialPageRoute(builder: (context) => ModRevComplain()),
               );
             },
           ),
