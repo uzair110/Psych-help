@@ -263,6 +263,69 @@
     
  }
  
+ if ("ADD_RATING_REVIEW" == $action)
+ {
+    $rating = floatval($_POST['rating']);
+    $review = $_POST['review'];
+    $uid = $_POST['uid'];
+    $pid = (int)$_POST['pid'];
+    $check2 = "SET FOREIGN_KEY_CHECKS = 0";
+     if (mysqli_query($conn,$check2))
+     {
+         $sql = "INSERT INTO `heroku_c82c28fdbe3ee78`.`ratings`
+                (
+                `Rating`,
+                `PID`,
+                `UID`)
+                VALUES
+                (
+                ('$rating'),
+                '$pid',
+                '$uid');";
+                if (mysqli_query($conn,$sql))
+                {
+                    $get_ratingID = " SELECT Rating_ID FROM heroku_c82c28fdbe3ee78.ratings
+                                      where UID = '$uid' and PID = '$pid' and Rating = '$rating' order by Rating_ID desc LIMIT 1;";
+                       $result = mysqli_query($conn, $get_ratingID);
+                       $row = mysqli_fetch_assoc($result);
+                       $rid = $row['Rating_ID'];
+                       if ($result != null)
+                       {
+                           $insert_review = "INSERT INTO `heroku_c82c28fdbe3ee78`.`reviews`
+                                            (`Review`,
+                                            `Upvote`,
+                                            `Downvote`,
+                                            `Rating_ID`)
+                                            VALUES
+                                            (
+                                            '$review',
+                                            2,
+                                            2,
+                                            '$rid');
+                                            ";
+                            if (mysqli_query($conn, $insert_review))
+                            {
+                                echo "Successfully inserted rating and review!";
+                            }
+                            else
+                            {
+                                echo "Error inserting review";
+                            }
+                       }
+                }
+                else
+                {
+                    echo "Error inserting rating";
+                }
+                
+     }
+     else
+     {
+         echo "Foriegn Key Constraint";
+     }
+    
+ }
+ 
  if("USR_DAT" == $action){
         // printf( $action);
         $AID = $_POST['aid'];
@@ -410,11 +473,11 @@
         $conn->close();
     }
     
-    if ("PSYCH_COMPLAIN" == $action)
+    if ("REV_COMPLAIN" == $action)
     {
         $search_data = array();
         $search_list = array();
-        $search_query = "SELECT review_complaints.Complaint as complain, review_complaints.Complaint as cType, reviews.Review as rev FROM review_complaints LEFT JOIN reviews ON reviews.RID = review_complaints.RID ORDER BY review_complaints.Rev_ID;";
+        $search_query = "SELECT review_complaints.Rev_ID as rev_id, review_complaints.Complaint as complain, review_complaints.Complaint as cType, reviews.Review as rev FROM review_complaints LEFT JOIN reviews ON reviews.RID = review_complaints.RID ORDER BY review_complaints.Rev_ID;";
         $result = $conn->query($search_query);
         if(!empty($result) && $result->num_rows > 0){
             while($row = $result->fetch_assoc()){
@@ -427,71 +490,79 @@
         }
         $conn->close();
     }
-    // if("VALIDATE_EMP_ID" == $action){
-    //     $Employee_ID = $_POST["Employee_ID"];
-    //     $sql = "select count(*) from employee where Employee_ID='$Employee_ID'" or die(mysqli_error($dbname));
-    //     $result = mysqli_query($conn, $sql);
-    //     $row = $result->fetch_assoc();
-    //     $data = $row['count(*)'];
-    //     if ($data === '1'){
-    //         echo "success";
-    //     }
-    //     else {
-    //         echo "Failed";
-    //     }
-    //     $conn->close();
-    //     return;
-    // }
-
-    // if("_GET_ALL_ISSUES_BY_EMP" == $action){
-    //     $Employee_ID = $_POST["Employee_ID"];
-    //     $db_data = array();
-    //     $sql = "SELECT Issue_ID,Description1,Current_Status,Issue_Logged_Timestamp from Issues where Issue_logged_by='$Employee_ID'" or die(mysqli_error($dbname));
-    //     $result = $conn->query($sql);
-    //     if(!empty($result) && $result->num_rows > 0){
-    //         while($row = $result->fetch_assoc()){
-    //             $db_data[] = $row;
-    //         }
-    //         // Send back the complete records as a json
-    //         echo json_encode($db_data);
-    //     }else{
-    //         echo "error";
-    //     }
-    //     $conn->close();
-    //     return;
-    // }
-
-    // if("_GET_ALL_ISSUES" == $action){
-    //     $db_data = array();
-    //     $sql = "SELECT Issue_ID,Description1,Current_Status,Issue_Logged_Timestamp from Issues" or die(mysqli_error($dbname));
-    //     $result = $conn->query($sql);
-    //     if(!empty($result) && $result->num_rows > 0){
-    //         while($row = $result->fetch_assoc()){
-    //             $db_data[] = $row;
-    //         }
-    //         // Send back the complete records as a json
-    //         echo json_encode($db_data);
-    //     }else{
-    //         echo "error";
-    //     }
-    //     $conn->close();
-    //     return;
-    // }
-
-
-    // if("UPDATE_STATUS" == $action){
-    //     // App will be posting these values to this server
-    //     $Issue_ID = $_POST['Issue_ID'];
-    //     $new_status = $_POST["new_status"];
-    //     $sql = "UPDATE Issues SET Current_Status = '$new_status' WHERE Issue_ID = '$Issue_ID'";
-    //     if($conn->query($sql) === TRUE){
-    //         echo "success";
-    //     }else{
-    //         echo "error";
-    //     }
-    //     $conn->close();
-    //     return;
-    // }
-
+    
+    if ("PSYCH_COMPLAIN" == $action)
+    {
+        $search_data = array();
+        $search_list = array();
+        $search_query = "SELECT psychologist_complaints.PID as pid, psychologist_complaints.UID as uid, psychologist_complaints.Complaint as complaint, psychologist.First_Name as firstName, psychologist.Last_Name as lastName FROM psychologist_complaints LEFT JOIN psychologist ON psychologist.PID = psychologist_complaints.PID ORDER BY psychologist_complaints.CID;";
+        $result = $conn->query($search_query);
+        if(!empty($result) && $result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                $search_data[] = $row;
+            }
+            // Send back the complete records as a json
+            echo json_encode($search_data);
+        }else{
+            echo json_encode("List is Empty");
+        }
+        $conn->close();
+    }
+    
+    if ("PSYCH_REV_USR" == $action)
+    {
+        $pid = $_POST['pid'];
+        
+        $search_data = array();
+        $search_list = array();
+        $search_query = "Select u.UID, u.First_Name, p.First_Name as psyfirstName, p.Last_Name as psylastName, r.PID, (Rating), review, Upvote, downvote, r.Rating_ID 
+			from ratings r
+            inner join reviews re on
+            re.Rating_ID = r.Rating_ID
+            inner join user u on 
+            u.UID = r.UID
+            inner join psychologist p on 
+            r.PID = p.PID
+            where r.PID = '$pid';";
+        $result = $conn->query($search_query);
+        if(!empty($result) && $result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                $search_data[] = $row;
+            }
+            // Send back the complete records as a json
+            echo json_encode($search_data);
+        }else{
+            echo json_encode("List is Empty");
+        }
+        $conn->close();
+    }    
+    
+    if ("REV_USR" == $action)
+    {
+        $uid = $_POST['uid'];
+        
+        $search_data = array();
+        $search_list = array();
+        $search_query = "Select u.UID, u.First_Name, p.First_Name as psyfirstName, p.Last_Name as psylastName, r.PID, (Rating), review, Upvote, downvote, r.Rating_ID 
+			from ratings r
+            inner join reviews re on
+            re.Rating_ID = r.Rating_ID
+            inner join user u on 
+            u.UID = r.UID
+            inner join psychologist p on 
+            r.PID = p.PID
+            where r.UID = '$uid';";
+        $result = $conn->query($search_query);
+        if(!empty($result) && $result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                $search_data[] = $row;
+            }
+            // Send back the complete records as a json
+            echo json_encode($search_data);
+        }else{
+            echo json_encode("List is Empty");
+        }
+        $conn->close();
+    }
  
 ?>

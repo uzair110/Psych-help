@@ -424,10 +424,8 @@ class AppServices {
       var map = Map<String, dynamic>();
       map['action'] = 'REV_USR';
       map['uid'] = "${userFile.usrData.uid}";
-      
       final response = await http.post(ROOT, body: map);
       if (response.body == "List is Empty") {
-        print("idhr");
         return [];
       } else {
         print('Search Suggestion Response: ${response.body}');
