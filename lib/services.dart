@@ -176,7 +176,7 @@ class AppServices {
       //var aid = '';
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
-        print(response.body);
+        print('RESPONSE: ${response.body}');
         return response.body;
       } else {
         return "error1";

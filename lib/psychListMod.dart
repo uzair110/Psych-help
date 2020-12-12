@@ -7,50 +7,6 @@ import 'package:psych_help/services.dart';
 import 'package:psych_help/globals.dart' as userFile;
 import 'package:psych_help/psychProfileMod.dart';
 
-// class ModPsychList extends StatefulWidget {
-//   final String firstName, lastName, pid, city;
-
-//   ModPsychList({this.firstName, this.lastName, this.pid, this.city});
-//   @override
-//   _ModPsychList createState() => _ModPsychList();
-// }
-
-// class _ModPsychList extends State<ModPsychList> {
-//   @override
-
-//   Widget build(BuildContext context) {
-//     final psychs = Provider.of<List<PsyData>>(context);
-//     if (psychs == null) {
-//       return LoadingScreen();
-//     } else {
-//       return ListView.builder(
-//           shrinkWrap: true,
-//           physics: const AlwaysScrollableScrollPhysics(),
-//           itemCount: psychs.length,
-//           itemBuilder: (context, index) {
-//             return Card(
-//                 child: ListTile(
-//               onTap: () {
-//                 debugPrint('${psychs[index].email} is pressed!');
-//                 var route = new MaterialPageRoute(
-//                     builder: (BuildContext context) => new PsyProfileMod(
-//                           firstName: '${psychs[index].firstName}',
-//                           lastName: '${psychs[index].lastName}',
-//                           pid: '${psychs[index].pid}',
-//                           city: '${psychs[index].city}',
-//                         ));
-//                 Navigator.of(context).push(route);
-//               },
-//               title:
-//                   Text(psychs[index].firstName + " " + psychs[index].lastName),
-//               leading: Icon(Icons.account_circle),
-//               trailing: Text(psychs[index].city),
-//             ));
-//           });
-//     }
-//   }
-// }
-
 class ModPsychCard extends StatefulWidget {
   final String number;
   @override
@@ -140,33 +96,6 @@ class _ModPsychList extends State<ModPsychList> {
           appBar: AppBar(
             title: !isSearching
                 ? Text('Search Results')
-                // : TypeAheadField(
-                //     textFieldConfiguration: TextFieldConfiguration(
-                //         controller: searchText,
-                //         autofocus: true,
-                //         style: DefaultTextStyle.of(context).style.copyWith(
-                //             fontStyle: FontStyle.italic, fontSize: 12),
-                //         decoration: InputDecoration(
-                //           border: OutlineInputBorder(),
-                //           hintText: "Search here...",
-                //           hintStyle: TextStyle(color: Colors.white),
-                //         )),
-                //     onSuggestionSelected: (suggestion) {
-                //       setState(() {
-                //         searchText.text = suggestion.seacrhHis;
-                //       });
-                //       //searchText.text = suggestion;
-                //     },
-                //     itemBuilder: (context, suggestion) {
-                //       return ListTile(
-                //         leading: Icon(Icons.history),
-                //         title: Text(suggestion.seacrhHis),
-                //       );
-                //     },
-                //     suggestionsCallback: (_) async {
-                //       return AppServices.psychSearchHistory();
-                //     },
-                //   ),
                 : TextField(
                     controller: searchText,
                     style: TextStyle(color: Colors.white),

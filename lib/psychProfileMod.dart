@@ -172,98 +172,103 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                             shadowColor: Colors.red,
                             color: Colors.red,
                             elevation: 7.0,
-                            child: InkWell(
-                                hoverColor: Colors.red,
-                                splashColor: Colors.blueAccent,
-                                onTap: () async {
-                                  showDialog(
-                                    //User friendly error message when the screen has been displayed
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                      title: Text(
-                                        "Are you sure you want to delete " +
-                                            "${widget.firstName}" +
-                                            " " +
-                                            "${widget.lastName}" +
-                                            "?",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text("Cancel"),
-                                        ),
-                                        FlatButton(
-                                          onPressed: () async {
-                                            global_id = '${widget.pid}';
-                                            result = await AppServices.psychDel(
-                                                '${widget.pid}');
-                                            print(result);
-                                            if (result == "Success Deletion") {
-                                              Navigator.pop(context);
-                                            } else {
-                                              showDialog(
-                                                //User friendly error message when the screen has been displayed
-                                                context: context,
-                                                builder: (_) => AlertDialog(
-                                                  title: Text(
-                                                    "Connection Failure",
-                                                    textAlign: TextAlign.center,
-                                                    style:
-                                                        TextStyle(fontSize: 28),
-                                                  ),
-                                                  content:
-                                                      SingleChildScrollView(
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    child: ListBody(
-                                                      mainAxis: Axis.vertical,
-                                                      children: <Widget>[
-                                                        Icon(Icons.clear,
-                                                            color:
-                                                                Colors.red[300],
-                                                            size: 50),
-                                                        // Text(
-                                                        //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
-                                                      ],
+                            child: Container(
+                                child: InkWell(
+                                    hoverColor: Colors.red,
+                                    splashColor: Colors.blueAccent,
+                                    onTap: () async {
+                                      showDialog(
+                                        //User friendly error message when the screen has been displayed
+                                        context: context,
+                                        builder: (_) => AlertDialog(
+                                          title: Text(
+                                            "Are you sure you want to delete " +
+                                                "${widget.firstName}" +
+                                                " " +
+                                                "${widget.lastName}" +
+                                                "?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text("Cancel"),
+                                            ),
+                                            FlatButton(
+                                              onPressed: () async {
+                                                global_id = '${widget.pid}';
+                                                result =
+                                                    await AppServices.psychDel(
+                                                        '${widget.pid}');
+                                                print(result);
+                                                if (result ==
+                                                    "Success Deletion") {
+                                                  Navigator.pop(context);
+                                                } else {
+                                                  showDialog(
+                                                    //User friendly error message when the screen has been displayed
+                                                    context: context,
+                                                    builder: (_) => AlertDialog(
+                                                      title: Text(
+                                                        "Connection Failure",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: 28),
+                                                      ),
+                                                      content:
+                                                          SingleChildScrollView(
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        child: ListBody(
+                                                          mainAxis:
+                                                              Axis.vertical,
+                                                          children: <Widget>[
+                                                            Icon(Icons.clear,
+                                                                color: Colors
+                                                                    .red[300],
+                                                                size: 50),
+                                                            // Text(
+                                                            //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                                barrierDismissible: true,
-                                              );
-                                            }
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text("Continue"),
-                                        ),
-                                      ],
-                                      content: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: ListBody(
-                                          mainAxis: Axis.vertical,
-                                          children: <Widget>[
-                                            Icon(Icons.clear,
-                                                color: Colors.red[300],
-                                                size: 50),
-                                            // Text(
-                                            //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                                    barrierDismissible: true,
+                                                  );
+                                                }
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text("Continue"),
+                                            ),
                                           ],
+                                          content: SingleChildScrollView(
+                                            scrollDirection: Axis.vertical,
+                                            child: ListBody(
+                                              mainAxis: Axis.vertical,
+                                              children: <Widget>[
+                                                Icon(Icons.clear,
+                                                    color: Colors.red[300],
+                                                    size: 50),
+                                                // Text(
+                                                //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    barrierDismissible: true,
-                                  );
-                                },
-                                child: Center(
-                                  child: Text("Delete",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                )),
+                                        barrierDismissible: true,
+                                      );
+                                    },
+                                    child: Center(
+                                      child: Text("Delete",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                    ))),
                           ),
                         ),
                       ],

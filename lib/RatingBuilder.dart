@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
+import 'package:psych_help/myrating.dart';
 import 'package:rating_bar/rating_bar.dart';
 
 class UsrPsychRevList extends StatefulWidget {
@@ -168,33 +169,49 @@ class _UsrRevList extends State<UsrRevList> {
           itemCount: revs.length,
           itemBuilder: (context, index) {
             return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EditRating(
+                            ratId: revs[index].ratID,
+                            theReview: revs[index].review,
+                            theRating: revs[index].rating,
+                          )),
+                );
+              },
               onLongPress: () {
-                print("Card Clicked");
-                showMenu(
-                  items: <PopupMenuEntry>[
-                    PopupMenuItem(
-                      value: this.widget,
-                      child: Row(
+                showDialog(
+                  //User friendly error message when the screen has been displayed
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: Text(
+                      "Delete This Rating",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 28),
+                    ),
+                    content: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: ListBody(
+                        mainAxis: Axis.vertical,
                         children: <Widget>[
-                          Icon(Icons.delete),
-                          Text("Delete"),
-                          GestureDetector(onTap: () async {
-                            print("Del Button Pressed");
-                            //   result = await AppServices.psychDel(
-                            //       '${widget.pid}');
-                            //   print(result);
-                            //   if (result == "Success Deletion") {
-                            //     Navigator.pop(context);
-                            //   } else {
-                            //     //stay
-                            //   }
-                          })
+                          Icon(Icons.delete_forever,
+                              color: Colors.red[300], size: 50),
                         ],
                       ),
-                    )
-                  ],
-                  context: context,
-                  position: RelativeRect.fromLTRB(100, 500, 0, 0),
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () async {},
+                        child: Text("Delete"),
+                      ),
+                      FlatButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Text("Cancel"),
+                      )
+                    ],
+                  ),
+                  barrierDismissible: false,
                 );
               },
               child: new Card(
