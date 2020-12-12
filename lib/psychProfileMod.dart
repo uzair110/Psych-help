@@ -8,12 +8,19 @@ import 'package:provider/provider.dart';
 import 'package:psych_help/Mapper.dart';
 
 class PsyProfileMod extends StatefulWidget {
-  final String firstName, lastName, city;
+  final String firstName, lastName, city, address, email, ctype;
   final int pid, number;
 
   @override
   PsyProfileMod(
-      {this.firstName, this.lastName, this.pid, this.city, this.number});
+      {this.firstName,
+      this.lastName,
+      this.pid,
+      this.city,
+      this.number,
+      this.address,
+      this.email,
+      this.ctype});
   _PsyProfileMod createState() => _PsyProfileMod();
 }
 
@@ -280,14 +287,16 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                         Container(
                           child: InkWell(
                             onTap: () {
+                              print('name : ${widget.firstName}');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EditPsych(
+                                          address: widget.address,
                                           firstName: '${widget.firstName}',
                                           lastName: '${widget.lastName}',
                                           pid: widget.pid,
-                                          city: '${widget.city}',
+                                          city: widget.city,
                                           number: widget.number,
                                         )), // Ye daal dena iss ke andar {this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number}
                               );
