@@ -20,6 +20,11 @@ class _ModPsychCard extends State<ModPsychCard> {
     final psychs = Provider.of<List<PsyData>>(context);
     if (psychs == null) {
       return LoadingScreen();
+    } else if (psychs == [] || psychs.length == 0) {
+      print("Nothing to see here");
+      return Center(
+        child: Text("No Items to Display"),
+      );
     } else {
       return SingleChildScrollView(
         physics: ScrollPhysics(),

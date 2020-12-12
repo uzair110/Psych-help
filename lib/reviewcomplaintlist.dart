@@ -80,6 +80,11 @@ class _RevComplaint extends State<RevComplaint> {
     final complains = Provider.of<List<RevComplaintData>>(context);
     if (complains == null) {
       return LoadingScreen();
+    } else if (complains == [] || complains.length == 0) {
+      print("Nothing to see here");
+      return Center(
+        child: Text("No Items to Display"),
+      );
     } else {
       return SingleChildScrollView(
         physics: ScrollPhysics(),

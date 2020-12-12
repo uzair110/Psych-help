@@ -22,6 +22,11 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
     final revs = Provider.of<List<PsychRevData>>(context);
     if (revs == null) {
       return LoadingScreen();
+    } else if (revs == [] || revs.length == 0) {
+      print("Nothing to see here");
+      return Center(
+        child: Text("No Items to Display"),
+      );
     } else {
       return ListView.builder(
           shrinkWrap: true,
@@ -76,6 +81,11 @@ class _ModPsychRevList extends State<ModPsychRevList> {
     final revs = Provider.of<List<PsychRevData>>(context);
     if (revs == null) {
       return LoadingScreen();
+    } else if (revs == [] || revs.length == 0) {
+      print("Nothing to see here");
+      return Center(
+        child: Text("No Items to Display"),
+      );
     } else {
       return ListView.builder(
           shrinkWrap: true,

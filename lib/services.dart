@@ -37,18 +37,17 @@ class AppServices {
       map['Username'] = un;
       map['Password'] = pw;
       final response = await http.post(ROOT, body: map);
+      print('${response.body}');
       if (200 == response.statusCode) {
         UserIds promiseResult = UserIds.fromData(jsonDecode(response.body));
         return promiseResult;
       } else {
-        UserIds errResult =
-            UserIds(result: "Conn Failure", aid: "NULL", userType: "NULL");
+        UserIds errResult = UserIds(result: "Conn Failure");
         return errResult;
       }
     } catch (e) {
       print(e);
-      UserIds errResult =
-          UserIds(result: "Auth Failure", aid: "NULL", userType: "NULL");
+      UserIds errResult = UserIds(result: "Auth Failure");
       return errResult;
     }
   }
@@ -93,11 +92,11 @@ class AppServices {
   }
 
 //Function which fetches data for user before initializing their homepage after login
-  static Future<UserData> userDatPromise(String aid) async {
+  static Future<UserData> userDatPromise(int aid) async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = 'USR_DAT';
-      map['aid'] = aid;
+      map['aid'] = '$aid';
       final response = await http.post(ROOT, body: map);
       print('sign in Response: ${response.body}');
       print(response.statusCode);
@@ -109,6 +108,7 @@ class AppServices {
         return errResult;
       }
     } catch (e) {
+      print('error');
       print(e);
       UserData errResult = UserData(result: "Auth Failure");
       return errResult;
@@ -116,11 +116,11 @@ class AppServices {
   }
 
 //Function which fetches data for moderator before initializing their homepage after login
-  static Future<ModData> modDatPromise(String aid) async {
+  static Future<ModData> modDatPromise(int aid) async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = 'MOD_DAT';
-      map['aid'] = aid;
+      map['aid'] = '$aid';
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
         ModData promiseResult = ModData.fromData(jsonDecode(response.body));
@@ -177,6 +177,12 @@ class AppServices {
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
         print('RESPONSE: ${response.body}');
+        if (response.body == "This username exists!") {
+          return "un exists";
+        }
+        if (response.body == "username empty!") {
+          return "un empty";
+        }
         return response.body;
       } else {
         return "error1";
@@ -193,14 +199,8 @@ class AppServices {
     }
   }
 
-  static Future<String> editProfile(
-      String firstName,
-      String lastName,
-      String username,
-      String password,
-      String city,
-      String uid,
-      String aid) async {
+  static Future<String> editProfile(String firstName, String lastName,
+      String username, String password, String city, int uid, int aid) async {
     try {
       var map1 = Map<String, dynamic>();
 
@@ -210,8 +210,8 @@ class AppServices {
       map1['Username'] = username;
       map1['Password'] = password;
       map1['City'] = city;
-      map1['AID'] = aid;
-      map1['UID'] = uid;
+      map1['AID'] = '$aid';
+      map1['UID'] = '$uid';
 
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
@@ -226,13 +226,13 @@ class AppServices {
   }
 
   static Future<String> addRatingReview(
-      String rating, String review, String uid, int pid) async {
+      String rating, String review, int uid, int pid) async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = "ADD_RATING_REVIEW";
       map['rating'] = rating;
       map['review'] = review;
-      map['uid'] = uid;
+      map['uid'] = '$uid';
       map['pid'] = "$pid";
       print(map);
       final response = await http.post(ROOT, body: map);
@@ -252,7 +252,7 @@ class AppServices {
     try {
       var map = Map<String, dynamic>();
       map['action'] = 'PSYCH_SUG';
-      map['uid'] = userFile.usrData.uid;
+      map['uid'] = '${userFile.usrData.uid}';
       final response = await http.post(ROOT, body: map);
 
       if (response.body == "List is Empty") {
@@ -309,11 +309,11 @@ class AppServices {
     }
   }
 
-  static Future<String> psychDel(String pid) async {
+  static Future<String> psychDel(int pid) async {
     try {
       var map1 = Map<String, dynamic>();
       map1['action'] = 'DELETE_PSYCH';
-      map1['PID'] = pid;
+      map1['PID'] = '$pid';
       print(map1);
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
@@ -327,11 +327,11 @@ class AppServices {
     }
   }
 
-  static Future<String> getRating(String pid) async {
+  static Future<String> getRating(int pid) async {
     try {
       var map1 = Map<String, dynamic>();
       map1['action'] = 'GET_RATING';
-      map1['PID'] = pid;
+      map1['PID'] = '$pid';
       print(map1);
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
@@ -349,7 +349,7 @@ class AppServices {
   static Future<String> psychAdd(
     String firstName,
     String lastName,
-    String phoneNumber,
+    int phoneNumber,
     String email,
     String address,
     String counsellingType,
@@ -361,7 +361,7 @@ class AppServices {
       map1['action'] = 'ADD_PSYCH';
       map1['First_Name'] = firstName;
       map1['Last_Name'] = lastName;
-      map1['Phone_Number'] = phoneNumber;
+      map1['Phone_Number'] = '$phoneNumber';
       map1['email'] = email;
       map1['Address'] = address;
       map1['Counselling_Type'] = counsellingType;
@@ -382,12 +382,12 @@ class AppServices {
   static Future<String> psychEdit(
     String firstName,
     String lastName,
-    String phoneNumber,
+    int phoneNumber,
     String email,
     String address,
     String counsellingType,
     String city,
-    String pid,
+    int pid,
   ) async {
     try {
       var map1 = Map<String, dynamic>();
@@ -395,12 +395,12 @@ class AppServices {
       map1['action'] = 'EDIT_PROFILE';
       map1['First_Name'] = firstName;
       map1['Last_Name'] = lastName;
-      map1['Phone_Number'] = phoneNumber;
+      map1['Phone_Number'] = '$phoneNumber';
       map1['email'] = email;
       map1['Address'] = address;
       map1['Counselling_Type'] = counsellingType;
       map1['City'] = city;
-      map1['PID'] = pid;
+      map1['PID'] = '$pid';
 
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
@@ -422,7 +422,7 @@ class AppServices {
 
       map1['action'] = 'ADD_SEARCH';
       map1['searchQuery'] = searchQuery;
-      map1['uid'] = userFile.usrData.uid;
+      map1['uid'] = '${userFile.usrData.uid}';
       print("${userFile.usrData.uid}, $searchQuery");
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {

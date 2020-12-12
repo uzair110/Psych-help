@@ -191,7 +191,7 @@ class _AddPsych extends State<AddPsych> {
                     var psychAddResponse = await AppServices.psychAdd(
                         fname.text,
                         lname.text,
-                        phone.text,
+                        int.parse(phone.text),
                         email.text,
                         address.text,
                         index.toString(),

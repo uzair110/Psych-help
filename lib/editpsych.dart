@@ -3,7 +3,8 @@ import 'package:psych_help/Sidebars.dart';
 import 'package:psych_help/services.dart';
 
 class EditPsych extends StatefulWidget {
-  final String firstName, lastName, pid, city, address, email, number;
+  final String firstName, lastName, city, address, email;
+  final int pid, number;
   @override
   EditPsych(
       {this.firstName,
@@ -201,12 +202,12 @@ class _EditPsych extends State<EditPsych> {
                     var psychAddResponse = await AppServices.psychEdit(
                         fname.text,
                         lname.text,
-                        phone.text,
+                        int.parse(phone.text),
                         email.text,
                         address.text,
                         index.toString(),
                         city.text,
-                        '${widget.pid}');
+                        widget.pid);
                     print(psychAddResponse);
                     if (psychAddResponse ==
                         "Successfully Updated Psychologist") {

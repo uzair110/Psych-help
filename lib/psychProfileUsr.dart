@@ -25,7 +25,7 @@ List<String> litems = [];
 
 class _PsyProfileUsr extends State<PsyProfileUsr> {
   Future getData() async {
-    final response = await AppServices.getRating('${widget.pid}');
+    final response = await AppServices.getRating(widget.pid);
     avg_rating = response;
   }
 

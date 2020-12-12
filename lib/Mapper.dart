@@ -1,7 +1,7 @@
 class UserIds {
   String username;
   String result;
-  String aid;
+  int aid;
   String userType;
 
   UserIds({this.username, this.result, this.aid, this.userType});
@@ -9,30 +9,13 @@ class UserIds {
   UserIds.fromData(Map<String, dynamic> data)
       : username = data['username'],
         result = data['result'],
-        aid = data['aid'],
+        aid = int.parse(data['aid']),
         userType = data['userType'];
-}
-
-class ReviewData {
-  String review;
-  String pid;
-  String uid;
-  String fname;
-  String lname;
-
-  ReviewData({this.review, this.pid, this.uid, this.fname, this.lname});
-
-  ReviewData.fromData(Map<String, dynamic> data)
-      : review = data['reviews'],
-        pid = data['PID'],
-        uid = data['UID'],
-        fname = data['First_Name'],
-        lname = data['Last_Name'];
 }
 
 class UserData {
   String result;
-  String uid;
+  int uid;
   String firstName;
   String lastName;
   String blacklist;
@@ -48,7 +31,7 @@ class UserData {
 
   UserData.fromData(Map<String, dynamic> data)
       : result = data['result'],
-        uid = data['uid'],
+        uid = int.parse(data['uid']),
         firstName = data['firstName'],
         lastName = data['lastName'],
         blacklist = data['blacklist'],
@@ -57,7 +40,7 @@ class UserData {
 
 class ModData {
   String result;
-  String mid;
+  int mid;
   String firstName;
   String lastName;
   int modLevel;
@@ -67,7 +50,7 @@ class ModData {
 
   ModData.fromData(Map<String, dynamic> data)
       : result = data['result'],
-        mid = data['mid'],
+        mid = int.parse(data['mid']),
         firstName = data['firstName'],
         lastName = data['lastName'],
         modLevel = int.parse(data['modLevel']);
@@ -99,10 +82,10 @@ class PsyData {
   PsyData.fromData(Map<String, dynamic> data)
       :
         //result = data['result'],
-        pid = data['PID'],
+        pid = int.parse(data['PID']),
         firstName = data['First _Name'],
         lastName = data['Last_Name'],
-        phoneNumber = data['Phone_Number'],
+        phoneNumber = int.parse(data['Phone_Number']),
         email = data['email'],
         address = data['Address'],
         counsellType = data['Counselling_Type'],
@@ -113,14 +96,14 @@ class SearchData {
   int count;
   String seacrhHis;
   int sid;
-  String uid;
+  int uid;
 
   SearchData({this.count, this.seacrhHis, this.sid, this.uid});
 
   SearchData.fromData(Map<String, dynamic> data)
       : count = int.parse(data['Counter']),
         seacrhHis = data['Search_Name'],
-        uid = data['UID'],
+        uid = int.parse(data['UID']),
         sid = int.parse(data['SID']);
 }
 
@@ -141,7 +124,7 @@ class RevComplaintData {
 
 class PsychComplaintData {
   int pid;
-  String uid;
+  int uid;
   String firstName;
   String lastName;
   String complain;
@@ -150,15 +133,15 @@ class PsychComplaintData {
       {this.pid, this.uid, this.firstName, this.lastName, this.complain});
 
   PsychComplaintData.fromData(Map<String, dynamic> data)
-      : pid = data['pid'],
-        uid = data['uid'],
+      : pid = int.parse(data['pid']),
+        uid = int.parse(data['uid']),
         firstName = data['firstName'],
         lastName = data['lastName'],
         complain = data['complaint'];
 }
 
 class PsychRevData {
-  String uid;
+  int uid;
   String firstName;
   String psyfirstName;
   String psylastName;
@@ -182,7 +165,7 @@ class PsychRevData {
       this.rating});
 
   PsychRevData.fromData(Map<String, dynamic> data)
-      : uid = data['UID'],
+      : uid = int.parse(data['UID']),
         firstName = data['First_Name'],
         pid = int.parse(data['PID']),
         rating = double.parse(data['Rating']),

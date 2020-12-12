@@ -35,7 +35,7 @@ Widget continueButton = FlatButton(
 
 class _PsyProfileMod extends State<PsyProfileMod> {
   Future getData() async {
-    final response = await AppServices.getRating('${widget.pid}');
+    final response = await AppServices.getRating(widget.pid);
     avg_rating = response;
   }
 
@@ -202,7 +202,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                                                 global_id = '${widget.pid}';
                                                 result =
                                                     await AppServices.psychDel(
-                                                        '${widget.pid}');
+                                                        widget.pid);
                                                 print(result);
                                                 if (result ==
                                                     "Success Deletion") {
@@ -286,9 +286,9 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                                     builder: (context) => EditPsych(
                                           firstName: '${widget.firstName}',
                                           lastName: '${widget.lastName}',
-                                          pid: '${widget.pid}',
+                                          pid: widget.pid,
                                           city: '${widget.city}',
-                                          number: '${widget.number}',
+                                          number: widget.number,
                                         )), // Ye daal dena iss ke andar {this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number}
                               );
                             },

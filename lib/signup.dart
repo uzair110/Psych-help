@@ -344,6 +344,56 @@ class _SignUpState extends State<SignUp> {
                       ),
                       barrierDismissible: true,
                     );
+                  } else if (result == "un exists") {
+                    showDialog(
+                      //User friendly error message when the screen has been displayed
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: Text(
+                          "Username Exists",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 28),
+                        ),
+                        content: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: ListBody(
+                            mainAxis: Axis.vertical,
+                            children: <Widget>[
+                              Icon(Icons.clear,
+                                  color: Colors.red[300], size: 50),
+                              // Text(
+                              //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      barrierDismissible: true,
+                    );
+                  } else if (result == "un empty") {
+                    showDialog(
+                      //User friendly error message when the screen has been displayed
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: Text(
+                          "Username/Password Field Empty",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 28),
+                        ),
+                        content: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: ListBody(
+                            mainAxis: Axis.vertical,
+                            children: <Widget>[
+                              Icon(Icons.clear,
+                                  color: Colors.red[300], size: 50),
+                              // Text(
+                              //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      barrierDismissible: true,
+                    );
                   } else {
                     print(result);
                     //_formKey.currentState.validate();
