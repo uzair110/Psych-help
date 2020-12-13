@@ -90,9 +90,9 @@ class _NewComplaint extends State<NewComplaint> {
             keyboardType: TextInputType.multiline,
             maxLines: null,
             controller: complaintcontroller,
-            onChanged: (String text1) {
-              tempcomplaint = complaintcontroller.text;
-            },
+            // onChanged: (String text1) {
+            //   tempcomplaint = complaintcontroller.text;
+            // },
           ),
           const SizedBox(height: 10),
           Container(
@@ -185,13 +185,14 @@ class _NewRevComplaint extends State<NewRevComplaint> {
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(10.0),
             ),
-            keyboardType: TextInputType.multiline,
+            keyboardType: TextInputType.text,
+            textDirection: TextDirection.ltr,
             maxLines: null,
             controller: complaintcontroller,
-            onChanged: (String text1) {
-              tempcomplaint = complaintcontroller.text;
-              complaintcontroller.text = text1;
-            },
+            // onChanged: (String text1) {
+            //   //tempcomplaint = complaintcontroller.text;
+            //   complaintcontroller.text = text1;
+            // },
           ),
           const SizedBox(height: 10),
           Container(
