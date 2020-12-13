@@ -3,34 +3,45 @@ import 'package:psych_help/Sidebars.dart';
 import 'package:psych_help/services.dart';
 
 class EditPsych extends StatefulWidget {
-  final String firstName, lastName, city, address, email;
+  final String firstName, lastName, city1, address1, email1, ctype;
   final int pid, number;
   @override
   EditPsych(
       {this.firstName,
       this.lastName,
       this.pid,
-      this.city,
-      this.address,
-      this.email,
+      this.city1,
+      this.address1,
+      this.email1,
+      this.ctype,
       this.number});
-  _EditPsych createState() => _EditPsych();
+  _EditPsych createState() => new _EditPsych(
+      firstName: firstName,
+      lastName: lastName,
+      city1: city1,
+      address1: address1,
+      email1: email1,
+      ctype: ctype,
+      pid: pid,
+      number: number);
 }
 
 enum SingingCharacter { oncall, onsite }
 
 class _EditPsych extends State<EditPsych> {
-  // final String firstName, lastName, city, address, email;
-  // final int pid, number;
-  // @override
-  // _EditPsych(
-  //     {this.firstName,
-  //     this.lastName,
-  //     this.pid,
-  //     this.city,
-  //     this.address,
-  //     this.email,
-  //     this.number});
+  String firstName, lastName, city1, address1, email1, ctype;
+  int pid, number;
+
+  _EditPsych(
+      {this.firstName,
+      this.lastName,
+      this.pid,
+      this.city1,
+      this.address1,
+      this.email1,
+      this.ctype,
+      this.number});
+
   TextEditingController fname = new TextEditingController();
   TextEditingController lname = new TextEditingController();
   TextEditingController phone = new TextEditingController();

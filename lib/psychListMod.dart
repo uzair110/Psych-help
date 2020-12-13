@@ -40,8 +40,11 @@ class _ModPsychCard extends State<ModPsychCard> {
                   debugPrint('${psychs[index].email} is pressed!');
                   var route = new MaterialPageRoute(
                       builder: (BuildContext context) => new PsyProfileMod(
+                          email: psychs[index].email,
+                          address: psychs[index].address,
                           firstName: psychs[index].firstName,
                           lastName: psychs[index].lastName,
+                          ctype: psychs[index].counsellType,
                           pid: psychs[index].pid,
                           city: psychs[index].city,
                           number: psychs[index].phoneNumber));

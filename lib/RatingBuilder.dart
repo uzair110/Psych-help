@@ -60,7 +60,7 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
                     onPressed: () {},
                     child: Text(
                       "Report User",
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
+                      style: TextStyle(fontSize: 13.0, color: Colors.black),
                     ),
                   )
                 ],
@@ -101,32 +101,41 @@ class _ModPsychRevList extends State<ModPsychRevList> {
           itemBuilder: (context, index) {
             return InkWell(
               onLongPress: () {
-                print("Card Clicked");
-                showMenu(
-                  items: <PopupMenuEntry>[
-                    PopupMenuItem(
-                      value: this.widget,
-                      child: Row(
+                showDialog(
+                  //User friendly error message when the screen has been displayed
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: Text(
+                      "Delete This Rating",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 28),
+                    ),
+                    content: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: ListBody(
+                        mainAxis: Axis.vertical,
                         children: <Widget>[
-                          Icon(Icons.delete),
-                          Text("Delete"),
-                          GestureDetector(onTap: () async {
-                            print("Del Button Pressed");
-                            //   result = await AppServices.psychDel(
-                            //       '${widget.pid}');
-                            //   print(result);
-                            //   if (result == "Success Deletion") {
-                            //     Navigator.pop(context);
-                            //   } else {
-                            //     //stay
-                            //   }
-                          })
+                          Icon(Icons.delete_forever,
+                              color: Colors.red[300], size: 50),
                         ],
                       ),
-                    )
-                  ],
-                  context: context,
-                  position: RelativeRect.fromLTRB(10, 10, 0, 0),
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () async {},
+                        child: Text("Blacklist"),
+                      ),
+                      FlatButton(
+                        onPressed: () async {},
+                        child: Text("Delete"),
+                      ),
+                      FlatButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Text("Cancel"),
+                      )
+                    ],
+                  ),
+                  barrierDismissible: false,
                 );
               },
               child: new Card(

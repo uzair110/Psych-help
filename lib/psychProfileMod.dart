@@ -292,11 +292,13 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EditPsych(
-                                          address: widget.address,
+                                          email1: widget.email,
+                                          ctype: widget.ctype,
+                                          address1: widget.address,
                                           firstName: '${widget.firstName}',
                                           lastName: '${widget.lastName}',
                                           pid: widget.pid,
-                                          city: widget.city,
+                                          city1: widget.city,
                                           number: widget.number,
                                         )), // Ye daal dena iss ke andar {this.firstName, this.lastName, this.pid, this.city, this.address, this.email, this.number}
                               );
