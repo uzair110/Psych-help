@@ -1,6 +1,6 @@
 # psych_help
 
-An application designed for the Psychology Department at Lahore University Of Management. 
+An application designed for the Psychology Department at Lahore University Of Management Sciences. 
 
 ## Getting Started
 
