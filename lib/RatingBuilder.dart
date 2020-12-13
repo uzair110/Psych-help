@@ -410,7 +410,64 @@ class _ModPsychRevList extends State<ModPsychRevList> {
                           child: Text("Blacklist " + revs[index].firstName),
                         ),
                         FlatButton(
-                          onPressed: () async {},
+                          onPressed: () async {
+                            final result = await AppServices.delReview(
+                                revs[index].ratID, revs[index].revID);
+                            print(result);
+                            if (result ==
+                                "deleting rating and review success!") {
+                              Navigator.pop(context);
+                              showDialog(
+                                //User friendly error message when the screen has been displayed
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text(
+                                    "Successfully deleted review!",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 28),
+                                  ),
+                                  content: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: ListBody(
+                                      mainAxis: Axis.vertical,
+                                      children: <Widget>[
+                                        Icon(Icons.check,
+                                            color: Colors.green[300], size: 50),
+                                        // Text(
+                                        //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                barrierDismissible: true,
+                              );
+                            } else {
+                              showDialog(
+                                //User friendly error message when the screen has been displayed
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text(
+                                    "Connection Failure",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 28),
+                                  ),
+                                  content: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: ListBody(
+                                      mainAxis: Axis.vertical,
+                                      children: <Widget>[
+                                        Icon(Icons.check,
+                                            color: Colors.green[300], size: 50),
+                                        // Text(
+                                        //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                barrierDismissible: true,
+                              );
+                            }
+                          },
                           child: Text("Delete"),
                         ),
                         FlatButton(
@@ -514,7 +571,65 @@ class _UsrRevList extends State<UsrRevList> {
                     ),
                     actions: <Widget>[
                       FlatButton(
-                        onPressed: () async {},
+                        onPressed: () async {
+                          final result = await AppServices.delUsrReview(
+                              revs[index].ratID, revs[index].revID);
+
+                          print(result);
+                          if (result ==
+                              "deleting my rating and review success!") {
+                            Navigator.pop(context);
+                            showDialog(
+                              //User friendly error message when the screen has been displayed
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(
+                                  "Successfully deleted review!",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 28),
+                                ),
+                                content: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: ListBody(
+                                    mainAxis: Axis.vertical,
+                                    children: <Widget>[
+                                      Icon(Icons.check,
+                                          color: Colors.green[300], size: 50),
+                                      // Text(
+                                      //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              barrierDismissible: true,
+                            );
+                          } else {
+                            showDialog(
+                              //User friendly error message when the screen has been displayed
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(
+                                  "Connection Failure!",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 28),
+                                ),
+                                content: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: ListBody(
+                                    mainAxis: Axis.vertical,
+                                    children: <Widget>[
+                                      Icon(Icons.check,
+                                          color: Colors.green[300], size: 50),
+                                      // Text(
+                                      //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              barrierDismissible: true,
+                            );
+                          }
+                        },
                         child: Text("Delete"),
                       ),
                       FlatButton(

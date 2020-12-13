@@ -616,4 +616,44 @@ class AppServices {
       return errResult;
     }
   }
+
+  static Future<String> delReview(int rating_id, int review_id) async {
+    try {
+      var map1 = Map<String, dynamic>();
+      map1['action'] = 'DEL_USER_REVIEW';
+      map1['ratID'] = '$rating_id';
+      map1['revID'] = '$review_id';
+      print(map1);
+      final response = await http.post(ROOT, body: map1);
+      if (200 == response.statusCode) {
+        print(response.body);
+        return response.body;
+      } else {
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
+
+  static Future<String> delUsrReview(int rating_id, int review_id) async {
+    try {
+      var map1 = Map<String, dynamic>();
+      map1['action'] = 'DEL_MY_REVIEW';
+      map1['ratID'] = '$rating_id';
+      map1['revID'] = '$review_id';
+      print(map1);
+      final response = await http.post(ROOT, body: map1);
+      if (200 == response.statusCode) {
+        print(response.body);
+        return response.body;
+      } else {
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
 }
