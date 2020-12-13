@@ -55,7 +55,14 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
                     style: TextStyle(fontSize: 20),
                     textAlign: TextAlign.left,
                   ),
-                  //await ()
+                  FlatButton(
+                    color: Colors.grey,
+                    onPressed: () {},
+                    child: Text(
+                      "Report User",
+                      style: TextStyle(fontSize: 20.0, color: Colors.black),
+                    ),
+                  )
                 ],
               ),
             );

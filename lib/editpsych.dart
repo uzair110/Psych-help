@@ -20,6 +20,17 @@ class EditPsych extends StatefulWidget {
 enum SingingCharacter { oncall, onsite }
 
 class _EditPsych extends State<EditPsych> {
+  // final String firstName, lastName, city, address, email;
+  // final int pid, number;
+  // @override
+  // _EditPsych(
+  //     {this.firstName,
+  //     this.lastName,
+  //     this.pid,
+  //     this.city,
+  //     this.address,
+  //     this.email,
+  //     this.number});
   TextEditingController fname = new TextEditingController();
   TextEditingController lname = new TextEditingController();
   TextEditingController phone = new TextEditingController();
@@ -44,6 +55,7 @@ class _EditPsych extends State<EditPsych> {
               padding: EdgeInsets.only(top: 25.0, left: 20.0, right: 20.0),
               child: Column(children: <Widget>[
                 TextFormField(
+                  //initialValue: widget.firstName,
                   controller: fname,
                   // validator: (_) =>
                   // result == 'Failed' ? 'Invalid Id/Password' : null,
