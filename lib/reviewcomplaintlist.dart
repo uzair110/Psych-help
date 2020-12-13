@@ -105,14 +105,14 @@ class _RevComplaint extends State<RevComplaint> {
                       text: 'Review:\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 36,
+                          fontSize: 26,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
                           text: complains[index].review,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
-                              fontSize: 18,
+                              fontSize: 20,
                               color: Colors.black87),
                         ),
                       ],
@@ -126,14 +126,14 @@ class _RevComplaint extends State<RevComplaint> {
                       text: '\nComplaint:\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 36,
+                          fontSize: 26,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
                           text: complains[index].complain,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
-                              fontSize: 18,
+                              fontSize: 20,
                               color: Colors.black87),
                         ),
                       ],
@@ -147,14 +147,14 @@ class _RevComplaint extends State<RevComplaint> {
                       text: '\nComplaint Type:\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 36,
+                          fontSize: 26,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
                           text: complains[index].type,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
-                              fontSize: 18,
+                              fontSize: 20,
                               color: Colors.black87),
                         ),
                       ],

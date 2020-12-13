@@ -53,6 +53,21 @@ class _EditPsych extends State<EditPsych> {
   int index = 0;
 
   @override
+  void initState() {
+    super.initState();
+    fname.text = firstName;
+    lname.text = lastName;
+    city.text = city1;
+    address.text = address1;
+    email.text = email1;
+    //phone.text = number.toString();
+    if (ctype == "Clinic Appointment") {
+      _character = SingingCharacter.onsite;
+      index = 1;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: true,
@@ -73,7 +88,7 @@ class _EditPsych extends State<EditPsych> {
                   cursorColor: Colors.green,
                   cursorWidth: 2.0,
                   decoration: InputDecoration(
-                      labelText: 'First Name',
+                      labelText: firstName,
                       labelStyle: TextStyle(
                           fontSize: 20.0,
                           color: Colors.grey,

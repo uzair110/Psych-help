@@ -27,8 +27,8 @@ class PsyProfileMod extends StatefulWidget {
 String fname;
 String review = '';
 String result = '';
-String global_id = '';
-String avg_rating = '';
+String globalId = '';
+// String avgRating = '';
 
 List<String> litems = [];
 Widget cancelButton = FlatButton(
@@ -42,8 +42,8 @@ Widget continueButton = FlatButton(
 
 class _PsyProfileMod extends State<PsyProfileMod> {
   Future getData() async {
-    final response = await AppServices.getRating(widget.pid);
-    avg_rating = response;
+    // final response = await AppServices.getRating(widget.pid);
+    // avgRating = response;
   }
 
   @override
@@ -76,42 +76,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        // CircleAvatar(
-                        //   backgroundColor: Colors.green.shade300,
-                        //   minRadius: 35.0,
-                        //   child: Icon(
-                        //     Icons.call,
-                        //     size: 30.0,
-                        //   ),
-                        // ),
-                        // CircleAvatar(
-                        //   backgroundColor: Colors.white70,
-                        //   minRadius: 60.0,
-                        //   child: CircleAvatar(
-                        //     radius: 50.0,
-                        //     backgroundImage: NetworkImage(
-                        //         'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
-                        //   ),
-                        // ),
-                        // CircleAvatar(
-                        //   backgroundColor: Colors.green.shade500,
-                        //   minRadius: 35.0,
-                        //   child: IconButton(
-                        //     icon: Icon(
-                        //       Icons.message,
-                        //       size: 30.0,
-                        //     ),
-                        //     onPressed: () {
-                        //       Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) => NewComplaint()),
-                        //       );
-                        //     },
-                        //   ),
-                        // ),
-                      ],
+                      children: <Widget>[],
                     ),
                     SizedBox(
                       height: 10,
@@ -134,36 +99,36 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                   ],
                 ),
               ),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        color: Colors.green.shade300,
-                        child: ListTile(
-                          title: Text(
-                            avg_rating,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.white,
-                            ),
-                          ),
-                          subtitle: Text(
-                            'Average Rating',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   child: Row(
+              //     children: <Widget>[
+              //       Expanded(
+              //         child: Container(
+              //           color: Colors.green.shade300,
+              //           child: ListTile(
+              //             title: Text(
+              //               avg_rating,
+              //               textAlign: TextAlign.center,
+              //               style: TextStyle(
+              //                 fontWeight: FontWeight.bold,
+              //                 fontSize: 30,
+              //                 color: Colors.white,
+              //               ),
+              //             ),
+              //             subtitle: Text(
+              //               'Average Rating',
+              //               textAlign: TextAlign.center,
+              //               style: TextStyle(
+              //                 fontSize: 20,
+              //                 color: Colors.white70,
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Container(
                 child: Column(
                   children: <Widget>[
@@ -206,7 +171,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                                             ),
                                             FlatButton(
                                               onPressed: () async {
-                                                global_id = '${widget.pid}';
+                                                globalId = '${widget.pid}';
                                                 result =
                                                     await AppServices.psychDel(
                                                         widget.pid);
@@ -311,17 +276,6 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                           ),
                         ),
                       ],
-                    ),
-                    SizedBox(height: 30),
-                    ListTile(
-                      title: Text(
-                        'Reviews',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                     ),
                     ModPsychRevList(
                       pid: widget.pid,

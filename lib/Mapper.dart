@@ -151,18 +151,23 @@ class PsychRevData {
   int upvote;
   int downvote;
   int ratID;
+  //double avgRating;
+  int revID;
 
-  PsychRevData(
-      {this.uid,
-      this.firstName,
-      this.pid,
-      this.ratID,
-      this.review,
-      this.psyfirstName,
-      this.psylastName,
-      this.upvote,
-      this.downvote,
-      this.rating});
+  PsychRevData({
+    this.uid,
+    this.firstName,
+    this.pid,
+    this.ratID,
+    this.review,
+    this.psyfirstName,
+    this.psylastName,
+    this.upvote,
+    this.downvote,
+    this.rating,
+    this.revID,
+    //this.avgRating
+  });
 
   PsychRevData.fromData(Map<String, dynamic> data)
       : uid = int.parse(data['UID']),
@@ -174,5 +179,7 @@ class PsychRevData {
         psylastName = data['psylastName'],
         upvote = int.parse(data['Upvote']),
         downvote = int.parse(data['downvote']),
+        revID = int.parse(data['revID']),
+        //avgRating = double.parse(data['avgRat']),
         ratID = int.parse(data['Rating_ID']);
 }

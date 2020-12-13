@@ -20,13 +20,13 @@ class PsyProfileUsr extends StatefulWidget {
 TextEditingController _reviewController = TextEditingController();
 String review = '';
 String myrating;
-String avg_rating = '';
+//String avg_rating = '';
 List<String> litems = [];
 
 class _PsyProfileUsr extends State<PsyProfileUsr> {
   Future getData() async {
-    final response = await AppServices.getRating(widget.pid);
-    avg_rating = response;
+    // final response = await AppServices.getRating(widget.pid);
+    // avg_rating = response;
   }
 
   @override
@@ -123,36 +123,36 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                 ],
               ),
             ),
-            Container(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      color: Colors.green.shade300,
-                      child: ListTile(
-                        title: Text(
-                          avg_rating,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: Colors.white,
-                          ),
-                        ),
-                        subtitle: Text(
-                          'Average Rating',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   child: Row(
+            //     children: <Widget>[
+            //       Expanded(
+            //         child: Container(
+            //           color: Colors.green.shade300,
+            //           child: ListTile(
+            //             title: Text(
+            //               avg_rating,
+            //               textAlign: TextAlign.center,
+            //               style: TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //                 fontSize: 30,
+            //                 color: Colors.white,
+            //               ),
+            //             ),
+            //             subtitle: Text(
+            //               'Average Rating',
+            //               textAlign: TextAlign.center,
+            //               style: TextStyle(
+            //                 fontSize: 20,
+            //                 color: Colors.white70,
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Container(
               child: Column(
                 children: <Widget>[
@@ -279,17 +279,17 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                       ))),
                   //   ),
                   // ),
-                  Divider(),
-                  ListTile(
-                    title: Text(
-                      'Reviews',
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  // Divider(),
+                  // ListTile(
+                  //   title: Text(
+                  //     'Reviews',
+                  //     style: TextStyle(
+                  //       color: Colors.green,
+                  //       fontSize: 20,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
                   UsrPsychRevList(
                     pid: widget.pid,
                   ),

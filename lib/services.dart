@@ -248,6 +248,29 @@ class AppServices {
     }
   }
 
+  static Future<String> editRatingReview(
+      String rating, String review, int ratID, int revID) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = "EDIT_RATING_REVIEW";
+      map['rating'] = rating;
+      map['review'] = review;
+      map['ratID'] = '$ratID';
+      map['revID'] = '$revID';
+      print(map);
+      final response = await http.post(ROOT, body: map);
+      print('Response: ${response.body}');
+      if (200 == response.statusCode) {
+        return response.body;
+      } else {
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
+
   static Future<List<SearchData>> psychSearchHistory() async {
     try {
       var map = Map<String, dynamic>();

@@ -105,7 +105,7 @@ class _PsychComplaint extends State<PsychComplaint> {
                       text: 'Psychologist Name\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 36,
+                          fontSize: 26,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
@@ -113,7 +113,7 @@ class _PsychComplaint extends State<PsychComplaint> {
                               '${complains[index].firstName} ${complains[index].lastName}',
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
-                              fontSize: 18,
+                              fontSize: 20,
                               color: Colors.black87),
                         ),
                       ],
@@ -127,14 +127,14 @@ class _PsychComplaint extends State<PsychComplaint> {
                       text: '\nComplaint:\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 36,
+                          fontSize: 26,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
                           text: complains[index].complain,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
-                              fontSize: 18,
+                              fontSize: 20,
                               color: Colors.black87),
                         ),
                       ],

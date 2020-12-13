@@ -58,11 +58,12 @@ class _MyRating extends State<MyRating> {
 }
 
 class EditRating extends StatefulWidget {
-  final int ratId;
+  final int ratID;
+  final int revID;
   final double theRating;
   final String theReview;
   @override
-  EditRating({this.ratId, this.theRating, this.theReview});
+  EditRating({this.ratID, this.revID, this.theRating, this.theReview});
   _EditRating createState() => _EditRating();
 }
 
@@ -71,6 +72,15 @@ String review = '';
 List<String> litems = [];
 
 class _EditRating extends State<EditRating> {
+  double myrating;
+
+  @override
+  void initState() {
+    myrating = widget.theRating;
+    _reviewController.text = widget.theReview;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +95,7 @@ class _EditRating extends State<EditRating> {
             Container(
                 padding: new EdgeInsets.all(20.0),
                 child: RatingBar.builder(
-                    initialRating: widget.theRating,
+                    initialRating: myrating,
                     minRating: 0,
                     direction: Axis.horizontal,
                     allowHalfRating: true,
@@ -96,6 +106,7 @@ class _EditRating extends State<EditRating> {
                           color: Colors.green,
                         ),
                     onRatingUpdate: (rating) {
+                      myrating = rating;
                       print(rating);
                     })),
             Divider(),
@@ -103,7 +114,6 @@ class _EditRating extends State<EditRating> {
                 padding: const EdgeInsets.only(right: 10.0, left: 10.0),
                 child: Container(
                     child: TextFormField(
-                  initialValue: widget.theReview,
                   scrollPadding: new EdgeInsets.all(0.0),
                   controller: _reviewController,
                   maxLines: 2,
@@ -112,32 +122,74 @@ class _EditRating extends State<EditRating> {
                       suffixIcon: IconButton(
                         icon: Icon(Icons.send),
                         color: Colors.green,
-                        onPressed: () {
+                        onPressed: () async {
+                          review = _reviewController.text;
                           litems.add(_reviewController.text);
-                          _reviewController.clear();
+                          //_reviewController.clear();
                           setState(() {});
-                          showDialog(
-                            //User friendly error message when the screen has been displayed
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text(
-                                "Rating and review saved!",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 28),
-                              ),
-                              content: SingleChildScrollView(
-                                scrollDirection: Axis.vertical,
-                                child: ListBody(
-                                  mainAxis: Axis.vertical,
-                                  children: <Widget>[
-                                    Icon(Icons.check,
-                                        color: Colors.green[300], size: 50),
-                                  ],
+
+                          final result = await AppServices.editRatingReview(
+                              myrating.toString(),
+                              review,
+                              widget.ratID,
+                              widget.revID);
+                          print(result);
+                          if (result == "Success") {
+                            FocusScope.of(context).unfocus();
+                            showDialog(
+                              //User friendly error message when the screen has been displayed
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(
+                                  "Rating and review saved!",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 28),
+                                ),
+                                content: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: ListBody(
+                                    mainAxis: Axis.vertical,
+                                    children: <Widget>[
+                                      Icon(Icons.check_circle_outline_rounded,
+                                          color: Colors.green[300], size: 50),
+                                      // Text(
+                                      //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            barrierDismissible: true,
-                          );
+                              barrierDismissible: true,
+                            ).then((_) => {
+                                  Navigator.pop(context),
+                                  Navigator.pop(context)
+                                });
+                          } else {
+                            FocusScope.of(context).unfocus();
+                            showDialog(
+                              //User friendly error message when the screen has been displayed
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(
+                                  "Connection Failure",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 28),
+                                ),
+                                content: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: ListBody(
+                                    mainAxis: Axis.vertical,
+                                    children: <Widget>[
+                                      Icon(Icons.warning_outlined,
+                                          color: Colors.orange, size: 50),
+                                      // Text(
+                                      //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              barrierDismissible: true,
+                            );
+                          }
                         },
                       ),
                       focusedBorder: UnderlineInputBorder(
