@@ -306,8 +306,8 @@
                                             VALUES
                                             (
                                             '$review',
-                                            2,
-                                            2,
+                                            0,
+                                            0,
                                             '$last_id');
                                             ";
                             if (mysqli_query($conn, $insert_review))
