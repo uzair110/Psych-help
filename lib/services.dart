@@ -617,12 +617,12 @@ class AppServices {
     }
   }
 
-  static Future<String> delReview(int rating_id, int review_id) async {
+  static Future<String> delReview(int ratingId, int reviewId) async {
     try {
       var map1 = Map<String, dynamic>();
       map1['action'] = 'DEL_USER_REVIEW';
-      map1['ratID'] = '$rating_id';
-      map1['revID'] = '$review_id';
+      map1['ratID'] = '$ratingId';
+      map1['revID'] = '$reviewId';
       print(map1);
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
@@ -637,12 +637,12 @@ class AppServices {
     }
   }
 
-  static Future<String> delUsrReview(int rating_id, int review_id) async {
+  static Future<String> delUsrReview(int ratingId, int reviewId) async {
     try {
       var map1 = Map<String, dynamic>();
       map1['action'] = 'DEL_MY_REVIEW';
-      map1['ratID'] = '$rating_id';
-      map1['revID'] = '$review_id';
+      map1['ratID'] = '$ratingId';
+      map1['revID'] = '$reviewId';
       print(map1);
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
