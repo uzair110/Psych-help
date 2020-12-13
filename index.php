@@ -243,13 +243,17 @@
      $check2 = "SET FOREIGN_KEY_CHECKS = 0";
      if (mysqli_query($conn,$check2))
      {
-     $sql = "delete p, pc, r, rev from psychologist p
-            inner join psychologist_complaints pc on
+     $sql = "delete p, pc, r, rev, rc, v from psychologist p
+            left join psychologist_complaints pc on
             p.PID = pc.PID
-            inner join ratings r on
+            left join ratings r on
             r.PID = p.PID
-            inner join reviews rev on
+            left join reviews rev on
             rev.Rating_ID = r.Rating_ID
+            left join review_complaints rc on
+            rc.RID = rev.RID
+            left join votes v on
+            v.RID = rev.RID
             where p.PID = '$pid';";
      if (mysqli_query($conn, $sql))
      {
@@ -681,6 +685,8 @@ ORDER BY review_complaints.Rev_ID;";
         // $del_query .= "select * from reviews join ratings on ratings.Rating_ID = reviews.Rating_ID;"; 
         $delete_rev = "DELETE FROM reviews where RID = '$revID';";
         $delete_rat = "DELETE FROM ratings where Rating_ID = '$ratID';";
+        $delete_rc = "DELETE FROM review_complaints where RID = '$revID';";
+        $delete_votes = "DELETE FROM votes where RID = '$rev_ID';";
         
         
         if (mysqli_query($conn, "SET SQL_SAFE_UPDATES = 0;"))
@@ -690,7 +696,17 @@ ORDER BY review_complaints.Rev_ID;";
         if(mysqli_query($conn, $delete_rat)){
             if (mysqli_query($conn, $delete_rev))
             {
-                echo "deleting rating and review success!";
+                if (mysqli_query($conn, $delete_rc))
+                {
+                 if (mysqli_query($conn, $delete_votes))
+                    {
+                          echo "deleting rating and review success!";
+                    }
+                    else
+                    {
+                        echo "failure deleting votes";
+                    }
+                }
             }
             else
             {
@@ -713,6 +729,8 @@ ORDER BY review_complaints.Rev_ID;";
         // $del_query .= "select * from reviews join ratings on ratings.Rating_ID = reviews.Rating_ID;"; 
         $delete_rev = "DELETE FROM reviews where RID = '$revID';";
         $delete_rat = "DELETE FROM ratings where Rating_ID = '$ratID';";
+        $delete_rc = "DELETE FROM review_complaints where RID = '$revID';";
+        $delete_votes = "DELETE FROM votes where RID = '$rev_ID';";
         
         
         if (mysqli_query($conn, "SET SQL_SAFE_UPDATES = 0;"))
@@ -722,17 +740,125 @@ ORDER BY review_complaints.Rev_ID;";
         if(mysqli_query($conn, $delete_rat)){
             if (mysqli_query($conn, $delete_rev))
             {
-                echo "deleting my rating and review success!";
-            }
-            else
-            {
-                echo "deleting my review failed!";
+              if (mysqli_query($conn, $delete_rc))
+                {
+                    if (mysqli_query($conn, $delete_votes))
+                    {
+                          echo "deleting rating and review success!";
+                    }
+                    else
+                    {
+                        echo "failure deleting votes";
+                    }
+                }
+                else
+                {
+                    echo "deleting review complaint failure";
+                }
             }
         }else{
             echo "deleting my rating failed!";
         }
         }}
         $conn->close();
+        
+        
     }
+    
+    if ("VOTE_DAT" == $action)
+        {
+            $search_data = array();
+            $rid = (int)$_POST['revID'];
+            $uid = (int)$_POST['uid'];
+            $sql = "SELECT VID, Vote_Type from votes where RID = '$rid' and UID = '$uid';";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            echo $row['Vote_Type'];
+            
+            
+            $conn->close();
+            
+        }
+        
+    if ("VOTE_UPDATE" == $action)
+        {
+            $search_data = array();
+            $rid = (int)$_POST['revID'];
+            $uid = (int)$_POST['uid'];
+            $caseid = $_POST['case'];
+            $up = (int)$_POST['up'];
+            $down = (int)$_POST['down'];
+            if ($caseid=="1"){
+                $update_query = "USE heroku_c82c28fdbe3ee78;";
+                $update_query .= "set sql_safe_updates = 0;";
+                $update_query .= "set foreign_key_checks =0;";
+                $update_query .= "Update votes set Vote_Type = 'UpVote' where RID = '$rid' and UID = '$uid';";
+                $update_query .= "Update reviews set Upvote = Upvote+'$up',Downvote = Downvote+'$down' where RID = '$rid';";
+                if($conn->multi_query($update_query)  == TRUE){
+                    echo "Success";
+                }else{
+                    echo "Edit Failed";
+                }
+            }
+            else if ($caseid=="2"){
+                $update_query = "USE heroku_c82c28fdbe3ee78;";
+                $update_query .= "set sql_safe_updates = 0;";
+                $update_query .= "set foreign_key_checks =0;";
+                $update_query .= "Update votes set Vote_Type = 'DownVote' where RID = '$rid' and UID = '$uid';";
+                $update_query .= "Update reviews set Upvote = Upvote+'$up',Downvote = Downvote+'$down' where RID = '$rid';";
+                if($conn->multi_query($update_query)  == TRUE){
+                    echo "Success";
+                }else{
+                    echo "Edit Failed";
+                }
+            }
+            else if ($caseid=="3"){
+                $update_query = "USE heroku_c82c28fdbe3ee78;";
+                $update_query .= "set sql_safe_updates = 0;";
+                $update_query .= "set foreign_key_checks =0;";
+                $update_query .= "Delete From votes where RID = '$rid' and UID = '$uid';";
+                $update_query .= "Update reviews set Upvote = Upvote+'$up',Downvote = Downvote+'$down' where RID = '$rid';";
+                if($conn->multi_query($update_query)  == TRUE){
+                    echo "Success";
+                }else{
+                    echo "Edit Failed";
+                }
+            }
+            else if ($caseid=="4"){
+                    if( $up ==1){
+                    $update_query = "USE heroku_c82c28fdbe3ee78;";
+                    $update_query .= "set sql_safe_updates = 0;";
+                    $update_query .= "set foreign_key_checks =0;";
+                    $update_query .= "INSERT INTO votes ( Vote_Type, UID, RID)  VALUES('UpVote', '$uid', '$rid');";
+                    $update_query .= "Update reviews set Upvote = Upvote+'$up',Downvote = Downvote+'$down' where RID = '$rid';";
+                    if($conn->multi_query($update_query)  == TRUE){
+                        echo "Success";
+                    }else{
+                        echo "Edit Failed";
+                    }   
+                }
+                else
+                {
+                    $update_query = "USE heroku_c82c28fdbe3ee78;";
+                    $update_query .= "set sql_safe_updates = 0;";
+                    $update_query .= "set foreign_key_checks =0;";
+                    $update_query .= "INSERT INTO votes ( Vote_Type, UID, RID)  VALUES('DownVote', '$uid', '$rid');";
+                    $update_query .= "Update reviews set Upvote = Upvote+'$up',Downvote = Downvote+'$down' where RID = '$rid';";
+                    if($conn->multi_query($update_query)  == TRUE){
+                        echo "Success";
+                    }else{
+                        echo "Edit Failed";
+                    } 
+                }
+
+            }
+            else
+            {
+                echo "Case Failed";
+            }
+            
+            $conn->close();
+            
+        }
  
 ?>
