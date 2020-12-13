@@ -368,6 +368,49 @@ class AppServices {
     }
   }
 
+  static Future<String> blacklist() async {
+    //add psych complaints
+    try {
+      var map1 = Map<String, dynamic>();
+      map1['action'] = 'blacklist';
+      map1['UID'] = '${userFile.usrData.uid}';
+
+      print(map1);
+      final response = await http.post(ROOT, body: map1);
+      if (200 == response.statusCode) {
+        print(response.body);
+        return response.body;
+      } else {
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
+
+  // static Future<String> addreviewComplaint(String complain, String int pid) async {
+  //   //add psych complaints
+  //   try {
+  //     var map1 = Map<String, dynamic>();
+  //     map1['action'] = 'ADD_PSYCH_COMPLAINT';
+  //     map1['PID'] = '$pid';
+  //     map1['complaint'] = '$complain';
+  //     map1['comp_type'] = comp_type;
+  //     print(map1);
+  //     final response = await http.post(ROOT, body: map1);
+  //     if (200 == response.statusCode) {
+  //       print(response.body);
+  //       return response.body;
+  //     } else {
+  //       return "error1";
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     return "Failure";
+  //   }
+  // }
+
   static Future<String> psychAdd(
     String firstName,
     String lastName,

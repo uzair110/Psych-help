@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/myrating.dart';
+import 'package:psych_help/services.dart';
 import 'package:rating_bar/rating_bar.dart';
 
 class UsrPsychRevList extends StatefulWidget {
@@ -59,7 +60,7 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
                     color: Colors.grey,
                     onPressed: () {},
                     child: Text(
-                      "Report User",
+                      "Report Review",
                       style: TextStyle(fontSize: 13.0, color: Colors.black),
                     ),
                   )
@@ -122,8 +123,11 @@ class _ModPsychRevList extends State<ModPsychRevList> {
                     ),
                     actions: <Widget>[
                       FlatButton(
-                        onPressed: () async {},
-                        child: Text("Blacklist"),
+                        onPressed: () async {
+                          final result = await AppServices.blacklist();
+                          print(result);
+                        },
+                        child: Text("Blacklist " + revs[index].firstName),
                       ),
                       FlatButton(
                         onPressed: () async {},
