@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:psych_help/Sidebars.dart';
+import 'package:psych_help/services.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // import 'package:psych_help/addpsych.dart';
 // import 'package:psych_help/psychlist.dart';
@@ -13,6 +16,8 @@ class NewComplaint extends StatefulWidget {
   NewComplaint({this.firstName, this.lastName, this.pid, this.city});
   _NewComplaint createState() => _NewComplaint();
 }
+
+String res = '';
 
 class _NewComplaint extends State<NewComplaint> {
   String tempcomplaint;
@@ -198,7 +203,38 @@ class _NewComplaint extends State<NewComplaint> {
             padding: const EdgeInsets.all(20.0),
             child: RaisedButton(
               color: Colors.green,
-              onPressed: () {},
+              onPressed: () async {
+                final result = await AppServices.addpsychComplaint(
+                    complaintcontroller.text, widget.pid);
+                print(result);
+                if (result == "complaint added!") {
+                  showDialog(
+                    //User friendly error message when the screen has been displayed
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text(
+                        "You complaint has been lodged!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 28),
+                      ),
+                      content: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: ListBody(
+                          mainAxis: Axis.vertical,
+                          children: <Widget>[
+                            Icon(Icons.check,
+                                color: Colors.green[300], size: 50),
+                            // Text(
+                            //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    barrierDismissible: true,
+                  );
+                  Navigator.pop(context);
+                }
+              },
               textColor: Colors.white,
               padding: const EdgeInsets.all(10.0),
               child: Container(
