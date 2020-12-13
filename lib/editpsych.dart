@@ -26,7 +26,7 @@ class EditPsych extends StatefulWidget {
       number: number);
 }
 
-enum SingingCharacter { oncall, onsite }
+// enum SingingCharacter { oncall, onsite }
 
 class _EditPsych extends State<EditPsych> {
   String firstName, lastName, city1, address1, email1, ctype;
@@ -48,9 +48,9 @@ class _EditPsych extends State<EditPsych> {
   TextEditingController address = new TextEditingController();
   TextEditingController city = new TextEditingController();
   TextEditingController email = new TextEditingController();
-
-  SingingCharacter _character = SingingCharacter.oncall;
-  int index = 0;
+  String dropdownCType = 'Clinic Appointment';
+  // SingingCharacter _character = SingingCharacter.oncall;
+  // int index = 0;
 
   @override
   void initState() {
@@ -60,11 +60,8 @@ class _EditPsych extends State<EditPsych> {
     city.text = city1;
     address.text = address1;
     email.text = email1;
-    //phone.text = number.toString();
-    if (ctype == "Clinic Appointment") {
-      _character = SingingCharacter.onsite;
-      index = 1;
-    }
+    phone.text = number.toString();
+    dropdownCType = ctype;
   }
 
   @override
@@ -198,32 +195,61 @@ class _EditPsych extends State<EditPsych> {
                       )),
                 )
               ])),
-          ListTile(
-            title: const Text('On Call'),
-            leading: Radio(
-              value: SingingCharacter.oncall,
-              groupValue: _character,
-              onChanged: (SingingCharacter value) {
+          // ListTile(
+          //   title: const Text('On Call'),
+          //   leading: Radio(
+          //     value: SingingCharacter.oncall,
+          //     groupValue: _character,
+          //     onChanged: (SingingCharacter value) {
+          //       setState(() {
+          //         _character = value;
+          //         index = 0;
+          //       });
+          //     },
+          //   ),
+          // ),
+          // ListTile(
+          //   title: const Text('On Site'),
+          //   leading: Radio(
+          //     value: SingingCharacter.onsite,
+          //     groupValue: _character,
+          //     onChanged: (SingingCharacter value) {
+          //       setState(() {
+          //         _character = value;
+          //         index = 1;
+          //       });
+          //     },
+          //   ),
+          // ),
+          Container(
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: DropdownButton<String>(
+              value: dropdownCType,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: Colors.green[800]),
+              underline: Container(
+                height: 2,
+                color: Colors.green,
+              ),
+              onChanged: (String newValue) {
                 setState(() {
-                  _character = value;
-                  index = 0;
+                  dropdownCType = newValue;
                 });
               },
+              items: <String>['Clinic Appointment', 'On Call Counselling']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
           ),
-          ListTile(
-            title: const Text('On Site'),
-            leading: Radio(
-              value: SingingCharacter.onsite,
-              groupValue: _character,
-              onChanged: (SingingCharacter value) {
-                setState(() {
-                  _character = value;
-                  index = 1;
-                });
-              },
-            ),
-          ),
+
           SizedBox(height: 30.0),
           Center(
               child: Container(
@@ -236,14 +262,13 @@ class _EditPsych extends State<EditPsych> {
               color: Colors.green,
               child: InkWell(
                   onTap: () async {
-                    print(_character.toString());
                     var psychAddResponse = await AppServices.psychEdit(
                         fname.text,
                         lname.text,
                         int.parse(phone.text),
                         email.text,
                         address.text,
-                        index.toString(),
+                        dropdownCType,
                         city.text,
                         widget.pid);
                     print(psychAddResponse);

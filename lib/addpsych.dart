@@ -7,8 +7,6 @@ class AddPsych extends StatefulWidget {
   _AddPsych createState() => _AddPsych();
 }
 
-enum SingingCharacter { oncall, onsite }
-
 class _AddPsych extends State<AddPsych> {
   TextEditingController fname = new TextEditingController();
   TextEditingController lname = new TextEditingController();
@@ -16,9 +14,7 @@ class _AddPsych extends State<AddPsych> {
   TextEditingController address = new TextEditingController();
   TextEditingController city = new TextEditingController();
   TextEditingController email = new TextEditingController();
-
-  SingingCharacter _character = SingingCharacter.oncall;
-  int index = 0;
+  String dropdownCType = 'Clinic Appointment';
 
   @override
   Widget build(BuildContext context) {
@@ -149,30 +145,32 @@ class _AddPsych extends State<AddPsych> {
                       )),
                 )
               ])),
-          ListTile(
-            title: const Text('On Call'),
-            leading: Radio(
-              value: SingingCharacter.oncall,
-              groupValue: _character,
-              onChanged: (SingingCharacter value) {
+          Container(
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: DropdownButton<String>(
+              value: dropdownCType,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: Colors.green[800]),
+              underline: Container(
+                height: 2,
+                color: Colors.green,
+              ),
+              onChanged: (String newValue) {
                 setState(() {
-                  _character = value;
-                  index = 0;
+                  dropdownCType = newValue;
                 });
               },
-            ),
-          ),
-          ListTile(
-            title: const Text('On Site'),
-            leading: Radio(
-              value: SingingCharacter.onsite,
-              groupValue: _character,
-              onChanged: (SingingCharacter value) {
-                setState(() {
-                  _character = value;
-                  index = 1;
-                });
-              },
+              items: <String>['Clinic Appointment', 'On Call Counselling']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
           ),
           SizedBox(height: 30.0),
@@ -187,14 +185,13 @@ class _AddPsych extends State<AddPsych> {
               color: Colors.green,
               child: GestureDetector(
                   onTap: () async {
-                    print(_character.toString());
                     var psychAddResponse = await AppServices.psychAdd(
                         fname.text,
                         lname.text,
                         int.parse(phone.text),
                         email.text,
                         address.text,
-                        index.toString(),
+                        dropdownCType,
                         city.text);
                     print(psychAddResponse);
                     if (psychAddResponse == "Successfully Added Psychologist") {
@@ -216,8 +213,6 @@ class _AddPsych extends State<AddPsych> {
                               children: <Widget>[
                                 Icon(Icons.clear,
                                     color: Colors.red[300], size: 50),
-                                // Text(
-                                //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
                               ],
                             ),
                           ),
