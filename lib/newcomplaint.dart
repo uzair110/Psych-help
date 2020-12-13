@@ -15,8 +15,6 @@ class NewComplaint extends StatefulWidget {
   _NewComplaint createState() => _NewComplaint();
 }
 
-String res = '';
-
 class _NewComplaint extends State<NewComplaint> {
   String tempcomplaint;
   final complaintcontroller = TextEditingController();
@@ -45,38 +43,7 @@ class _NewComplaint extends State<NewComplaint> {
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    // CircleAvatar(
-                    //   backgroundColor: Colors.green.shade300,
-                    //   minRadius: 35.0,
-                    //   child: Icon(
-                    //     Icons.call,
-                    //     size: 30.0,
-                    //   ),
-                    // ),
-                    // CircleAvatar(
-                    //   backgroundColor: Colors.white70,
-                    //   minRadius: 60.0,
-                    //   child: CircleAvatar(
-                    //     radius: 50.0,
-                    //     backgroundImage: NetworkImage(
-                    //         'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
-                    //   ),
-                    // ),
-                    // CircleAvatar(
-                    //   backgroundColor: Colors.green.shade500,
-                    //   minRadius: 35.0,
-                    //   child: IconButton (
-                    //   icon: Icon(
-                    //     Icons.message,
-                    //     size: 30.0,
-                    //   ),
-                    //   onPressed: () {
-
-                    //   },
-                    //   ),
-                    // ),
-                  ],
+                  children: <Widget>[],
                 ),
                 SizedBox(
                   height: 10,
@@ -100,71 +67,8 @@ class _NewComplaint extends State<NewComplaint> {
             ),
           ),
           Container(
-            child: Row(
-              children: <Widget>[
-                // Expanded(
-                //   child: Container(
-                //     color: Colors.green.shade300,
-                //     child: ListTile(
-                //       title: Text(
-                //         '5',
-                //         textAlign: TextAlign.center,
-                //         style: TextStyle(
-                //           fontWeight: FontWeight.bold,
-                //           fontSize: 30,
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                //       subtitle: Text(
-                //         'Average Rating',
-                //         textAlign: TextAlign.center,
-                //         style: TextStyle(
-                //           fontSize: 20,
-                //           color: Colors.white70,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
-          ),
-          Container(
             child: Column(
               children: <Widget>[
-                // Container(
-                //     padding: new EdgeInsets.all(20.0),
-                //     child: RatingBar.builder(
-                //         initialRating: 3,
-                //         minRating: 1,
-                //         direction: Axis.horizontal,
-                //         allowHalfRating: true,
-                //         itemCount: 5,
-                //         itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                //         itemBuilder: (context, _) => Icon(
-                //               Icons.star,
-                //               color: Colors.green,
-                //             ),
-                //         onRatingUpdate: (rating) {
-                //           print(rating);
-                //         })),
-                // Divider(),
-                // ListTile(
-                //   title: Text(
-                //     'Counseling Type',
-                //     style: TextStyle(
-                //       color: Colors.green,
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                //   subtitle: Text(
-                //     'Child Psychologist',
-                //     style: TextStyle(
-                //       fontSize: 18,
-                //     ),
-                //   ),
-                // ),
                 Divider(),
                 ListTile(
                   title: Text(
@@ -175,12 +79,6 @@ class _NewComplaint extends State<NewComplaint> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // subtitle: Text(
-                  //   'sex bomb',
-                  //   style: TextStyle(
-                  //     fontSize: 18,
-                  //   ),
-                  // ),
                 ),
               ],
             ),
@@ -222,15 +120,12 @@ class _NewComplaint extends State<NewComplaint> {
                           children: <Widget>[
                             Icon(Icons.check,
                                 color: Colors.green[300], size: 50),
-                            // Text(
-                            //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
                           ],
                         ),
                       ),
                     ),
                     barrierDismissible: true,
-                  );
-                  Navigator.pop(context);
+                  ).then((value) => Navigator.pop(context));
                 }
               },
               textColor: Colors.white,
@@ -241,48 +136,168 @@ class _NewComplaint extends State<NewComplaint> {
               ),
             ),
           ),
-          // Row(
-          //   children: <Widget>[
-          //     SizedBox(width: 60),
-          //     Container(
-          //       height: 40.0,
-          //       width: 275.0,
-          //       child: Material(
-          //         borderRadius: BorderRadius.circular(20.0),
-          //         shadowColor: Colors.red,
-          //         color: Colors.red,
-          //         elevation: 7.0,
-          //         child: InkWell(
-          //             hoverColor: Colors.red,
-          //             splashColor: Colors.blueAccent,
-          //             onTap: () {},
-          //             child: Center(
-          //               child: Text("Delete",
-          //                   style: TextStyle(
-          //                     color: Colors.white,
-          //                     fontWeight: FontWeight.bold,
-          //                   )),
-          //             )),
-          //       ),
-          //     ),
-          //   ],
+        ],
+      ),
+    );
+  }
+}
+
+class NewRevComplaint extends StatefulWidget {
+  final String review;
+  final int rid;
+  @override
+  NewRevComplaint({this.review, this.rid});
+  _NewRevComplaint createState() => _NewRevComplaint();
+}
+
+class _NewRevComplaint extends State<NewRevComplaint> {
+  String tempcomplaint;
+  String dropdownValue = 'Misleading';
+  final complaintcontroller = TextEditingController();
+  //final ctypecontroller = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: AppBar(
+          title: Text('Review Complaint'), backgroundColor: Colors.green),
+      drawer: SideBarUser(),
+      resizeToAvoidBottomPadding: false,
+      body: ListView(
+        children: <Widget>[
+          Container(
+            child: Column(
+              children: <Widget>[
+                Divider(),
+                ListTile(
+                  title: Text(
+                    'Please enter your complaint: ',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(10.0),
+            ),
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            controller: complaintcontroller,
+            onChanged: (String text1) {
+              tempcomplaint = complaintcontroller.text;
+              complaintcontroller.text = text1;
+            },
+          ),
+          const SizedBox(height: 10),
+          Container(
+            child: Column(
+              children: <Widget>[
+                Divider(),
+                ListTile(
+                  title: Text(
+                    'Choose Complain Type: ',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height * 0.1,
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: DropdownButton<String>(
+              value: dropdownValue,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: Colors.green[800]),
+              underline: Container(
+                height: 2,
+                color: Colors.green,
+              ),
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue = newValue;
+                });
+              },
+              items: <String>[
+                'Misleading',
+                'Abusive Language',
+                'Vulgar Language',
+                'Spam',
+                'Hate Speech'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
+
+          // TextFormField(
+          //   decoration: InputDecoration(
+          //     contentPadding: EdgeInsets.all(10.0),
+          //   ),
+          //   keyboardType: TextInputType.multiline,
+          //   maxLines: null,
+          //   controller: ctypecontroller,
+          //   onChanged: (txt2) {
+          //     tempctype = ctypecontroller.text;
+          //     ctypecontroller.text = txt2;
+          //   },
           // ),
-          // SizedBox(height: 10),
-          // Row(
-          //   children: <Widget>[
-          //     SizedBox(width: 160),
-          //     Container(
-          //       child: InkWell(
-          //         onTap: () {},
-          //         child: Text('Edit Details',
-          //             style: TextStyle(
-          //                 color: Colors.grey,
-          //                 fontWeight: FontWeight.bold,
-          //                 decoration: TextDecoration.underline)),
-          //       ),
-          //     ),
-          //   ],
-          // )
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            child: RaisedButton(
+              color: Colors.green,
+              onPressed: () async {
+                var result = await AppServices.addreviewComplaint(
+                    complaintcontroller.text, dropdownValue, widget.rid);
+                if (result == "complaint added!") {
+                  showDialog(
+                    //User friendly error message when the screen has been displayed
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text(
+                        "You complaint has been lodged!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 28),
+                      ),
+                      content: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: ListBody(
+                          mainAxis: Axis.vertical,
+                          children: <Widget>[
+                            Icon(Icons.check,
+                                color: Colors.green[300], size: 50),
+                          ],
+                        ),
+                      ),
+                    ),
+                    barrierDismissible: true,
+                  ).then((_) => Navigator.pop(context));
+                }
+              },
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                child: const Text('Submit Complaint',
+                    style: TextStyle(fontSize: 20)),
+              ),
+            ),
+          ),
         ],
       ),
     );

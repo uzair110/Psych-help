@@ -4,6 +4,8 @@ import 'package:psych_help/Loading.dart';
 import 'package:psych_help/Mapper.dart';
 import 'package:psych_help/myrating.dart';
 import 'package:psych_help/services.dart';
+import 'package:psych_help/newcomplaint.dart';
+import 'package:psych_help/globals.dart' as userFile;
 import 'package:rating_bar/rating_bar.dart';
 
 class UsrPsychRevList extends StatefulWidget {
@@ -153,14 +155,26 @@ class _UsrPsychRevList extends State<UsrPsychRevList> {
                         style: TextStyle(fontSize: 20),
                         textAlign: TextAlign.left,
                       ),
-                      FlatButton(
-                        color: Colors.grey,
-                        onPressed: () {},
-                        child: Text(
-                          "Report Review",
-                          style: TextStyle(fontSize: 13.0, color: Colors.black),
-                        ),
-                      )
+                      (revs[index].uid == userFile.usrData.uid)
+                          ? Container()
+                          : FlatButton(
+                              color: Colors.transparent,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NewRevComplaint(
+                                            review: revs[index].review,
+                                            rid: revs[index].revID,
+                                          )),
+                                );
+                              },
+                              child: Text(
+                                "Report Review",
+                                style: TextStyle(
+                                    fontSize: 13.0, color: Colors.red),
+                              ),
+                            )
                     ],
                   ),
                 );
@@ -318,8 +332,80 @@ class _ModPsychRevList extends State<ModPsychRevList> {
                       actions: <Widget>[
                         FlatButton(
                           onPressed: () async {
-                            final result = await AppServices.blacklist();
-                            print(result);
+                            showDialog(
+                              //User friendly error message when the screen has been displayed
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(
+                                  "Are you sure you want to Blacklist " +
+                                      "${revs[index].firstName}" +
+                                      " " +
+                                      "?",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Cancel"),
+                                  ),
+                                  FlatButton(
+                                    onPressed: () async {
+                                      final result =
+                                          await AppServices.blacklist(
+                                              revs[index].uid);
+                                      print(result);
+                                      if (result == "Success Deletion") {
+                                        Navigator.pop(context);
+                                      } else {
+                                        showDialog(
+                                          //User friendly error message when the screen has been displayed
+                                          context: context,
+                                          builder: (_) => AlertDialog(
+                                            title: Text(
+                                              "Connection Failure",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(fontSize: 28),
+                                            ),
+                                            content: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: ListBody(
+                                                mainAxis: Axis.vertical,
+                                                children: <Widget>[
+                                                  Icon(Icons.clear,
+                                                      color: Colors.red[300],
+                                                      size: 50),
+                                                  // Text(
+                                                  //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          barrierDismissible: true,
+                                        );
+                                      }
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Continue"),
+                                  ),
+                                ],
+                                content: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: ListBody(
+                                    mainAxis: Axis.vertical,
+                                    children: <Widget>[
+                                      Icon(Icons.clear,
+                                          color: Colors.red[300], size: 50),
+                                      // Text(
+                                      //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              barrierDismissible: true,
+                            );
                           },
                           child: Text("Blacklist " + revs[index].firstName),
                         ),

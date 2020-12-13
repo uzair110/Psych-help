@@ -108,15 +108,25 @@ class SearchData {
 }
 
 class RevComplaintData {
+  int ratID;
+  int uid;
   int revID;
   String review;
   String complain;
   String type;
 
-  RevComplaintData({this.revID, this.review, this.complain, this.type});
+  RevComplaintData(
+      {this.ratID,
+      this.uid,
+      this.revID,
+      this.review,
+      this.complain,
+      this.type});
 
   RevComplaintData.fromData(Map<String, dynamic> data)
       : revID = int.parse(data['rev_id']),
+        ratID = int.parse(data['rat_id']),
+        uid = int.parse(data['uid']),
         review = data['rev'],
         complain = data['complain'],
         type = data['cType'];

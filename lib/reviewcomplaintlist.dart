@@ -96,16 +96,18 @@ class _RevComplaint extends State<RevComplaint> {
             itemBuilder: (context, index) {
               return Card(
                   child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
                     height: 10,
                   ),
                   RichText(
+                    textAlign: TextAlign.center,
                     text: TextSpan(
                       text: 'Review:\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 26,
+                          fontSize: 22,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
@@ -119,14 +121,15 @@ class _RevComplaint extends State<RevComplaint> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   RichText(
+                    textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: '\nComplaint:\n',
+                      text: 'Complaint:\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 26,
+                          fontSize: 22,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
@@ -140,14 +143,15 @@ class _RevComplaint extends State<RevComplaint> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   RichText(
+                    textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: '\nComplaint Type:\n',
+                      text: 'Complaint Type:\n',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 26,
+                          fontSize: 22,
                           color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
@@ -161,7 +165,7 @@ class _RevComplaint extends State<RevComplaint> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   RaisedButton(
                     onPressed: () {},
@@ -177,10 +181,81 @@ class _RevComplaint extends State<RevComplaint> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        //User friendly error message when the screen has been displayed
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text(
+                            "Are you sure you want to Blacklist this user?",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Cancel"),
+                            ),
+                            FlatButton(
+                              onPressed: () async {
+                                final result = await AppServices.blacklist(
+                                    complains[index].uid);
+                                print(result);
+                                if (result == "Success Deletion") {
+                                  Navigator.pop(context);
+                                } else {
+                                  showDialog(
+                                    //User friendly error message when the screen has been displayed
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      title: Text(
+                                        "Connection Failure",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 28),
+                                      ),
+                                      content: SingleChildScrollView(
+                                        scrollDirection: Axis.vertical,
+                                        child: ListBody(
+                                          mainAxis: Axis.vertical,
+                                          children: <Widget>[
+                                            Icon(Icons.clear,
+                                                color: Colors.red[300],
+                                                size: 50),
+                                            // Text(
+                                            //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    barrierDismissible: true,
+                                  );
+                                }
+                                Navigator.pop(context);
+                              },
+                              child: Text("Continue"),
+                            ),
+                          ],
+                          content: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: ListBody(
+                              mainAxis: Axis.vertical,
+                              children: <Widget>[
+                                Icon(Icons.clear,
+                                    color: Colors.red[300], size: 50),
+                                // Text(
+                                //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        barrierDismissible: true,
+                      );
+                    },
                     textColor: Colors.white,
                     padding: const EdgeInsets.all(0.0),
                     child: Container(

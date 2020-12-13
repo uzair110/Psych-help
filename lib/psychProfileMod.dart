@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:psych_help/Sidebars.dart';
 import 'package:psych_help/editpsych.dart';
 import 'package:psych_help/services.dart';
-import 'package:psych_help/newcomplaint.dart';
 import 'package:psych_help/RatingBuilder.dart';
 import 'package:provider/provider.dart';
 import 'package:psych_help/Mapper.dart';
