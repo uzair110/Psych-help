@@ -21,7 +21,7 @@ class _AddPsych extends State<AddPsych> {
     return new Scaffold(
       appBar: AppBar(title: Text('Add Psych'), backgroundColor: Colors.green),
       drawer: SideBarMod(),
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       body: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -183,7 +183,7 @@ class _AddPsych extends State<AddPsych> {
               shadowColor: Colors.greenAccent,
               elevation: 7.0,
               color: Colors.green,
-              child: GestureDetector(
+              child: InkWell(
                   onTap: () async {
                     var psychAddResponse = await AppServices.psychAdd(
                         fname.text,
