@@ -61,7 +61,11 @@ class _EditPsych extends State<EditPsych> {
     address.text = address1;
     email.text = email1;
     phone.text = number.toString();
-    dropdownCType = ctype;
+    print('bahir: $ctype');
+    if (ctype == 'Clinic Appointment' || ctype == 'On Call Counselling') {
+      print('afs: $ctype');
+      dropdownCType = ctype;
+    }
   }
 
   @override

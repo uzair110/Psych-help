@@ -9,11 +9,19 @@ import 'package:psych_help/services.dart';
 import 'package:psych_help/globals.dart' as userFile;
 
 class PsyProfileUsr extends StatefulWidget {
-  final String firstName, lastName, city;
+  final String firstName, lastName, city, address, email, ctype;
   final int pid, number;
+
   @override
   PsyProfileUsr(
-      {this.firstName, this.lastName, this.pid, this.city, this.number});
+      {this.firstName,
+      this.lastName,
+      this.pid,
+      this.city,
+      this.number,
+      this.address,
+      this.email,
+      this.ctype});
   _PsyProfileUsr createState() => _PsyProfileUsr();
 }
 
@@ -43,7 +51,6 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 150,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Colors.green, Colors.green.shade300],
@@ -56,50 +63,92 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  // CircleAvatar(
+                  //   backgroundColor: Colors.green.shade300,
+                  //   minRadius: 35.0,
+                  //   child: Icon(
+                  //     Icons.call,
+                  //     size: 30.0,
+                  //   ),
+                  // ),
+                  // CircleAvatar(
+                  //   backgroundColor: Colors.white70,
+                  //   minRadius: 60.0,
+                  //   child: CircleAvatar(
+                  //     radius: 50.0,
+                  //     backgroundImage: NetworkImage(
+                  //         'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
+                  //   ),
+                  // ),
+                  Column(children: <Widget>[
+                    Text(
+                      "${widget.firstName}" + " " + "${widget.lastName}",
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      'City: ' + '${widget.city}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'Phone Number: ' + '${widget.number}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'Email: ' + '${widget.email}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'Counselling Type: ' + '${widget.ctype}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'Address: ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      '${widget.address}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ]),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // CircleAvatar(
-                      //   backgroundColor: Colors.green.shade300,
-                      //   minRadius: 35.0,
-                      //   child: Icon(
-                      //     Icons.call,
-                      //     size: 30.0,
-                      //   ),
-                      // ),
-                      // CircleAvatar(
-                      //   backgroundColor: Colors.white70,
-                      //   minRadius: 60.0,
-                      //   child: CircleAvatar(
-                      //     radius: 50.0,
-                      //     backgroundImage: NetworkImage(
-                      //         'https://scontent-sin6-2.xx.fbcdn.net/v/t1.0-9/1969304_722096291160404_4811753763754301623_n.jpg?_nc_cat=102&ccb=2&_nc_sid=174925&_nc_ohc=HstJEskV-6IAX9dJEWm&_nc_ht=scontent-sin6-2.xx&oh=ff1df406a07006c7f9828c927dd747b8&oe=5FED0FBA'),
-                      //   ),
-                      // ),
-                      Column(children: <Widget>[
-                        Text(
-                          "${widget.firstName}" + " " + "${widget.lastName}",
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          '${widget.city}' + ', Pakistan',
+                      Text('Report Psychologist: ',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
-                          ),
-                        ),
-                      ]),
+                            fontSize: 20,
+                          )),
                       CircleAvatar(
-                        backgroundColor: Colors.green.shade500,
-                        minRadius: 35.0,
+                        backgroundColor: Colors.green[900],
+                        minRadius: 25.0,
                         child: IconButton(
                           icon: Icon(
                             Icons.report,
                             size: 30.0,
+                            color: Colors.red,
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -117,6 +166,7 @@ class _PsyProfileUsr extends State<PsyProfileUsr> {
                       ),
                     ],
                   ),
+
                   SizedBox(
                     height: 10,
                   ),

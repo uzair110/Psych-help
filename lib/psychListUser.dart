@@ -34,10 +34,14 @@ class _UsrPsychList extends State<UsrPsychList> {
                 debugPrint('${psychs[index].email} is pressed!');
                 var route = new MaterialPageRoute(
                     builder: (BuildContext context) => new PsyProfileUsr(
+                          email: psychs[index].email,
+                          address: psychs[index].address,
                           firstName: psychs[index].firstName,
                           lastName: psychs[index].lastName,
+                          ctype: psychs[index].counsellType,
                           pid: psychs[index].pid,
                           city: psychs[index].city,
+                          number: psychs[index].phoneNumber,
                         ));
                 Navigator.of(context).push(route);
               },

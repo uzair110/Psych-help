@@ -455,8 +455,9 @@ class AppServices {
       map1['Address'] = address;
       map1['Counselling_Type'] = counsellingType;
       map1['City'] = city;
-
+      print('mapp: $map1');
       final response = await http.post(ROOT, body: map1);
+      print('res: ${response.body}');
       if (200 == response.statusCode) {
         return response.body;
       } else {
@@ -481,7 +482,7 @@ class AppServices {
     try {
       var map1 = Map<String, dynamic>();
 
-      map1['action'] = 'EDIT_PROFILE';
+      map1['action'] = 'EDIT_PSYCH';
       map1['First_Name'] = firstName;
       map1['Last_Name'] = lastName;
       map1['Phone_Number'] = '$phoneNumber';

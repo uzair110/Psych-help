@@ -60,7 +60,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
           body: ListView(
             children: <Widget>[
               Container(
-                height: 150,
+                //height: 150,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Colors.green, Colors.green.shade300],
@@ -89,10 +89,45 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                       ),
                     ),
                     Text(
-                      '${widget.city}' + ', Pakistan',
+                      'City: ' + '${widget.city}',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'Phone Number: ' + '${widget.number}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'Email: ' + '${widget.email}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'Counselling Type: ' + '${widget.ctype}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'Address: ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      '${widget.address}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
                       ),
                     ),
                   ],
@@ -251,7 +286,7 @@ class _PsyProfileMod extends State<PsyProfileMod> {
                         Container(
                           child: InkWell(
                             onTap: () {
-                              print('name : ${widget.firstName}');
+                              print("kafi pehle: ${widget.ctype}");
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
