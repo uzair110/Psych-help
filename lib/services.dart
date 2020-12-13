@@ -233,7 +233,7 @@ class AppServices {
       map['rating'] = rating;
       map['review'] = review;
       map['uid'] = '$uid';
-      map['pid'] = "$pid";
+      map['pid'] = '$pid';
       print(map);
       final response = await http.post(ROOT, body: map);
       print(response.body);
@@ -332,6 +332,28 @@ class AppServices {
       var map1 = Map<String, dynamic>();
       map1['action'] = 'GET_RATING';
       map1['PID'] = '$pid';
+      print(map1);
+      final response = await http.post(ROOT, body: map1);
+      if (200 == response.statusCode) {
+        print(response.body);
+        return response.body;
+      } else {
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
+
+  static Future<String> addpsychComplaint(String complain, int pid) async {
+    //add psych complaints
+    try {
+      var map1 = Map<String, dynamic>();
+      map1['action'] = 'ADD_PSYCH_COMPLAINT';
+      map1['PID'] = '$pid';
+      map1['complaint'] = '$complain';
+      map1['UID'] = '${userFile.usrData.uid}';
       print(map1);
       final response = await http.post(ROOT, body: map1);
       if (200 == response.statusCode) {
