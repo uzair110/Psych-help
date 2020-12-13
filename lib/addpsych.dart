@@ -195,6 +195,28 @@ class _AddPsych extends State<AddPsych> {
                         city.text);
                     print(psychAddResponse);
                     if (psychAddResponse == "Successfully Added Psychologist") {
+                      showDialog(
+                        //User friendly error message when the screen has been displayed
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text(
+                            "Successfully added Psychologist!",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 28),
+                          ),
+                          content: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: ListBody(
+                              mainAxis: Axis.vertical,
+                              children: <Widget>[
+                                Icon(Icons.clear,
+                                    color: Colors.red[300], size: 50),
+                              ],
+                            ),
+                          ),
+                        ),
+                        barrierDismissible: true,
+                      );
                       Navigator.pop(context);
                     } else {
                       showDialog(
