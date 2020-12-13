@@ -209,15 +209,16 @@ class _AddPsych extends State<AddPsych> {
                             child: ListBody(
                               mainAxis: Axis.vertical,
                               children: <Widget>[
-                                Icon(Icons.clear,
+                                Icon(Icons.check,
                                     color: Colors.red[300], size: 50),
                               ],
                             ),
                           ),
                         ),
                         barrierDismissible: true,
+                      ).then(
+                        (_) => Navigator.pop(context),
                       );
-                      Navigator.pop(context);
                     } else {
                       showDialog(
                         //User friendly error message when the screen has been displayed

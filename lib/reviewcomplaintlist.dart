@@ -168,7 +168,63 @@ class _RevComplaint extends State<RevComplaint> {
                     height: 5,
                   ),
                   RaisedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final result = await AppServices.delReview(
+                          complains[index].ratID, complains[index].revID);
+                      print(result);
+                      if (result == "deleting rating and review success!") {
+                        Navigator.pop(context);
+                        showDialog(
+                          //User friendly error message when the screen has been displayed
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text(
+                              "Successfully deleted review!",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 28),
+                            ),
+                            content: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: ListBody(
+                                mainAxis: Axis.vertical,
+                                children: <Widget>[
+                                  Icon(Icons.check,
+                                      color: Colors.green[300], size: 50),
+                                  // Text(
+                                  //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                ],
+                              ),
+                            ),
+                          ),
+                          barrierDismissible: true,
+                        );
+                      } else {
+                        showDialog(
+                          //User friendly error message when the screen has been displayed
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text(
+                              "Connection Failure",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 28),
+                            ),
+                            content: SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: ListBody(
+                                mainAxis: Axis.vertical,
+                                children: <Widget>[
+                                  Icon(Icons.check,
+                                      color: Colors.green[300], size: 50),
+                                  // Text(
+                                  //     'Warning: Social Distance Violated!\nYou are at a distance of less than 2 metres from another person.'),
+                                ],
+                              ),
+                            ),
+                          ),
+                          barrierDismissible: true,
+                        );
+                      }
+                    },
                     textColor: Colors.white,
                     padding: const EdgeInsets.all(0.0),
                     child: Container(
@@ -234,8 +290,10 @@ class _RevComplaint extends State<RevComplaint> {
                                     ),
                                     barrierDismissible: true,
                                   );
+                                  // .then(
+                                  //   (_) => Navigator.pop(context),
+                                  // );
                                 }
-                                Navigator.pop(context);
                               },
                               child: Text("Continue"),
                             ),

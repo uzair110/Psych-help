@@ -305,7 +305,7 @@ class _EditPsych extends State<EditPsych> {
                         barrierDismissible: true,
                       );
                     }
-                    Navigator.pop(context);
+                    //Navigator.pop(context);
                   },
                   child: Center(
                     child: Text(

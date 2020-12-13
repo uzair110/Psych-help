@@ -357,7 +357,7 @@ class _ModPsychRevList extends State<ModPsychRevList> {
                                           await AppServices.blacklist(
                                               revs[index].uid);
                                       print(result);
-                                      if (result == "Success Deletion") {
+                                      if (result == "user blacklisted1") {
                                         Navigator.pop(context);
                                       } else {
                                         showDialog(
@@ -386,7 +386,7 @@ class _ModPsychRevList extends State<ModPsychRevList> {
                                           barrierDismissible: true,
                                         );
                                       }
-                                      Navigator.pop(context);
+                                      //Navigator.pop(context);
                                     },
                                     child: Text("Continue"),
                                   ),
