@@ -89,55 +89,65 @@
         $fname = $_POST['First_Name'];
         $lname = $_POST['Last_Name'];
         $city = $_POST['City'];
-        
-        $id = 'SELECT AID FROM accounts group by AID order by AID desc LIMIT 1';
-        $result = mysqli_query($conn, $id);
-        $row = mysqli_fetch_assoc($result);
-        $last_id = $row['AID'];
-        // echo json_encode((int)$last_id);
-        (int)$AID = (int)$last_id + 1;
+        $bool1 = 'False';
+        // $id = 'SELECT AID FROM accounts group by AID order by AID desc LIMIT 1';
+        // $result = mysqli_query($conn, $id);
+        // $row = mysqli_fetch_assoc($result);
+        // $last_id = $row['AID'];
+        // // echo json_encode((int)$last_id);
+        // (int)$AID = (int)$last_id + 1;
         // echo $AID;
+        if($Password==='' or $Username==='')
+        {
+            echo "username empty!";
+            return;   
+        }
+        
+        
+        $unique_um = "SELECT Username from accounts where Username = '$Username';";
+        $result = mysqli_query($conn, $unique_um);
+        if ($result->num_rows > 0)
+        {
+            echo "This username exists!";
+            return;
+        }
+        
+        
         $sql = "INSERT INTO `accounts`
         (`Username`,
         `Password`,
-        `User_type`,
-        `AID`)
+        `User_type`)
         VALUES
         ('$Username',
         '$Password',
-        '$User_type',
-        '$AID')";
+        '$User_type');";
         
         // echo mysqli_query($conn,$sql);
         if(mysqli_query($conn,$sql))
         {
-        $last_uid = 'SELECT UID FROM user group by UID order by UID desc limit 1';
-        $result1 = mysqli_query($conn, $last_uid);
-        $row1 = mysqli_fetch_assoc($result1);
-        $last_uid1 = $row1['UID'];
-        $UID = (int)$last_uid1 + 1;
-        echo $UID;
-        $bool1 = 'False';
-        $sql2 = "INSERT INTO user
-        (`UID`,
-        `First_Name`,
-        `Last_name`,
-        `Blacklist`,
-        `City`,
-        `AID`)
-        VALUES
-        ('$UID',
-        '$fname',
-        '$lname',
-        '$bool1',
-        '$city',
-        '$AID')";
-        if (mysqli_query($conn, $sql2))
-        {
-            echo "added into user";
-        }
-        else
-        {echo "failed adding";}
+                $last_id = mysqli_insert_id($conn);
+                $sql_insert = "INSERT INTO user
+                        (
+                        `First_Name`,
+                        `Last_name`,
+                        `Blacklist`,
+                        `City`,
+                        `AID`)
+                        VALUES
+                        (
+                        '$fname',
+                        '$lname',
+                        '$bool1',
+                        '$city',
+                        '$last_id');";
+                if (mysqli_query($conn, $sql_insert))
+                {
+                    echo "successfully added user";
+                }
+                else
+                {
+                    echo "Failed Addition";
+                }
         }
         else
         {
@@ -150,19 +160,11 @@
  {
      $fname = $_POST['First_Name'];
      $lname = $_POST['Last_Name'];
-     $number = $_POST['Phone_Number'];
+     $number = (int)$_POST['Phone_Number'];
      $email = $_POST['email'];
      $address = $_POST['Address'];
      $city = $_POST['City'];
-     $Counselling_index = $_POST['Counselling_Type'];
-     if ($Counselling_index == '1')
-    {
-        $Counselling_Type = "Clinic Appointment";
-    }
-    else if ($Counselling_index == '0') 
-    {
-        $Counselling_Type = "On Call Counselling";
-    }
+     $Counselling_Type = $_POST['Counselling_Type'];
     
     $add_query = "INSERT INTO `heroku_c82c28fdbe3ee78`.`psychologist`
                     (
@@ -191,24 +193,17 @@
             echo "Adding Psych Failed";
         }
  }
- if("EDIT_PROFILE" == $action)
+ if("EDIT_PSYCH" == $action)
  {  
-    $pid = $_POST['PID'];
+    $pid = (int)$_POST['PID'];
     $fname = $_POST['First_Name'];
     $lname = $_POST['Last_Name'];
-    $number = $_POST['Phone_Number'];
+    $number = (int)$_POST['Phone_Number'];
     $email = $_POST['email'];
     $address = $_POST['Address'];
     $city = $_POST['City'];
-    $Counselling_index = $_POST['Counselling_Type']; 
-     if ($Counselling_index == '1')
-    {
-        $Counselling_Type = "Clinic Appointment";
-    }
-    else if ($Counselling_index == '0') 
-    {
-        $Counselling_Type = "On Call Counselling";
-    }
+    $Counselling_Type = $_POST['Counselling_Type']; 
+
     $check2 = "SET FOREIGN_KEY_CHECKS = 0";
      if (mysqli_query($conn,$check2))
      {
@@ -248,8 +243,14 @@
      $check2 = "SET FOREIGN_KEY_CHECKS = 0";
      if (mysqli_query($conn,$check2))
      {
-     $sql = "DELETE FROM `heroku_c82c28fdbe3ee78`.`psychologist`
-     WHERE PID = '$pid'";
+     $sql = "delete p, pc, r, rev from psychologist p
+            inner join psychologist_complaints pc on
+            p.PID = pc.PID
+            inner join ratings r on
+            r.PID = p.PID
+            inner join reviews rev on
+            rev.Rating_ID = r.Rating_ID
+            where p.PID = '$pid';";
      if (mysqli_query($conn, $sql))
      {
          echo "Success Deletion";
@@ -268,7 +269,7 @@
  {
     $rating = floatval($_POST['rating']);
     $review = $_POST['review'];
-    $uid = $_POST['uid'];
+    $uid = (int)$_POST['uid'];
     $pid = (int)$_POST['pid'];
     $check2 = "SET FOREIGN_KEY_CHECKS = 0";
      if (mysqli_query($conn,$check2))
@@ -285,12 +286,13 @@
                 '$uid');";
                 if (mysqli_query($conn,$sql))
                 {
-                    $get_ratingID = " SELECT Rating_ID FROM heroku_c82c28fdbe3ee78.ratings
-                                      where UID = '$uid' and PID = '$pid' and Rating = '$rating' order by Rating_ID desc LIMIT 1;";
-                       $result = mysqli_query($conn, $get_ratingID);
-                       $row = mysqli_fetch_assoc($result);
-                       $rid = $row['Rating_ID'];
-                       if ($result != null)
+                    // $get_ratingID = " SELECT Rating_ID FROM heroku_c82c28fdbe3ee78.ratings
+                    //                   where UID = '$uid' and PID = '$pid' and Rating = '$rating' order by Rating_ID desc LIMIT 1;";
+                    //   $result = mysqli_query($conn, $get_ratingID);
+                    //   $row = mysqli_fetch_assoc($result);
+                    //   $rid = $row['Rating_ID'];
+                       $last_id = mysqli_insert_id($conn);
+                       if ($last_id != 0)
                        {
                            $insert_review = "INSERT INTO `heroku_c82c28fdbe3ee78`.`reviews`
                                             (`Review`,
@@ -302,7 +304,7 @@
                                             '$review',
                                             2,
                                             2,
-                                            '$rid');
+                                            '$last_id');
                                             ";
                             if (mysqli_query($conn, $insert_review))
                             {
@@ -490,7 +492,11 @@
     {
         $search_data = array();
         $search_list = array();
-        $search_query = "SELECT review_complaints.Rev_ID as rev_id, review_complaints.Complaint as complain, review_complaints.Complaint as cType, reviews.Review as rev FROM review_complaints LEFT JOIN reviews ON reviews.RID = review_complaints.RID ORDER BY review_complaints.Rev_ID;";
+        $search_query = "SELECT ratings.UID as uid, ratings.Rating_ID as rat_id, review_complaints.Rev_ID as rev_id, review_complaints.Complaint as complain, 
+review_complaints.Complaint_Type as cType, 
+reviews.Review as rev FROM review_complaints LEFT JOIN reviews ON reviews.RID = review_complaints.RID LEFT JOIN 
+ratings ON ratings.Rating_ID = reviews.Rating_ID
+ORDER BY review_complaints.Rev_ID;";
         $result = $conn->query($search_query);
         if(!empty($result) && $result->num_rows > 0){
             while($row = $result->fetch_assoc()){
@@ -528,7 +534,7 @@
         
         $search_data = array();
         $search_list = array();
-        $search_query = "Select u.UID, u.First_Name, p.First_Name as psyfirstName, p.Last_Name as psylastName, r.PID, (Rating), review, Upvote, downvote, r.Rating_ID 
+        $search_query = "Select u.UID, u.First_Name, p.First_Name as psyfirstName, p.Last_Name as psylastName, r.PID, Rating, review, Upvote, downvote, r.Rating_ID,re.RID as revID
 			from ratings r
             inner join reviews re on
             re.Rating_ID = r.Rating_ID
@@ -556,7 +562,7 @@
         
         $search_data = array();
         $search_list = array();
-        $search_query = "Select u.UID, u.First_Name, p.First_Name as psyfirstName, p.Last_Name as psylastName, r.PID, (Rating), review, Upvote, downvote, r.Rating_ID 
+        $search_query = "Select u.UID, u.First_Name, p.First_Name as psyfirstName, p.Last_Name as psylastName, r.PID, Rating, review, Upvote, downvote, r.Rating_ID,re.RID as revID
 			from ratings r
             inner join reviews re on
             re.Rating_ID = r.Rating_ID
@@ -575,6 +581,157 @@
         }else{
             echo json_encode("List is Empty");
         }
+        $conn->close();
+    }
+    
+    if ("ADD_PSYCH_COMPLAINT" == $action)
+    {
+        $pid = (int)$_POST['PID'];
+        $complaint = $_POST['complaint'];
+        $uid = (int)$_POST['UID'];
+        $insert_com = "INSERT INTO `heroku_c82c28fdbe3ee78`.`psychologist_complaints`
+                        (
+                        `Complaint`,
+                        `PID`,
+                        `UID`)
+                        VALUES
+                        (
+                        '$complaint',
+                        '$pid',
+                        '$uid');";
+        if( mysqli_query($conn, $insert_com))
+        {
+            echo "complaint added!";
+        }
+        else
+        {
+            echo "failure complaint";
+        }
+        
+    }
+    
+    if ("ADD_REVIEW_COMPLAINT" == $action)
+    {
+        $rid = (int)$_POST['rid'];
+        $complaint = $_POST['complaint'];
+        $ctype = $_POST['comp_type'];
+        $insert_com = "INSERT INTO `heroku_c82c28fdbe3ee78`.`review_complaints`
+                        (
+                        `Complaint`,
+                        `Complaint_Type`,
+                        `RID`)
+                        VALUES
+                        (
+                        '$complaint',
+                        '$ctype',
+                        '$rid');";
+        if( mysqli_query($conn, $insert_com))
+        {
+            echo "complaint added!";
+        }
+        else
+        {
+            echo "failure complaint";
+        }
+        
+    }
+    
+    if ("blacklist" == $action)
+    {
+        $uid = (int)$_POST['UID'];
+        $bool = "True";
+        $sql = "UPDATE `heroku_c82c28fdbe3ee78`.`user`
+                SET `Blacklist` = '$bool' WHERE `UID` ='$uid';";
+        if (mysqli_query($conn, $sql))
+        {
+            echo "user blacklisted1";
+        }
+        else
+        {
+            echo "failure blacklisting";
+        }
+    }
+    
+    if ("EDIT_RATING_REVIEW" == $action)
+    {
+        $rating = floatval($_POST['rating']);
+        $review = $_POST['review'];
+        $ratID = (int)$_POST['ratID'];
+        $revID = (int)$_POST['revID'];
+        
+        //$del_query = "USE heroku_c82c28fdbe3ee78;";
+        $edit_query = "UPDATE `heroku_c82c28fdbe3ee78`.`ratings` SET `Rating` = '$rating' WHERE `Rating_ID` = '$ratID';";
+        $edit_query .= "UPDATE `heroku_c82c28fdbe3ee78`.`reviews` SET  `Review` = '$review' WHERE `RID` = '$revID';"; 
+
+        if($conn->multi_query($edit_query)  == TRUE){
+            echo "Success";
+        }else{
+            echo "Edit Failed";
+        }
+        $conn->close();
+    }
+    
+    if ("DEL_USER_REVIEW" == $action)
+    {
+        $ratID = (int)$_POST['ratID'];
+        $revID = (int)$_POST['revID'];
+        
+        // $del_query = "USE heroku_c82c28fdbe3ee78;";
+        // $del_query .= "select * from reviews join ratings on ratings.Rating_ID = reviews.Rating_ID;";
+        // $del_query .= "select * from reviews join ratings on ratings.Rating_ID = reviews.Rating_ID;"; 
+        $delete_rev = "DELETE FROM reviews where RID = '$revID';";
+        $delete_rat = "DELETE FROM ratings where Rating_ID = '$ratID';";
+        
+        
+        if (mysqli_query($conn, "SET SQL_SAFE_UPDATES = 0;"))
+        {
+        if (mysqli_query($conn, " SET FOREIGN_KEY_CHECKS = 0;"))
+        {
+        if(mysqli_query($conn, $delete_rat)){
+            if (mysqli_query($conn, $delete_rev))
+            {
+                echo "deleting rating and review success!";
+            }
+            else
+            {
+                echo "deleting review failed!";
+            }
+        }else{
+            echo "deleting rating failed!";
+        }
+        }}
+        $conn->close();
+    }
+    
+     if ("DEL_MY_REVIEW" == $action)
+    {
+        $ratID = (int)$_POST['ratID'];
+        $revID = (int)$_POST['revID'];
+        
+        // $del_query = "USE heroku_c82c28fdbe3ee78;";
+        // $del_query .= "select * from reviews join ratings on ratings.Rating_ID = reviews.Rating_ID;";
+        // $del_query .= "select * from reviews join ratings on ratings.Rating_ID = reviews.Rating_ID;"; 
+        $delete_rev = "DELETE FROM reviews where RID = '$revID';";
+        $delete_rat = "DELETE FROM ratings where Rating_ID = '$ratID';";
+        
+        
+        if (mysqli_query($conn, "SET SQL_SAFE_UPDATES = 0;"))
+        {
+        if (mysqli_query($conn, " SET FOREIGN_KEY_CHECKS = 0;"))
+        {
+        if(mysqli_query($conn, $delete_rat)){
+            if (mysqli_query($conn, $delete_rev))
+            {
+                echo "deleting my rating and review success!";
+            }
+            else
+            {
+                echo "deleting my review failed!";
+            }
+        }else{
+            echo "deleting my rating failed!";
+        }
+        }}
         $conn->close();
     }
  
