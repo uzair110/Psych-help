@@ -1,6 +1,6 @@
 # psych_help
 
-A new Flutter project.
+An application designed for the Psychology Department at Lahore University Of Management Sciences. 
 
 ## Getting Started
 
