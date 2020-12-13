@@ -21,6 +21,26 @@ class _LoadingScreen extends State<LoadingScreen> {
   }
 }
 
+class LoadingScreen1 extends StatefulWidget {
+  @override
+  _LoadingScreen1 createState() => _LoadingScreen1();
+}
+
+class _LoadingScreen1 extends State<LoadingScreen1> {
+//class LoadingScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.transparent,
+      child: Center(
+          child: SpinKitFadingCircle(
+        color: Colors.green[75],
+        size: 40.0,
+      )),
+    );
+  }
+}
+
 class EmptyScreen extends StatefulWidget {
   @override
   _EmptyScreen createState() => _EmptyScreen();

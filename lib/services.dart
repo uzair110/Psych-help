@@ -656,4 +656,62 @@ class AppServices {
       return "Failure";
     }
   }
+
+  static Future<String> usrvoteId(int reviewId) async {
+    try {
+      var map1 = Map<String, dynamic>();
+      map1['action'] = 'VOTE_DAT';
+      map1['revID'] = '$reviewId';
+      map1['uid'] = '${userFile.usrData.uid}';
+      print(map1);
+      final response = await http.post(ROOT, body: map1);
+      if (200 == response.statusCode) {
+        print('what: ${response.body.length}');
+        print('$reviewId and ${userFile.usrData.uid} resp: ${response.body}');
+        if (response.body.length == 0) {
+          return "No Votes";
+        }
+        return response.body;
+      } else {
+        print("error1");
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
+
+  static Future<String> updateVoteId(
+    int reviewId,
+    String caseId,
+    int up,
+    int down,
+  ) async {
+    try {
+      var map1 = Map<String, dynamic>();
+      map1['action'] = 'VOTE_UPDATE';
+      map1['revID'] = '$reviewId';
+      map1['uid'] = '${userFile.usrData.uid}';
+      map1['case'] = caseId;
+      map1['up'] = "$up";
+      map1['down'] = "$down";
+      print(map1);
+      final response = await http.post(ROOT, body: map1);
+      if (200 == response.statusCode) {
+        print('what: ${response.body.length}');
+        print('$reviewId and ${userFile.usrData.uid} resp: ${response.body}');
+        if (response.body.length == 0) {
+          return "No Votes";
+        }
+        return response.body;
+      } else {
+        print("error1");
+        return "error1";
+      }
+    } catch (e) {
+      print(e);
+      return "Failure";
+    }
+  }
 }
