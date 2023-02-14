@@ -1,16 +1,6 @@
 # psych_help
 
-An application designed for the Psychology Department at Lahore University Of Management Sciences. 
+A Flutter application designed for the Psychology Department at Lahore University Of Management Sciences. 
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### SRS Document: https://docs.google.com/document/d/1hixK2kMmTJZMMddiRJVYh-P4gE4Kc7oc/edit?usp=sharing&ouid=107484080057686343920&rtpof=true&sd=true
